@@ -117,12 +117,12 @@
     }
 
     .hero-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
+      position: fixed;
+      inset: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
+      pointer-events: none;
     }
 
     .hero-content {
@@ -721,8 +721,8 @@
       let particles = [];
 
       function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         initParticles();
       }
 
@@ -769,8 +769,7 @@
         requestAnimationFrame(draw);
       }
 
-      const ro = new ResizeObserver(resize);
-      ro.observe(canvas);
+      window.addEventListener('resize', resize);
       resize();
       draw();
     })();
