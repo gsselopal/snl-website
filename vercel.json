@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/snl-home.html" },
+    { "source": "/research", "destination": "/snl-research.html" },
+    { "source": "/publications", "destination": "/snl-publications.html" },
+    { "source": "/team", "destination": "/snl-team.html" },
+    { "source": "/opportunities", "destination": "/snl-opportunities.html" },
+    { "source": "/contact", "destination": "/snl-contact.html" }
+  ]
+}
