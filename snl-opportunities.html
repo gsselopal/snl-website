@@ -13,7 +13,7 @@
     }
 
     :root {
-      --bg-dark: #0b1e33;
+      --bg-dark: #03070f;
       --accent-emerald: #34d399;
       --accent-emerald-light: #6ee7b7;
       --text-white: #ffffff;
@@ -55,13 +55,14 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background-color: rgba(11, 30, 51, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 1rem 2rem;
+      background: rgba(3,7,15,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 1.1rem 2rem;
     }
 
-    nav .container {
+    .nav-container {
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
@@ -69,45 +70,37 @@
       align-items: center;
     }
 
-    nav .logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.25rem;
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #fff;
       font-weight: 700;
-      color: var(--text-white);
+      font-size: 0.9rem;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
-    nav ul {
+    .nav-links {
       list-style: none;
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
       align-items: center;
     }
 
-    nav a {
-      font-size: 0.95rem;
-      color: var(--text-body);
-      transition: color 0.3s ease;
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.25s ease;
     }
 
-    nav a:hover {
-      color: var(--accent-emerald);
-    }
-
-    nav a.active {
-      color: var(--accent-emerald);
-      border-bottom: 2px solid var(--accent-emerald);
-      padding-bottom: 0.25rem;
-    }
+    .nav-links a:hover, .nav-links a.active { color: #38bdf8; }
 
     @media (max-width: 768px) {
-      nav ul {
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      nav a {
-        font-size: 0.85rem;
-      }
+      .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+      .nav-logo span + span { display: none; }
     }
 
     /* ============================================
@@ -378,13 +371,16 @@
     }
 
     .faq-item {
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 1.5rem 0;
-      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
     }
 
-    .faq-item.open .faq-question {
-      color: var(--accent-emerald);
+    .faq-item.open {
+      border-color: rgba(52,211,153,0.3);
     }
 
     .faq-question {
@@ -392,36 +388,42 @@
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text-white);
       font-size: 1rem;
-      transition: color 0.3s ease;
+      padding: 1.4rem 1.5rem;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      transition: color 0.25s ease;
     }
 
-    .faq-question:hover {
-      color: var(--accent-emerald);
-    }
+    .faq-question:hover { color: var(--accent-emerald); }
+    .faq-item.open .faq-question { color: var(--accent-emerald); }
 
     .faq-toggle {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       color: var(--accent-emerald);
       transition: transform 0.3s ease;
       user-select: none;
+      flex-shrink: 0;
+      margin-left: 1rem;
     }
 
-    .faq-item.open .faq-toggle {
-      transform: rotate(180deg);
-    }
+    .faq-item.open .faq-toggle { transform: rotate(180deg); }
 
     .faq-answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease;
-      color: var(--text-body);
-      padding-top: 1rem;
-      font-size: 0.95rem;
-      line-height: 1.7;
+      transition: max-height 0.35s ease;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.97rem;
+      line-height: 1.75;
+      padding: 0 1.5rem;
     }
+
+    .faq-item.open .faq-answer { padding-bottom: 1.4rem; }
 
     /* ============================================
        FOOTER
@@ -458,17 +460,22 @@
   </style>
 </head>
 <body>
+  <canvas id="bg-canvas" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+  <div style="position:relative;z-index:1;">
   <!-- NAVIGATION -->
   <nav>
-    <div class="container">
-      <div class="logo">SNL</div>
-      <ul>
-        <li><a href="javascript:navTo('home')">Home</a></li>
-        <li><a href="javascript:navTo('research')">Research</a></li>
-        <li><a href="javascript:navTo('publications')">Publications</a></li>
-        <li><a href="javascript:navTo('team')">Team</a></li>
-        <li><a href="javascript:navTo('opportunities')" class="active">Opportunities</a></li>
-        <li><a href="javascript:navTo('contact')">Contact</a></li>
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <span>⚛️</span>
+        <span>Sustainable Nanoengineering Lab</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/research">Research</a></li>
+        <li><a href="/publications">Publications</a></li>
+        <li><a href="/team">Team</a></li>
+        <li><a href="/opportunities" class="active">Opportunities</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
     </div>
   </nav>
@@ -653,21 +660,58 @@
   <footer>
     © 2025 Sustainable Nanoengineering Lab · Dalhousie University
   </footer>
+  </div><!-- end page-wrapper -->
 
   <!-- SCRIPTS -->
   <script>
-    // Navigation function
-    function navTo(page) {
-      const urls = {
-        home: '/',
-        research: '/research',
-        publications: '/publications',
-        team: '/team',
-        opportunities: '/opportunities',
-        contact: '/contact',
-      };
-      if (urls[page]) window.location.href = urls[page];
-    }
+    // Background particle animation
+    (function() {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+      const mouse = { x: -9999, y: -9999 };
+      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+      function spawn() {
+        return { x: Math.random()*W, y: Math.random()*H, vx:(Math.random()-0.5)*0.25, vy:(Math.random()-0.5)*0.25,
+          r: Math.random()*1.8+0.5, phase: Math.random()*Math.PI*2, hue: Math.random()>0.5?'52,211,153':'110,231,183' };
+      }
+      function init() { particles = Array.from({length: window.innerWidth<768?30:58}, spawn); }
+      window.addEventListener('mousemove', e => { mouse.x=e.clientX; mouse.y=e.clientY; });
+      window.addEventListener('resize', () => { resize(); init(); });
+      let rafId;
+      function loop() {
+        ctx.clearRect(0,0,W,H);
+        const len = particles.length;
+        for (let i=0; i<len; i++) {
+          const p = particles[i];
+          p.x+=p.vx; p.y+=p.vy; p.phase+=0.02;
+          if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+          const rr = p.r+Math.sin(p.phase)*0.4;
+          ctx.beginPath(); ctx.arc(p.x,p.y,rr,0,Math.PI*2);
+          ctx.fillStyle=`rgba(${p.hue},0.6)`; ctx.fill();
+          for(let j=i+1; j<len; j++) {
+            const q=particles[j], dx=p.x-q.x, dy=p.y-q.y, d2=dx*dx+dy*dy;
+            if(d2<12100) {
+              ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
+              ctx.strokeStyle=`rgba(52,211,153,${(1-Math.sqrt(d2)/110)*0.2})`; ctx.lineWidth=0.6; ctx.stroke();
+            }
+          }
+          const mdx=p.x-mouse.x, mdy=p.y-mouse.y, md2=mdx*mdx+mdy*mdy;
+          if(md2<25600) {
+            const md=Math.sqrt(md2);
+            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(mouse.x,mouse.y);
+            ctx.strokeStyle=`rgba(52,211,153,${(1-md/160)*0.55})`; ctx.lineWidth=0.9; ctx.stroke();
+            p.vx+=(mouse.x-p.x)*0.0001; p.vy+=(mouse.y-p.y)*0.0001;
+            const spd=Math.sqrt(p.vx*p.vx+p.vy*p.vy);
+            if(spd>1.2){p.vx*=1.2/spd; p.vy*=1.2/spd;}
+          }
+        }
+        rafId=requestAnimationFrame(loop);
+      }
+      document.addEventListener('visibilitychange',()=>{ if(document.hidden) cancelAnimationFrame(rafId); else loop(); });
+      resize(); init(); loop();
+    })();
 
     // Rising Particles Animation
     (function() {

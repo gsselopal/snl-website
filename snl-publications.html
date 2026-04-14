@@ -6,50 +6,87 @@
   <title>Publications | SNL — Sustainable Nanoengineering Lab</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
-      background-color: #0b1e33;
-      color: rgba(255, 255, 255, 0.65);
+      background-color: #03070f;
+      color: rgba(255,255,255,0.65);
       font-family: 'DM Sans', sans-serif;
       line-height: 1.6;
     }
 
-    /* Navigation */
+    h1, h2, h3, h4 {
+      font-family: 'DM Serif Display', serif;
+      color: #ffffff;
+      font-weight: 400;
+    }
+
+    /* ─── Background Canvas ─── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page-wrapper { position: relative; z-index: 1; }
+
+    /* ─── Navigation ─── */
     nav {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(11, 30, 51, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1.2rem 2rem;
+      z-index: 1000;
+      background: rgba(3,7,15,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 1.1rem 2rem;
     }
 
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
+    .nav-container {
       max-width: 1200px;
       margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    nav a {
-      color: rgba(255, 255, 255, 0.65);
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
       text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s;
+      white-space: nowrap;
     }
 
-    nav a:hover {
-      color: #38bdf8;
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
     }
 
-    /* Hero Section */
+    .nav-links a {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: #38bdf8; }
+
+    @media (max-width: 768px) {
+      .nav-links { gap: 1.2rem; }
+      .nav-logo span + span { display: none; }
+    }
+
+    /* ─── Hero ─── */
     .hero {
       position: relative;
       min-height: 55vh;
@@ -58,94 +95,71 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      overflow: hidden;
       padding: 4rem 2rem;
     }
 
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-    }
+    .hero-content { max-width: 800px; }
 
     .badge {
       display: inline-block;
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: rgba(56,189,248,0.12);
+      border: 1px solid rgba(56,189,248,0.3);
       color: #7dd3fc;
       padding: 0.5rem 1rem;
       border-radius: 20px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 500;
       margin-bottom: 1.5rem;
       font-family: 'Space Mono', monospace;
     }
 
-    h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 3.5rem;
-      color: #ffffff;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-
-    h1 em {
-      color: #7dd3fc;
-      font-style: normal;
-    }
+    h1 { font-size: 3.2rem; color: #fff; margin-bottom: 1rem; line-height: 1.2; }
+    h1 em { color: #7dd3fc; font-style: normal; }
 
     .subtitle {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.65);
-      margin-bottom: 2rem;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 1.75rem;
       line-height: 1.7;
     }
 
     .profile-links {
       display: flex;
-      gap: 1rem;
+      gap: 0.75rem;
       justify-content: center;
-      margin-top: 2rem;
       flex-wrap: wrap;
     }
 
     .profile-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: #7dd3fc;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.2);
+      color: rgba(255,255,255,0.7);
       text-decoration: none;
-      border-radius: 24px;
-      font-size: 0.95rem;
+      border-radius: 20px;
+      font-size: 0.82rem;
       font-weight: 500;
-      transition: all 0.2s;
+      transition: all 0.25s;
     }
 
     .profile-link:hover {
-      background: rgba(56, 189, 248, 0.2);
-      border-color: rgba(56, 189, 248, 0.6);
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+      background: rgba(56,189,248,0.18);
+      border-color: rgba(56,189,248,0.45);
+      color: #38bdf8;
     }
 
-    /* Filter Bar */
+    /* ─── Filter Bar ─── */
     .filter-bar {
       position: sticky;
-      top: 62px;
+      top: 58px;
       z-index: 50;
-      background: rgba(11, 30, 51, 0.98);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1.5rem 2rem;
+      background: rgba(3,7,15,0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 1.25rem 2rem;
     }
 
     .filter-container {
@@ -157,44 +171,32 @@
       align-items: center;
     }
 
-    .search-input,
-    .filter-select {
-      padding: 0.75rem 1rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #ffffff;
+    .search-input, .filter-select {
+      padding: 0.7rem 1rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
       border-radius: 8px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: all 0.2s;
     }
 
-    .search-input::placeholder {
-      color: rgba(255, 255, 255, 0.3);
-    }
+    .search-input::placeholder { color: rgba(255,255,255,0.28); }
 
-    .search-input:focus,
-    .filter-select:focus {
+    .search-input:focus, .filter-select:focus {
       outline: none;
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(56, 189, 248, 0.5);
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.1);
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(56,189,248,0.45);
     }
 
-    .filter-select {
-      cursor: pointer;
-      min-width: 140px;
-    }
+    .filter-select { cursor: pointer; min-width: 140px; }
+    .filter-select option { background: #03070f; color: #fff; }
 
-    .filter-select option {
-      background: #0b1e33;
-      color: #ffffff;
-    }
-
-    /* Publications Container */
+    /* ─── Publications ─── */
     .publications-container {
       max-width: 1200px;
-      margin: 3rem auto;
+      margin: 2.5rem auto;
       padding: 0 2rem;
     }
 
@@ -202,127 +204,99 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 300px;
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.5);
+      min-height: 260px;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.4);
+      gap: 1rem;
     }
 
     .spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(56, 189, 248, 0.2);
+      width: 36px;
+      height: 36px;
+      border: 2.5px solid rgba(56,189,248,0.15);
       border-top-color: #38bdf8;
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      animation: spin 0.75s linear infinite;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .pub-grid {
-      display: grid;
-      gap: 1.5rem;
-    }
+    .pub-grid { display: grid; gap: 1.25rem; }
 
     .pub-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 12px;
-      padding: 1.75rem;
-      transition: all 0.3s;
+      padding: 1.6rem;
+      transition: all 0.28s;
     }
 
     .pub-card:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(56, 189, 248, 0.3);
-      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.1);
+      background: rgba(56,189,248,0.05);
+      border-color: rgba(56,189,248,0.25);
+      box-shadow: 0 6px 20px rgba(56,189,248,0.08);
     }
 
     .pub-title {
-      font-size: 1.15rem;
+      font-size: 1.08rem;
       font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 0.75rem;
+      color: #fff;
+      margin-bottom: 0.6rem;
       line-height: 1.5;
     }
 
-    .pub-title a {
-      color: #7dd3fc;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .pub-title a:hover {
-      color: #38bdf8;
-      text-decoration: underline;
-    }
+    .pub-title a { color: #7dd3fc; text-decoration: none; transition: color 0.2s; }
+    .pub-title a:hover { color: #38bdf8; text-decoration: underline; }
 
     .pub-meta {
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.65);
-      margin-bottom: 1rem;
-      line-height: 1.6;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.9rem;
+      line-height: 1.55;
     }
 
-    .pub-journal {
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.75);
-    }
-
-    .pub-year {
-      color: rgba(255, 255, 255, 0.55);
-      margin-left: 0.5rem;
-    }
+    .pub-journal { font-style: italic; color: rgba(255,255,255,0.72); }
+    .pub-year { color: rgba(255,255,255,0.48); margin-left: 0.4rem; }
 
     .pub-footer {
       display: flex;
-      gap: 1rem;
+      gap: 0.75rem;
       align-items: center;
-      margin-top: 1rem;
       flex-wrap: wrap;
     }
 
     .doi-badge {
       display: inline-block;
-      background: rgba(56, 189, 248, 0.15);
+      background: rgba(56,189,248,0.1);
       color: #7dd3fc;
-      padding: 0.4rem 0.8rem;
+      padding: 0.35rem 0.7rem;
       border-radius: 6px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-family: 'Space Mono', monospace;
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      border: 1px solid rgba(56,189,248,0.25);
       word-break: break-all;
     }
 
     .copy-btn {
-      padding: 0.5rem 1rem;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.4rem 0.9rem;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.25);
       color: #7dd3fc;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-family: 'DM Sans', sans-serif;
       transition: all 0.2s;
     }
 
-    .copy-btn:hover {
-      background: rgba(56, 189, 248, 0.2);
-      border-color: rgba(56, 189, 248, 0.6);
-    }
+    .copy-btn:hover { background: rgba(56,189,248,0.18); }
+    .copy-btn.copied { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: #86efac; }
 
-    .copy-btn.copied {
-      background: rgba(34, 197, 94, 0.15);
-      border-color: rgba(34, 197, 94, 0.5);
-      color: #86efac;
-    }
-
-    /* Stats Bar */
+    /* ─── Stats Bar ─── */
     .stats-bar {
-      background: rgba(255, 255, 255, 0.03);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       padding: 3rem 2rem;
       margin-top: 4rem;
     }
@@ -331,233 +305,194 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 2rem;
       text-align: center;
     }
 
-    .stat-item h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.5rem;
-      color: #38bdf8;
-      margin-bottom: 0.5rem;
-    }
+    .stat-item h3 { font-size: 2.4rem; color: #38bdf8; margin-bottom: 0.4rem; }
+    .stat-item p { font-size: 0.88rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.5px; }
 
-    .stat-item p {
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.65);
-    }
-
-    /* Footer */
+    /* ─── Footer ─── */
     footer {
-      background: rgba(255, 255, 255, 0.02);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0,0,0,0.4);
+      border-top: 1px solid rgba(255,255,255,0.07);
       padding: 2rem;
       text-align: center;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.9rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.85rem;
       margin-top: 3rem;
     }
 
-    /* Responsive */
+    /* ─── Responsive ─── */
     @media (max-width: 768px) {
-      h1 {
-        font-size: 2.2rem;
-      }
-
-      .filter-container {
-        grid-template-columns: 1fr;
-      }
-
-      .search-input,
-      .filter-select {
-        width: 100%;
-      }
-
-      nav ul {
-        gap: 1rem;
-        font-size: 0.9rem;
-      }
-
-      .profile-links {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .profile-link {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .pub-footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .stats-container {
-        grid-template-columns: 1fr;
-      }
+      h1 { font-size: 2rem; }
+      .filter-container { grid-template-columns: 1fr; }
+      .pub-footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="javascript:navTo('home')">Home</a></li>
-      <li><a href="javascript:navTo('research')">Research</a></li>
-      <li><a href="javascript:navTo('publications')">Publications</a></li>
-      <li><a href="javascript:navTo('team')">Team</a></li>
-      <li><a href="javascript:navTo('opportunities')">Opportunities</a></li>
-      <li><a href="javascript:navTo('contact')">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- Full-page background canvas -->
+  <canvas id="bg-canvas"></canvas>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <canvas id="hero-canvas"></canvas>
-    <div class="hero-content">
-      <div class="badge">📄 Research Output</div>
-      <h1>Publications & <em>Research</em> Impact</h1>
-      <p class="subtitle">Peer-reviewed contributions advancing nanotechnology for sustainable energy and environmental solutions.</p>
-      <div class="profile-links">
-        <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" target="_blank" class="profile-link">Google Scholar ↗</a>
-        <a href="https://orcid.org/0000-0003-1057-9522" target="_blank" class="profile-link">ORCID ↗</a>
+  <div class="page-wrapper">
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-container">
+        <a href="/" class="nav-logo">
+          <span>⚛️</span>
+          <span>Sustainable Nanoengineering Lab</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/publications" class="active">Publications</a></li>
+          <li><a href="/team">Team</a></li>
+          <li><a href="/opportunities">Opportunities</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="badge">📄 Research Output</div>
+        <h1>Publications & <em>Research</em> Impact</h1>
+        <p class="subtitle">Peer-reviewed contributions advancing nanotechnology for sustainable energy and environmental solutions.</p>
+        <div class="profile-links">
+          <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" target="_blank" class="profile-link">📚 Google Scholar</a>
+          <a href="https://orcid.org/0000-0002-4703-8829" target="_blank" class="profile-link">🆔 ORCID</a>
+          <a href="https://www.researchgate.net/profile/Gurpreet-Selopal" target="_blank" class="profile-link">🔬 ResearchGate</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search publications...">
+        <select id="year-filter" class="filter-select">
+          <option value="">All Years</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="earlier">Earlier</option>
+        </select>
+        <select id="topic-filter" class="filter-select">
+          <option value="">All Topics</option>
+          <option value="solar">Solar Energy</option>
+          <option value="hydrogen">Green Hydrogen</option>
+          <option value="quantum">Quantum Dots</option>
+          <option value="environment">Environment</option>
+          <option value="nano">Nanotechnology</option>
+        </select>
+        <select id="sort-filter" class="filter-select">
+          <option value="citations">Sort: Citations</option>
+          <option value="year">Sort: Newest</option>
+        </select>
       </div>
     </div>
-  </section>
 
-  <!-- Filter Bar -->
-  <div class="filter-bar">
-    <div class="filter-container">
-      <input
-        type="text"
-        id="search-input"
-        class="search-input"
-        placeholder="Search publications..."
-      >
-      <select id="year-filter" class="filter-select">
-        <option value="">All Years</option>
-        <option value="2025">2025</option>
-        <option value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
-        <option value="2020">2020</option>
-        <option value="earlier">Earlier</option>
-      </select>
-      <select id="topic-filter" class="filter-select">
-        <option value="">All Topics</option>
-        <option value="solar">Solar Energy</option>
-        <option value="hydrogen">Green Hydrogen</option>
-        <option value="agriculture">Agriculture</option>
-        <option value="environment">Environment</option>
-        <option value="nanotechnology">Nanotechnology</option>
-      </select>
-      <select id="journal-filter" class="filter-select">
-        <option value="">All Journals</option>
-        <option value="Nature Energy">Nature Energy</option>
-        <option value="ACS Nano">ACS Nano</option>
-        <option value="Nano Energy">Nano Energy</option>
-        <option value="Small">Small</option>
-        <option value="Nanoscale">Nanoscale</option>
-        <option value="Advanced Materials">Advanced Materials</option>
-        <option value="Others">Others</option>
-      </select>
+    <!-- Publications Container -->
+    <div class="publications-container">
+      <div id="pubs-list"></div>
     </div>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+      <div class="stats-container">
+        <div class="stat-item">
+          <h3>100+</h3>
+          <p>Total Publications</p>
+        </div>
+        <div class="stat-item">
+          <h3>3,500+</h3>
+          <p>Citations</p>
+        </div>
+        <div class="stat-item">
+          <h3>33</h3>
+          <p>h-index</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>© 2025 Sustainable Nanoengineering Lab · Dalhousie University</footer>
   </div>
-
-  <!-- Publications Container -->
-  <div class="publications-container">
-    <div id="pubs-list"></div>
-  </div>
-
-  <!-- Stats Bar -->
-  <section class="stats-bar">
-    <div class="stats-container">
-      <div class="stat-item">
-        <h3>100+</h3>
-        <p>Total Publications</p>
-      </div>
-      <div class="stat-item">
-        <h3>3,500+</h3>
-        <p>Citations</p>
-      </div>
-      <div class="stat-item">
-        <h3>33</h3>
-        <p>h-index</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    © 2025 Sustainable Nanoengineering Lab · Dalhousie University
-  </footer>
 
   <script>
-    // Navigation Function
-    function navTo(page) {
-      const urls = {
-        home: '/',
-        research: '/research',
-        publications: '/publications',
-        team: '/team',
-        opportunities: '/opportunities',
-        contact: '/contact',
-      };
-      if (urls[page]) window.location.href = urls[page];
-    }
-
-    // Sine Wave Animation
+    // Background particle animation
     (function() {
-      const canvas = document.getElementById('hero-canvas');
+      const canvas = document.getElementById('bg-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
-      let t = 0;
-      const waves = [
-        { amp: 30, freq: 0.008, speed: 0.02, phase: 0, color: 'rgba(56,189,248,0.25)', lw: 1.5, yOff: 0.3 },
-        { amp: 20, freq: 0.012, speed: -0.015, phase: 1.5, color: 'rgba(125,211,252,0.2)', lw: 1, yOff: 0.45 },
-        { amp: 40, freq: 0.005, speed: 0.01, phase: 0.8, color: 'rgba(56,189,248,0.15)', lw: 2, yOff: 0.6 },
-        { amp: 25, freq: 0.009, speed: -0.025, phase: 2.5, color: 'rgba(14,165,233,0.18)', lw: 1.2, yOff: 0.75 },
-        { amp: 15, freq: 0.015, speed: 0.03, phase: 1.2, color: 'rgba(125,211,252,0.12)', lw: 0.8, yOff: 0.2 },
-      ];
+      let W, H, particles = [];
+      const mouse = { x: -9999, y: -9999 };
 
-      function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+
+      function spawn() {
+        return {
+          x: Math.random() * W, y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+          r: Math.random() * 1.8 + 0.5, phase: Math.random() * Math.PI * 2,
+          hue: Math.random() > 0.55 ? '0,212,170' : '56,189,248',
+        };
       }
 
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        t += 1;
-        waves.forEach(w => {
-          ctx.beginPath();
-          const baseY = canvas.height * w.yOff;
-          for (let x = 0; x <= canvas.width; x += 3) {
-            const y = baseY + Math.sin(x * w.freq + t * w.speed + w.phase) * w.amp;
-            x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      function init() { particles = Array.from({ length: window.innerWidth < 768 ? 30 : 58 }, spawn); }
+
+      window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      window.addEventListener('resize', () => { resize(); init(); });
+
+      let rafId;
+      function loop() {
+        ctx.clearRect(0, 0, W, H);
+        const len = particles.length;
+        for (let i = 0; i < len; i++) {
+          const p = particles[i];
+          p.x += p.vx; p.y += p.vy; p.phase += 0.02;
+          if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+          if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+          const rr = p.r + Math.sin(p.phase) * 0.4;
+          ctx.beginPath(); ctx.arc(p.x, p.y, rr, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.hue},0.6)`; ctx.fill();
+          for (let j = i + 1; j < len; j++) {
+            const q = particles[j];
+            const dx = p.x - q.x, dy = p.y - q.y, d2 = dx*dx + dy*dy;
+            if (d2 < 14400) {
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = `rgba(56,189,248,${(1-Math.sqrt(d2)/120)*0.18})`; ctx.lineWidth = 0.6; ctx.stroke();
+            }
           }
-          ctx.strokeStyle = w.color;
-          ctx.lineWidth = w.lw;
-          ctx.stroke();
-        });
-        requestAnimationFrame(draw);
+          const mdx = p.x - mouse.x, mdy = p.y - mouse.y, md2 = mdx*mdx + mdy*mdy;
+          if (md2 < 25600) {
+            const md = Math.sqrt(md2);
+            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = `rgba(0,212,170,${(1-md/160)*0.55})`; ctx.lineWidth = 0.9; ctx.stroke();
+            p.vx += (mouse.x - p.x) * 0.00012; p.vy += (mouse.y - p.y) * 0.00012;
+            const spd = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
+            if (spd > 1.2) { p.vx *= 1.2/spd; p.vy *= 1.2/spd; }
+          }
+        }
+        rafId = requestAnimationFrame(loop);
       }
-
-      const ro = new ResizeObserver(resize);
-      ro.observe(canvas);
-      resize();
-      draw();
+      document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(rafId); else loop(); });
+      resize(); init(); loop();
     })();
 
-    // Fallback Publications (real data from Google Scholar, sorted by citations)
+    // Publications data (real papers from Google Scholar, sorted by citations)
     const FALLBACK_PUBS = [
       { title: "Core/shell quantum dots solar cells", authors: "Selopal GS, Zhao H, Wang ZM, Rosei F", journal: "Advanced Functional Materials", year: 2020, doi: "10.1002/adfm.201908762", citations: 290 },
       { title: "Hybrid Carbon Nanotubes–TiO2 Photoanodes for High Efficiency Dye-Sensitized Solar Cells", authors: "Dembele KT, Selopal GS, Soldano C, Nechache R, et al.", journal: "The Journal of Physical Chemistry C", year: 2013, doi: "10.1021/jp400833e", citations: 181 },
-      { title: "Near‐infrared, heavy metal‐free colloidal 'Giant' core/shell quantum dots", authors: "Tong X, Kong XT, Zhou Y, Navarro‐Pardo F, Selopal GS, et al.", journal: "Advanced Energy Materials", year: 2018, doi: "10.1002/aenm.201701432", citations: 156 },
+      { title: "Near-infrared, heavy metal-free colloidal 'Giant' core/shell quantum dots", authors: "Tong X, Kong XT, Zhou Y, Navarro-Pardo F, Selopal GS, et al.", journal: "Advanced Energy Materials", year: 2018, doi: "10.1002/aenm.201701432", citations: 156 },
       { title: "Heavy metal-free, near-infrared colloidal quantum dots for efficient photoelectrochemical hydrogen generation", authors: "Tong X, Zhou Y, Jin L, Basu K, Adhikari R, Selopal GS, et al.", journal: "Nano Energy", year: 2017, doi: "10.1016/j.nanoen.2016.11.051", citations: 148 },
-      { title: "Highly stable colloidal 'giant' quantum dots sensitized solar cells", authors: "Selopal GS, Zhao H, Tong X, Benetti D, Navarro‐Pardo F, et al.", journal: "Advanced Functional Materials", year: 2017, doi: "10.1002/adfm.201701468", citations: 140 },
+      { title: "Highly stable colloidal 'giant' quantum dots sensitized solar cells", authors: "Selopal GS, Zhao H, Tong X, Benetti D, Navarro-Pardo F, et al.", journal: "Advanced Functional Materials", year: 2017, doi: "10.1002/adfm.201701468", citations: 140 },
       { title: "Controlling photoinduced electron transfer from PbS@CdS core@shell quantum dots to metal oxide nanostructured thin films", authors: "Zhao H, Fan Z, Liang H, Selopal GS, Gonfa BA, Jin L, et al.", journal: "Nanoscale", year: 2014, doi: "10.1039/C4NR00562G", citations: 100 },
       { title: "Metal-free organic dyes for TiO2 and ZnO dye-sensitized solar cells", authors: "Selopal GS, Wu HP, Lu J, Chang YC, Wang M, Vomiero A, Concina I, et al.", journal: "Scientific Reports", year: 2016, doi: "10.1038/srep18756", citations: 99 },
       { title: "Graphene below the percolation threshold in TiO2 for dye-sensitized solar cells", authors: "Dembele KT, Selopal GS, Milan R, Trudeau C, Benetti D, et al.", journal: "Journal of Materials Chemistry A", year: 2015, doi: "10.1039/C4TA05028A", citations: 92 },
@@ -577,28 +512,22 @@
       { title: "Heavy-metal-free colloidal quantum dots: progress and opportunities in solar technologies", authors: "Jin L, Selopal GS, Tong X, Perepichka DF, Wang ZM, Rosei F", journal: "Advanced Materials", year: 2024, doi: "10.1002/adma.202402912", citations: 50 },
       { title: "Constructing quantum dots sensitized TiO2 nanotube pn heterojunction for photoelectrochemical hydrogen generation", authors: "Abdelkarim O, Mirzaei A, Selopal GS, Yurtsever A, Bassioni G, Wang ZM, et al.", journal: "Chemical Engineering Journal", year: 2022, doi: "10.1016/j.cej.2022.137312", citations: 48 },
       { title: "High efficiency photoelectrochemical hydrogen generation using eco-friendly Cu doped Zn-In-Se colloidal quantum dots", authors: "Luo B, Liu J, Guo H, Liu X, Song R, Shen K, Wang ZM, Selopal GS, et al.", journal: "Nano Energy", year: 2021, doi: "10.1016/j.nanoen.2021.106220", citations: 48 },
-      { title: "A colloidal heterostructured quantum dot sensitized carbon nanotube–TiO2 hybrid photoanode for high efficiency hydrogen generation", authors: "Selopal GS, Mohammadnezhad M, Navarro-Pardo F, Vidal F, Zhao H, et al.", journal: "Nanoscale Horizons", year: 2019, doi: "10.1039/C8NH00330K", citations: 44 },
+      { title: "A colloidal heterostructured quantum dot sensitized carbon nanotube-TiO2 hybrid photoanode for high efficiency hydrogen generation", authors: "Selopal GS, Mohammadnezhad M, Navarro-Pardo F, Vidal F, Zhao H, et al.", journal: "Nanoscale Horizons", year: 2019, doi: "10.1039/C8NH00330K", citations: 44 },
     ];
 
-    let allPubs = [];
-    let filteredPubs = [];
+    let allPubs = [], filteredPubs = [];
 
     function showLoading() {
-      document.getElementById('pubs-list').innerHTML = `
-        <div class="loading">
-          <div class="spinner"></div>
-        </div>
-      `;
+      document.getElementById('pubs-list').innerHTML = `<div class="loading"><div class="spinner"></div><span>Loading publications…</span></div>`;
     }
 
     function renderPubs(pubs) {
       const container = document.getElementById('pubs-list');
-      if (pubs.length === 0) {
-        container.innerHTML = '<p style="text-align: center; padding: 2rem; color: rgba(255,255,255,0.5);">No publications found.</p>';
+      if (!pubs.length) {
+        container.innerHTML = '<p style="text-align:center;padding:3rem;color:rgba(255,255,255,0.4);">No publications found matching your filters.</p>';
         return;
       }
-
-      const html = pubs.map(pub => `
+      container.innerHTML = '<div class="pub-grid">' + pubs.map(pub => `
         <div class="pub-card">
           <div class="pub-title">
             ${pub.doi ? `<a href="https://doi.org/${pub.doi}" target="_blank">${pub.title}</a>` : pub.title}
@@ -607,41 +536,34 @@
             ${pub.authors}<br>
             <span class="pub-journal">${pub.journal}</span>
             <span class="pub-year">(${pub.year})</span>
-            ${pub.citations ? `<span style="margin-left:0.5rem; font-size:0.8rem; color: rgba(56,189,248,0.7);">· ${pub.citations} citations</span>` : ''}
+            ${pub.citations ? `<span style="margin-left:0.5rem;font-size:0.78rem;color:rgba(56,189,248,0.7);">· ${pub.citations} citations</span>` : ''}
           </div>
           <div class="pub-footer">
             ${pub.doi ? `<span class="doi-badge">DOI: ${pub.doi}</span>` : ''}
-            <button class="copy-btn" onclick="copyAPA(${JSON.stringify(pub).replace(/"/g, '&quot;')})">Copy Citation</button>
+            <button class="copy-btn" onclick="copyAPA(${JSON.stringify(pub).replace(/"/g, '&quot;')}, event)">Copy Citation</button>
           </div>
-        </div>
-      `).join('');
-
-      container.innerHTML = html;
+        </div>`).join('') + '</div>';
     }
 
-    function copyAPA(pub) {
-      const apa = `${pub.authors} (${pub.year}). ${pub.title}. <em>${pub.journal}</em>. https://doi.org/${pub.doi}`;
+    function copyAPA(pub, e) {
+      const apa = `${pub.authors} (${pub.year}). ${pub.title}. ${pub.journal}. https://doi.org/${pub.doi}`;
       navigator.clipboard.writeText(apa).then(() => {
-        event.target.textContent = '✓ Copied';
-        event.target.classList.add('copied');
-        setTimeout(() => {
-          event.target.textContent = 'Copy Citation';
-          event.target.classList.remove('copied');
-        }, 2000);
+        e.target.textContent = '✓ Copied';
+        e.target.classList.add('copied');
+        setTimeout(() => { e.target.textContent = 'Copy Citation'; e.target.classList.remove('copied'); }, 2000);
       });
     }
 
-    // Auto-fetches live publications via CrossRef ORCID lookup — updates automatically when new papers are indexed
+    // Live fetch via CrossRef using correct ORCID — auto-updates with new papers
     async function loadPublications() {
       showLoading();
       try {
-        // Try CrossRef first (indexes by ORCID, auto-updates with new papers)
-        const res = await fetch('https://api.crossref.org/works?filter=orcid:0000-0003-1057-9522&rows=100&sort=published&order=desc&mailto=gs.selopal@dal.ca');
-        if (!res.ok) throw new Error('API failed');
+        const res = await fetch('https://api.crossref.org/works?filter=orcid:0000-0002-4703-8829&rows=100&sort=published&order=desc&mailto=gs.selopal@dal.ca');
+        if (!res.ok) throw new Error('API error');
         const data = await res.json();
         const pubs = data.message.items.map(item => ({
           title: item.title?.[0] || 'Untitled',
-          authors: (item.author || []).slice(0,4).map(a => `${a.family || ''} ${a.given?.[0] || ''}`.trim()).join(', ') + ((item.author?.length > 4) ? ', et al.' : ''),
+          authors: (item.author || []).slice(0, 4).map(a => `${a.family || ''} ${(a.given || '')[0] || ''}`.trim()).join(', ') + (item.author?.length > 4 ? ', et al.' : ''),
           journal: item['container-title']?.[0] || item.publisher || '',
           year: item.published?.['date-parts']?.[0]?.[0] || '',
           doi: item.DOI || '',
@@ -652,30 +574,30 @@
         allPubs = FALLBACK_PUBS;
       }
       filteredPubs = allPubs;
-      renderPubs(filteredPubs);
+      applyFilters();
     }
 
     function applyFilters() {
       const search = document.getElementById('search-input').value.toLowerCase();
       const year = document.getElementById('year-filter').value;
       const topic = document.getElementById('topic-filter').value;
-      const journal = document.getElementById('journal-filter').value;
+      const sort = document.getElementById('sort-filter').value;
 
       filteredPubs = allPubs.filter(pub => {
-        const titleMatch = pub.title.toLowerCase().includes(search) || pub.authors.toLowerCase().includes(search);
-        const yearMatch = !year || (year === 'earlier' ? pub.year < 2020 : pub.year == year);
-        const journalMatch = !journal || pub.journal.includes(journal);
-        const topicMatch = !topic || pub.title.toLowerCase().includes(topic) || pub.journal.toLowerCase().includes(topic);
-        return titleMatch && yearMatch && journalMatch && topicMatch;
+        const text = (pub.title + pub.authors + pub.journal).toLowerCase();
+        const yearOk = !year || (year === 'earlier' ? pub.year < 2020 : pub.year == year);
+        return text.includes(search) && yearOk && (!topic || text.includes(topic));
       });
+
+      if (sort === 'citations') filteredPubs.sort((a, b) => (b.citations || 0) - (a.citations || 0));
+      else filteredPubs.sort((a, b) => (b.year || 0) - (a.year || 0));
 
       renderPubs(filteredPubs);
     }
 
-    document.getElementById('search-input').addEventListener('input', applyFilters);
-    document.getElementById('year-filter').addEventListener('change', applyFilters);
-    document.getElementById('topic-filter').addEventListener('change', applyFilters);
-    document.getElementById('journal-filter').addEventListener('change', applyFilters);
+    ['search-input', 'year-filter', 'topic-filter', 'sort-filter'].forEach(id =>
+      document.getElementById(id).addEventListener(id === 'search-input' ? 'input' : 'change', applyFilters)
+    );
 
     loadPublications();
   </script>
