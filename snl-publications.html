@@ -152,27 +152,61 @@
       color: #38bdf8;
     }
 
-    /* ─── Filter Bar ─── */
-    .filter-bar {
+    /* ─── Pub Tabs ─── */
+    .pub-tabs-bar {
       position: sticky;
       top: 58px;
       z-index: 50;
       background: rgba(3,7,15,0.98);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding: 1.25rem 2rem;
     }
 
-    .filter-container {
+    .pub-tabs {
       max-width: 1200px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr auto auto auto;
-      gap: 1rem;
-      align-items: center;
+      display: flex;
+      padding: 0 2rem;
     }
 
-    .search-input, .filter-select {
+    .pub-tab {
+      padding: 1.1rem 1.75rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: rgba(255,255,255,0.45);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .pub-tab:hover { color: rgba(255,255,255,0.8); }
+
+    .pub-tab.active {
+      color: #38bdf8;
+      border-bottom-color: #38bdf8;
+    }
+
+    .pub-tab .tab-count {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(56,189,248,0.6);
+      margin-left: 0.4rem;
+    }
+
+    /* Search (shown only in All tab) */
+    .all-search-bar {
+      max-width: 1200px;
+      margin: 0 auto 1.5rem;
+      padding: 0 2rem;
+    }
+
+    .search-input {
+      width: 100%;
       padding: 0.7rem 1rem;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.1);
@@ -184,15 +218,7 @@
     }
 
     .search-input::placeholder { color: rgba(255,255,255,0.28); }
-
-    .search-input:focus, .filter-select:focus {
-      outline: none;
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(56,189,248,0.45);
-    }
-
-    .filter-select { cursor: pointer; min-width: 140px; }
-    .filter-select option { background: #03070f; color: #fff; }
+    .search-input:focus { outline: none; background: rgba(255,255,255,0.07); border-color: rgba(56,189,248,0.45); }
 
     /* ─── Publications ─── */
     .publications-container {
@@ -328,7 +354,7 @@
     /* ─── Responsive ─── */
     @media (max-width: 768px) {
       h1 { font-size: 2rem; }
-      .filter-container { grid-template-columns: 1fr; }
+      .pub-tab { padding: 0.9rem 1rem; font-size: 0.82rem; }
       .pub-footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -370,37 +396,26 @@
       </div>
     </section>
 
-    <!-- Filter Bar -->
-    <div class="filter-bar">
-      <div class="filter-container">
-        <input type="text" id="search-input" class="search-input" placeholder="Search publications...">
-        <select id="year-filter" class="filter-select">
-          <option value="">All Years</option>
-          <option value="2025">2025</option>
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-          <option value="2020">2020</option>
-          <option value="earlier">Earlier</option>
-        </select>
-        <select id="topic-filter" class="filter-select">
-          <option value="">All Topics</option>
-          <option value="solar">Solar Energy</option>
-          <option value="hydrogen">Green Hydrogen</option>
-          <option value="quantum">Quantum Dots</option>
-          <option value="environment">Environment</option>
-          <option value="nano">Nanotechnology</option>
-        </select>
-        <select id="sort-filter" class="filter-select">
-          <option value="citations">Sort: Citations</option>
-          <option value="year">Sort: Newest</option>
-        </select>
+    <!-- Tab Bar -->
+    <div class="pub-tabs-bar">
+      <div class="pub-tabs">
+        <button class="pub-tab active" onclick="switchTab('recent')">
+          Most Recent <span class="tab-count" id="count-recent"></span>
+        </button>
+        <button class="pub-tab" onclick="switchTab('popular')">
+          Most Cited <span class="tab-count" id="count-popular"></span>
+        </button>
+        <button class="pub-tab" onclick="switchTab('all')">
+          All Publications <span class="tab-count" id="count-all"></span>
+        </button>
       </div>
     </div>
 
     <!-- Publications Container -->
     <div class="publications-container">
+      <div id="all-search-wrap" class="all-search-bar" style="display:none;margin-top:1.5rem;">
+        <input type="text" id="search-input" class="search-input" placeholder="Search by title, author, or journal…">
+      </div>
       <div id="pubs-list"></div>
     </div>
 
@@ -516,22 +531,19 @@
       { title: "A colloidal heterostructured quantum dot sensitized carbon nanotube-TiO2 hybrid photoanode for high efficiency hydrogen generation", authors: "Selopal GS, Mohammadnezhad M, Navarro-Pardo F, Vidal F, Zhao H, et al.", journal: "Nanoscale Horizons", year: 2019, doi: "10.1039/C8NH00330K", citations: 44 },
     ];
 
-    let allPubs = [], filteredPubs = [];
+    let allPubs = [];
+    let currentTab = 'recent';
 
     function showLoading() {
       document.getElementById('pubs-list').innerHTML = `<div class="loading"><div class="spinner"></div><span>Loading publications…</span></div>`;
     }
 
-    function renderPubs(pubs) {
-      const container = document.getElementById('pubs-list');
-      if (!pubs.length) {
-        container.innerHTML = '<p style="text-align:center;padding:3rem;color:rgba(255,255,255,0.4);">No publications found matching your filters.</p>';
-        return;
-      }
-      container.innerHTML = '<div class="pub-grid">' + pubs.map(pub => `
+    function cardHTML(pub, rank) {
+      const rankBadge = rank != null ? `<span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:rgba(56,189,248,0.5);margin-right:0.5rem;">#${rank}</span>` : '';
+      return `
         <div class="pub-card">
           <div class="pub-title">
-            ${pub.doi ? `<a href="https://doi.org/${pub.doi}" target="_blank">${pub.title}</a>` : pub.title}
+            ${rankBadge}${pub.doi ? `<a href="https://doi.org/${pub.doi}" target="_blank">${pub.title}</a>` : pub.title}
           </div>
           <div class="pub-meta">
             ${pub.authors}<br>
@@ -543,7 +555,40 @@
             ${pub.doi ? `<span class="doi-badge">DOI: ${pub.doi}</span>` : ''}
             <button class="copy-btn" onclick="copyAPA(${JSON.stringify(pub).replace(/"/g, '&quot;')}, event)">Copy Citation</button>
           </div>
-        </div>`).join('') + '</div>';
+        </div>`;
+    }
+
+    function renderPubs(pubs, ranked) {
+      const container = document.getElementById('pubs-list');
+      if (!pubs.length) {
+        container.innerHTML = '<p style="text-align:center;padding:3rem;color:rgba(255,255,255,0.4);">No publications found.</p>';
+        return;
+      }
+      container.innerHTML = '<div class="pub-grid">' + pubs.map((p, i) => cardHTML(p, ranked ? i + 1 : null)).join('') + '</div>';
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.pub-tab').forEach(t => t.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      document.getElementById('all-search-wrap').style.display = tab === 'all' ? 'block' : 'none';
+      if (tab === 'recent') {
+        const sorted = [...allPubs].sort((a, b) => (b.year || 0) - (a.year || 0));
+        renderPubs(sorted, false);
+      } else if (tab === 'popular') {
+        const sorted = [...allPubs].filter(p => p.citations).sort((a, b) => (b.citations || 0) - (a.citations || 0));
+        renderPubs(sorted, true);
+      } else {
+        applySearch();
+      }
+    }
+
+    function applySearch() {
+      const q = document.getElementById('search-input').value.toLowerCase();
+      const filtered = allPubs.filter(p => (p.title + p.authors + p.journal).toLowerCase().includes(q));
+      filtered.sort((a, b) => (b.year || 0) - (a.year || 0));
+      renderPubs(filtered, false);
+      document.getElementById('count-all').textContent = filtered.length ? `(${filtered.length})` : '';
     }
 
     function copyAPA(pub, e) {
@@ -555,50 +600,40 @@
       });
     }
 
-    // Live fetch via CrossRef using correct ORCID — auto-updates with new papers
+    function updateCounts() {
+      const byYear = [...allPubs].sort((a, b) => (b.year || 0) - (a.year || 0));
+      const byCite = allPubs.filter(p => p.citations).sort((a, b) => (b.citations || 0) - (a.citations || 0));
+      document.getElementById('count-recent').textContent = `(${byYear.length})`;
+      document.getElementById('count-popular').textContent = `(${byCite.length})`;
+      document.getElementById('count-all').textContent = `(${allPubs.length})`;
+    }
+
+    // Live fetch via CrossRef — auto-updates with new papers including 2026
     async function loadPublications() {
       showLoading();
       try {
-        const res = await fetch('https://api.crossref.org/works?filter=orcid:0000-0002-4703-8829&rows=100&sort=published&order=desc&mailto=gs.selopal@dal.ca');
+        const res = await fetch('https://api.crossref.org/works?filter=orcid:0000-0002-4703-8829&rows=200&sort=published&order=desc&mailto=gs.selopal@dal.ca');
         if (!res.ok) throw new Error('API error');
         const data = await res.json();
         const pubs = data.message.items.map(item => ({
           title: item.title?.[0] || 'Untitled',
           authors: (item.author || []).slice(0, 4).map(a => `${a.family || ''} ${(a.given || '')[0] || ''}`.trim()).join(', ') + (item.author?.length > 4 ? ', et al.' : ''),
           journal: item['container-title']?.[0] || item.publisher || '',
-          year: item.published?.['date-parts']?.[0]?.[0] || '',
+          year: item.published?.['date-parts']?.[0]?.[0] || item['published-print']?.['date-parts']?.[0]?.[0] || '',
           doi: item.DOI || '',
-          citations: item['is-referenced-by-count'] || null,
+          citations: item['is-referenced-by-count'] || 0,
         }));
-        allPubs = pubs.length > 0 ? pubs : FALLBACK_PUBS;
+        allPubs = pubs.length >= 5 ? pubs : FALLBACK_PUBS;
       } catch(e) {
         allPubs = FALLBACK_PUBS;
       }
-      filteredPubs = allPubs;
-      applyFilters();
+      updateCounts();
+      // Default: most recent
+      const sorted = [...allPubs].sort((a, b) => (b.year || 0) - (a.year || 0));
+      renderPubs(sorted, false);
     }
 
-    function applyFilters() {
-      const search = document.getElementById('search-input').value.toLowerCase();
-      const year = document.getElementById('year-filter').value;
-      const topic = document.getElementById('topic-filter').value;
-      const sort = document.getElementById('sort-filter').value;
-
-      filteredPubs = allPubs.filter(pub => {
-        const text = (pub.title + pub.authors + pub.journal).toLowerCase();
-        const yearOk = !year || (year === 'earlier' ? pub.year < 2020 : pub.year == year);
-        return text.includes(search) && yearOk && (!topic || text.includes(topic));
-      });
-
-      if (sort === 'citations') filteredPubs.sort((a, b) => (b.citations || 0) - (a.citations || 0));
-      else filteredPubs.sort((a, b) => (b.year || 0) - (a.year || 0));
-
-      renderPubs(filteredPubs);
-    }
-
-    ['search-input', 'year-filter', 'topic-filter', 'sort-filter'].forEach(id =>
-      document.getElementById(id).addEventListener(id === 'search-input' ? 'input' : 'change', applyFilters)
-    );
+    document.getElementById('search-input').addEventListener('input', applySearch);
 
     loadPublications();
   </script>
