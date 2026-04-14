@@ -573,10 +573,10 @@
       event.currentTarget.classList.add('active');
       document.getElementById('all-search-wrap').style.display = tab === 'all' ? 'block' : 'none';
       if (tab === 'recent') {
-        const sorted = [...allPubs].sort((a, b) => (b.year || 0) - (a.year || 0));
+        const sorted = [...allPubs].sort((a, b) => (b.year || 0) - (a.year || 0)).slice(0, 10);
         renderPubs(sorted, false);
       } else if (tab === 'popular') {
-        const sorted = [...allPubs].filter(p => p.citations).sort((a, b) => (b.citations || 0) - (a.citations || 0));
+        const sorted = [...allPubs].filter(p => p.citations).sort((a, b) => (b.citations || 0) - (a.citations || 0)).slice(0, 10);
         renderPubs(sorted, true);
       } else {
         applySearch();
@@ -601,35 +601,78 @@
     }
 
     function updateCounts() {
-      const byYear = [...allPubs].sort((a, b) => (b.year || 0) - (a.year || 0));
-      const byCite = allPubs.filter(p => p.citations).sort((a, b) => (b.citations || 0) - (a.citations || 0));
-      document.getElementById('count-recent').textContent = `(${byYear.length})`;
-      document.getElementById('count-popular').textContent = `(${byCite.length})`;
+      document.getElementById('count-recent').textContent = `(10)`;
+      document.getElementById('count-popular').textContent = `(10)`;
       document.getElementById('count-all').textContent = `(${allPubs.length})`;
     }
 
-    // Live fetch via CrossRef — auto-updates with new papers including 2026
+    // Merge two pub arrays, deduplicating by DOI (API results take priority)
+    function mergePubs(primary, secondary) {
+      const seen = new Set(primary.map(p => p.doi).filter(Boolean));
+      const extras = secondary.filter(p => !p.doi || !seen.has(p.doi));
+      return [...primary, ...extras];
+    }
+
+    // Primary: Semantic Scholar (best coverage, includes 2026)
+    // Fallback: CrossRef by ORCID + hardcoded data merged
     async function loadPublications() {
       showLoading();
       try {
-        const res = await fetch('https://api.crossref.org/works?filter=orcid:0000-0002-4703-8829&rows=200&sort=published&order=desc&mailto=gs.selopal@dal.ca');
-        if (!res.ok) throw new Error('API error');
-        const data = await res.json();
-        const pubs = data.message.items.map(item => ({
-          title: item.title?.[0] || 'Untitled',
-          authors: (item.author || []).slice(0, 4).map(a => `${a.family || ''} ${(a.given || '')[0] || ''}`.trim()).join(', ') + (item.author?.length > 4 ? ', et al.' : ''),
-          journal: item['container-title']?.[0] || item.publisher || '',
-          year: item.published?.['date-parts']?.[0]?.[0] || item['published-print']?.['date-parts']?.[0]?.[0] || '',
-          doi: item.DOI || '',
-          citations: item['is-referenced-by-count'] || 0,
-        }));
-        allPubs = pubs.length >= 5 ? pubs : FALLBACK_PUBS;
+        // Step 1: find author ID
+        const authRes = await fetch('https://api.semanticscholar.org/graph/v1/author/search?query=Gurpreet+Selopal&fields=authorId,name,citationCount,paperCount&limit=5');
+        const authData = await authRes.json();
+        const author = (authData.data || []).sort((a, b) => (b.citationCount || 0) - (a.citationCount || 0))[0];
+        if (!author?.authorId) throw new Error('Author not found');
+
+        // Step 2: fetch all papers (up to 500, paginated if needed)
+        let papers = [], offset = 0;
+        while (true) {
+          const papRes = await fetch(`https://api.semanticscholar.org/graph/v1/author/${author.authorId}/papers?fields=title,authors,year,externalIds,citationCount,venue&limit=100&offset=${offset}`);
+          const papData = await papRes.json();
+          const batch = papData.data || [];
+          papers = papers.concat(batch);
+          if (batch.length < 100 || papers.length >= 500) break;
+          offset += 100;
+        }
+
+        const pubs = papers
+          .filter(item => item.title && item.title !== 'Untitled')
+          .map(item => ({
+            title: item.title,
+            authors: (item.authors || []).slice(0, 4).map(a => {
+              const parts = (a.name || '').trim().split(' ');
+              return parts.length > 1 ? `${parts[parts.length-1]} ${parts[0][0]}` : a.name;
+            }).join(', ') + ((item.authors || []).length > 4 ? ', et al.' : ''),
+            journal: item.venue || '',
+            year: item.year || '',
+            doi: item.externalIds?.DOI || '',
+            citations: item.citationCount || 0,
+          }));
+
+        // Merge with fallback to catch any gaps
+        allPubs = pubs.length >= 10 ? mergePubs(pubs, FALLBACK_PUBS) : FALLBACK_PUBS;
+
       } catch(e) {
-        allPubs = FALLBACK_PUBS;
+        // Fallback: CrossRef + hardcoded merged
+        try {
+          const res = await fetch('https://api.crossref.org/works?filter=orcid:0000-0002-4703-8829&rows=200&sort=published&order=desc&mailto=gs.selopal@dal.ca');
+          const data = await res.json();
+          const pubs = (data.message?.items || []).map(item => ({
+            title: item.title?.[0] || 'Untitled',
+            authors: (item.author || []).slice(0, 4).map(a => `${a.family || ''} ${(a.given || '')[0] || ''}`.trim()).join(', ') + (item.author?.length > 4 ? ', et al.' : ''),
+            journal: item['container-title']?.[0] || item.publisher || '',
+            year: item.published?.['date-parts']?.[0]?.[0] || '',
+            doi: item.DOI || '',
+            citations: item['is-referenced-by-count'] || 0,
+          }));
+          allPubs = mergePubs(pubs, FALLBACK_PUBS);
+        } catch(e2) {
+          allPubs = FALLBACK_PUBS;
+        }
       }
+
       updateCounts();
-      // Default: most recent
-      const sorted = [...allPubs].sort((a, b) => (b.year || 0) - (a.year || 0));
+      const sorted = [...allPubs].sort((a, b) => (b.year || 0) - (a.year || 0)).slice(0, 10);
       renderPubs(sorted, false);
     }
 
