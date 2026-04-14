@@ -65,6 +65,8 @@
             align-items: center;
         }
 
+
+        .nav-logo-img { height: 38px; width: auto; display: block; }
         .nav-logo {
             display: flex;
             align-items: center;
@@ -437,7 +439,7 @@
         <nav>
             <div class="nav-container">
                 <a href="/" class="nav-logo">
-                    <span class="nav-logo-icon">⚛️</span>
+                    <img src="/assets/images/snl-logo.png" alt="SNL" class="nav-logo-img">
                     <span>Sustainable Nanoengineering Lab</span>
                 </a>
                 <ul class="nav-links">
@@ -460,11 +462,11 @@
 
                 <!-- PI Academic Profile Links -->
                 <div class="pi-profiles">
-                    <a href="https://www.dal.ca/faculty/agriculture/faculty/eng/Gurpreet-Selopal.html" target="_blank" class="pi-link">🏫 Dal Profile</a>
-                    <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" target="_blank" class="pi-link">📚 Google Scholar</a>
-                    <a href="https://www.linkedin.com/in/drgsselopal/" target="_blank" class="pi-link">💼 LinkedIn</a>
-                    <a href="https://www.researchgate.net/profile/Gurpreet-Selopal" target="_blank" class="pi-link">🔬 ResearchGate</a>
-                    <a href="https://orcid.org/0000-0002-4703-8829" target="_blank" class="pi-link">🆔 ORCID</a>
+                    <a href="https://www.dal.ca/faculty/agriculture/faculty/eng/Gurpreet-Selopal.html" target="_blank" class="pi-link">Dal Profile</a>
+                    <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" target="_blank" class="pi-link">Google Scholar</a>
+                    <a href="https://www.linkedin.com/in/drgsselopal/" target="_blank" class="pi-link">LinkedIn</a>
+                    <a href="https://www.researchgate.net/profile/Gurpreet-Selopal" target="_blank" class="pi-link">ResearchGate</a>
+                    <a href="https://orcid.org/0000-0002-4703-8829" target="_blank" class="pi-link">ORCID</a>
                 </div>
 
                 <div class="hero-buttons">
@@ -501,25 +503,25 @@
             </div>
             <div class="pillars-grid">
                 <div class="pillar-card">
-                    <span class="pillar-icon">☀️</span>
+                    <span class="pillar-icon"></span>
                     <h3>Photoelectrochemical Solar Energy</h3>
                     <p>Converting sunlight into electricity using nanostructured photoelectrodes. Advancing sustainable energy generation through advanced materials.</p>
                     <span class="pillar-tag">Energy</span>
                 </div>
                 <div class="pillar-card">
-                    <span class="pillar-icon">💧</span>
+                    <span class="pillar-icon"></span>
                     <h3>Green Hydrogen Production</h3>
                     <p>Sustainable hydrogen via photoelectrochemical water splitting. Developing clean fuel sources for the future economy.</p>
                     <span class="pillar-tag">Hydrogen</span>
                 </div>
                 <div class="pillar-card">
-                    <span class="pillar-icon">🌾</span>
+                    <span class="pillar-icon"></span>
                     <h3>Precision Agriculture & Nano-Sensors</h3>
                     <p>Nanomaterial-based sensors for smart farming. Enabling data-driven agriculture for improved crop yields and resource efficiency.</p>
                     <span class="pillar-tag">Agriculture</span>
                 </div>
                 <div class="pillar-card">
-                    <span class="pillar-icon">🧹</span>
+                    <span class="pillar-icon"></span>
                     <h3>Environmental Remediation</h3>
                     <p>Photocatalytic nanoparticles for pollutant degradation. Cleaning water and air through advanced nanomaterial applications.</p>
                     <span class="pillar-tag">Environment</span>
@@ -548,6 +550,13 @@
             </div>
         </section>
 
+        <!-- Lab Photo Banner -->
+        <section style="margin-bottom:3rem;">
+            <div style="border-radius:1rem;overflow:hidden;border:1px solid rgba(255,255,255,0.08);max-height:420px;">
+                <img src="/assets/images/teampicture.jpeg" alt="SNL Lab Team" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;">
+            </div>
+        </section>
+
         <!-- Team Preview Section -->
         <section class="team-preview">
             <div class="section-header">
@@ -556,19 +565,21 @@
             </div>
             <div class="team-cards">
                 <div class="team-card">
-                    <div class="team-avatar">👨‍🔬</div>
+                    <div class="team-avatar" style="padding:0;overflow:hidden;background:none;border:none;">
+                        <img src="/assets/images/headshot.jpeg" alt="Dr. G.S. Selopal" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;">
+                    </div>
                     <h3>Dr. G.S. Selopal</h3>
                     <div class="team-role">Principal Investigator</div>
                     <p class="team-bio">Canada Research Chair (Tier 2), leading the lab's vision across all pillars of sustainable nanotechnology.</p>
                 </div>
                 <div class="team-card">
-                    <div class="team-avatar">👩‍🔬</div>
+                    <div class="team-avatar" style="font-size:1.1rem;font-weight:700;letter-spacing:1px;">MK</div>
                     <h3>Dr. Manmeet Kaur</h3>
                     <div class="team-role">Postdoctoral Fellow</div>
                     <p class="team-bio">Advancing photoelectrochemical research and hydrogen production methodologies.</p>
                 </div>
                 <div class="team-card">
-                    <div class="team-avatar">👨‍🎓</div>
+                    <div class="team-avatar" style="font-size:1.1rem;font-weight:700;letter-spacing:1px;">SS</div>
                     <h3>Sukhjinder Singh</h3>
                     <div class="team-role">PhD Candidate</div>
                     <p class="team-bio">Investigating novel nanomaterial applications for photoelectrochemical water splitting.</p>

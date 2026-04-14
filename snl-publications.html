@@ -341,7 +341,7 @@
     <nav>
       <div class="nav-container">
         <a href="/" class="nav-logo">
-          <span>⚛️</span>
+          <img src="/assets/images/snl-logo.png" alt="SNL" class="nav-logo-img" style="height:38px;width:auto;">
           <span>Sustainable Nanoengineering Lab</span>
         </a>
         <ul class="nav-links">
@@ -358,13 +358,13 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
-        <div class="badge">📄 Research Output</div>
+        <div class="badge">Research Output</div>
         <h1>Publications & <em>Research</em> Impact</h1>
         <p class="subtitle">Peer-reviewed contributions advancing nanotechnology for sustainable energy and environmental solutions.</p>
         <div class="profile-links">
-          <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" target="_blank" class="profile-link">📚 Google Scholar</a>
-          <a href="https://orcid.org/0000-0002-4703-8829" target="_blank" class="profile-link">🆔 ORCID</a>
-          <a href="https://www.researchgate.net/profile/Gurpreet-Selopal" target="_blank" class="profile-link">🔬 ResearchGate</a>
+          <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" target="_blank" class="profile-link">Google Scholar</a>
+          <a href="https://orcid.org/0000-0002-4703-8829" target="_blank" class="profile-link">ORCID</a>
+          <a href="https://www.researchgate.net/profile/Gurpreet-Selopal" target="_blank" class="profile-link">ResearchGate</a>
         </div>
       </div>
     </section>
@@ -548,7 +548,7 @@
     function copyAPA(pub, e) {
       const apa = `${pub.authors} (${pub.year}). ${pub.title}. ${pub.journal}. https://doi.org/${pub.doi}`;
       navigator.clipboard.writeText(apa).then(() => {
-        e.target.textContent = '✓ Copied';
+        e.target.textContent = 'Copied!';
         e.target.classList.add('copied');
         setTimeout(() => { e.target.textContent = 'Copy Citation'; e.target.classList.remove('copied'); }, 2000);
       });
