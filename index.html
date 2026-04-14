@@ -605,9 +605,9 @@
                 if (!res.ok) throw new Error('API error');
                 const data = await res.json();
 
-                // Pick the author with the highest citation count (most likely Dr. Selopal)
+                // Pick the correct Dr. Selopal — must have h-index > 25 and citations > 2000
                 const author = (data.data || [])
-                    .filter(a => (a.citationCount || 0) > 500)
+                    .filter(a => (a.citationCount || 0) > 2000 && (a.hIndex || 0) > 25)
                     .sort((a, b) => (b.citationCount || 0) - (a.citationCount || 0))[0];
 
                 if (!author) throw new Error('Author not found');
