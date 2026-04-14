@@ -476,15 +476,15 @@
   <section class="stats-bar">
     <div class="stats-container">
       <div class="stat-item">
-        <h3>50+</h3>
+        <h3>100+</h3>
         <p>Total Publications</p>
       </div>
       <div class="stat-item">
-        <h3>1000+</h3>
+        <h3>3,500+</h3>
         <p>Citations</p>
       </div>
       <div class="stat-item">
-        <h3>20+</h3>
+        <h3>33</h3>
         <p>h-index</p>
       </div>
     </div>
@@ -551,18 +551,33 @@
       draw();
     })();
 
-    // Fallback Publications
+    // Fallback Publications (real data from Google Scholar, sorted by citations)
     const FALLBACK_PUBS = [
-      { title: "Quantum Dot-Sensitized Solar Cells with Enhanced Charge Transfer via Interfacial Engineering", authors: "Selopal GS, et al.", journal: "Advanced Energy Materials", year: 2024, doi: "10.1002/aenm.202400001" },
-      { title: "Photoelectrochemical Water Splitting Using Nanostructured Hematite Photoanodes", authors: "Selopal GS, Singh S, et al.", journal: "ACS Catalysis", year: 2024, doi: "10.1021/acscatal.4c00001" },
-      { title: "Perovskite Quantum Dots for High-Efficiency Solar Energy Conversion", authors: "Selopal GS, Kaur M, et al.", journal: "Nano Energy", year: 2023, doi: "10.1016/j.nanoen.2023.108001" },
-      { title: "Ag2S Quantum Dots for Near-Infrared Photodetection", authors: "Selopal GS, et al.", journal: "ACS Applied Materials & Interfaces", year: 2023, doi: "10.1021/acsami.3c00001" },
-      { title: "Z-scheme Photocatalytic System for Visible-Light Hydrogen Evolution", authors: "Selopal GS, Madhu S, et al.", journal: "Applied Catalysis B: Environmental", year: 2023, doi: "10.1016/j.apcatb.2023.122001" },
-      { title: "TiO2/Graphene Nanocomposites for Environmental Remediation", authors: "Selopal GS, Sohail U, et al.", journal: "Journal of Hazardous Materials", year: 2022, doi: "10.1016/j.jhazmat.2022.128001" },
-      { title: "Colloidal Quantum Dots for Light-Harvesting Applications", authors: "Selopal GS, et al.", journal: "Chemical Reviews", year: 2022, doi: "10.1021/acs.chemrev.2c00001" },
-      { title: "Biosensor Arrays for Precision Agriculture Applications", authors: "Selopal GS, MacKenzie J, et al.", journal: "Biosensors and Bioelectronics", year: 2022, doi: "10.1016/j.bios.2022.114001" },
-      { title: "Nanostructured Photoanodes for Solar Fuel Generation", authors: "Selopal GS, et al.", journal: "Energy & Environmental Science", year: 2021, doi: "10.1039/D1EE00001A" },
-      { title: "Surface Passivation Strategies for Quantum Dot Solar Cells", authors: "Selopal GS, et al.", journal: "ACS Nano", year: 2021, doi: "10.1021/acsnano.1c00001" },
+      { title: "Core/shell quantum dots solar cells", authors: "Selopal GS, Zhao H, Wang ZM, Rosei F", journal: "Advanced Functional Materials", year: 2020, doi: "10.1002/adfm.201908762", citations: 290 },
+      { title: "Hybrid Carbon Nanotubes–TiO2 Photoanodes for High Efficiency Dye-Sensitized Solar Cells", authors: "Dembele KT, Selopal GS, Soldano C, Nechache R, et al.", journal: "The Journal of Physical Chemistry C", year: 2013, doi: "10.1021/jp400833e", citations: 181 },
+      { title: "Near‐infrared, heavy metal‐free colloidal 'Giant' core/shell quantum dots", authors: "Tong X, Kong XT, Zhou Y, Navarro‐Pardo F, Selopal GS, et al.", journal: "Advanced Energy Materials", year: 2018, doi: "10.1002/aenm.201701432", citations: 156 },
+      { title: "Heavy metal-free, near-infrared colloidal quantum dots for efficient photoelectrochemical hydrogen generation", authors: "Tong X, Zhou Y, Jin L, Basu K, Adhikari R, Selopal GS, et al.", journal: "Nano Energy", year: 2017, doi: "10.1016/j.nanoen.2016.11.051", citations: 148 },
+      { title: "Highly stable colloidal 'giant' quantum dots sensitized solar cells", authors: "Selopal GS, Zhao H, Tong X, Benetti D, Navarro‐Pardo F, et al.", journal: "Advanced Functional Materials", year: 2017, doi: "10.1002/adfm.201701468", citations: 140 },
+      { title: "Controlling photoinduced electron transfer from PbS@CdS core@shell quantum dots to metal oxide nanostructured thin films", authors: "Zhao H, Fan Z, Liang H, Selopal GS, Gonfa BA, Jin L, et al.", journal: "Nanoscale", year: 2014, doi: "10.1039/C4NR00562G", citations: 100 },
+      { title: "Metal-free organic dyes for TiO2 and ZnO dye-sensitized solar cells", authors: "Selopal GS, Wu HP, Lu J, Chang YC, Wang M, Vomiero A, Concina I, et al.", journal: "Scientific Reports", year: 2016, doi: "10.1038/srep18756", citations: 99 },
+      { title: "Graphene below the percolation threshold in TiO2 for dye-sensitized solar cells", authors: "Dembele KT, Selopal GS, Milan R, Trudeau C, Benetti D, et al.", journal: "Journal of Materials Chemistry A", year: 2015, doi: "10.1039/C4TA05028A", citations: 92 },
+      { title: "Review of hybrid 1D/2D photocatalysts for light-harvesting applications", authors: "Nawaz A, Goudarzi S, Asghari MA, Pichiah S, Selopal GS, et al.", journal: "ACS Applied Nano Materials", year: 2021, doi: "10.1021/acsanm.1c02320", citations: 86 },
+      { title: "'Green', gradient multi-shell CuInSe2/(CuInSexS1-x)/CuInS2 quantum dots for photoelectrochemical hydrogen generation", authors: "Li F, Zhang M, Benetti D, Shi L, Besteiro LV, Selopal GS, et al.", journal: "Applied Catalysis B: Environmental", year: 2021, doi: "10.1016/j.apcatb.2020.119402", citations: 83 },
+      { title: "ZnO@SnO2 engineered composite photoanodes for dye sensitized solar cells", authors: "Milan R, Selopal GS, Epifani M, Natile MM, Sberveglieri G, et al.", journal: "Scientific Reports", year: 2015, doi: "10.1038/srep14523", citations: 83 },
+      { title: "Efficient and stable photoelectrochemical hydrogen generation using optimized colloidal heterostructured quantum dots", authors: "Zhang H, Besteiro LV, Liu J, Wang C, Selopal GS, et al.", journal: "Nano Energy", year: 2021, doi: "10.1016/j.nanoen.2020.105416", citations: 70 },
+      { title: "Effect of blocking layer to boost photoconversion efficiency in ZnO dye-sensitized solar cells", authors: "Selopal GS, Memarian N, Milan R, Concina I, Sberveglieri G, Vomiero A", journal: "ACS Applied Materials & Interfaces", year: 2014, doi: "10.1021/am501360k", citations: 64 },
+      { title: "Efficient solar-driven hydrogen generation using colloidal heterostructured quantum dots", authors: "Wang K, Tong X, Zhou Y, Zhang H, Navarro-Pardo F, Selopal GS, et al.", journal: "Journal of Materials Chemistry A", year: 2019, doi: "10.1039/C9TA03710G", citations: 61 },
+      { title: "Synergistic Effect of Plasmonic Gold Nanoparticles Decorated Carbon Nanotubes in Quantum Dots/TiO2 for Optoelectronic Devices", authors: "Selopal GS, Mohammadnezhad M, Besteiro LV, Cavuslar O, Liu J, et al.", journal: "Advanced Science", year: 2020, doi: "10.1002/advs.202001864", citations: 59 },
+      { title: "Graphene as transparent front contact for dye sensitized solar cells", authors: "Selopal GS, Milan R, Ortolani L, Morandi V, Rizzoli R, Sberveglieri G, et al.", journal: "Solar Energy Materials and Solar Cells", year: 2015, doi: "10.1016/j.solmat.2014.09.028", citations: 57 },
+      { title: "Interfacial engineering in colloidal 'giant' quantum dots for high-performance photovoltaics", authors: "Selopal GS, Zhao H, Liu G, Zhang H, Tong X, Wang K, et al.", journal: "Nano Energy", year: 2019, doi: "10.1016/j.nanoen.2018.10.062", citations: 56 },
+      { title: "Visible and near-infrared, multiparametric, ultrasensitive nanothermometer based on dual-emission colloidal quantum dots", authors: "Liu J, Zhang H, Selopal GS, Sun S, Zhao H, Rosei F", journal: "ACS Photonics", year: 2019, doi: "10.1021/acsphotonics.9b00405", citations: 56 },
+      { title: "Environmentally friendly Mn-alloyed core/shell quantum dots for high-efficiency photoelectrochemical cells", authors: "Wang R, Tong X, Channa AI, Zeng Q, Sun J, Liu C, Selopal GS, et al.", journal: "Journal of Materials Chemistry A", year: 2020, doi: "10.1039/D0TA01753A", citations: 55 },
+      { title: "Hybrid TiO2-Graphene nanoribbon photoanodes to improve the photoconversion efficiency of dye sensitized solar cells", authors: "Akilimali R, Selopal GS, Benetti D, Serrano-Esparza I, Algarabel PA, et al.", journal: "Journal of Power Sources", year: 2018, doi: "10.1016/j.jpowsour.2018.06.043", citations: 55 },
+      { title: "Hierarchical self-assembled Cu2S nanostructures: fast and reproducible spray deposition of effective counter electrodes for high efficiency quantum dot solar cells", authors: "Selopal GS, Concina I, Milan R, Natile MM, Sberveglieri G, Vomiero A", journal: "Nano Energy", year: 2014, doi: "10.1016/j.nanoen.2014.08.003", citations: 54 },
+      { title: "Heavy-metal-free colloidal quantum dots: progress and opportunities in solar technologies", authors: "Jin L, Selopal GS, Tong X, Perepichka DF, Wang ZM, Rosei F", journal: "Advanced Materials", year: 2024, doi: "10.1002/adma.202402912", citations: 50 },
+      { title: "Constructing quantum dots sensitized TiO2 nanotube pn heterojunction for photoelectrochemical hydrogen generation", authors: "Abdelkarim O, Mirzaei A, Selopal GS, Yurtsever A, Bassioni G, Wang ZM, et al.", journal: "Chemical Engineering Journal", year: 2022, doi: "10.1016/j.cej.2022.137312", citations: 48 },
+      { title: "High efficiency photoelectrochemical hydrogen generation using eco-friendly Cu doped Zn-In-Se colloidal quantum dots", authors: "Luo B, Liu J, Guo H, Liu X, Song R, Shen K, Wang ZM, Selopal GS, et al.", journal: "Nano Energy", year: 2021, doi: "10.1016/j.nanoen.2021.106220", citations: 48 },
+      { title: "A colloidal heterostructured quantum dot sensitized carbon nanotube–TiO2 hybrid photoanode for high efficiency hydrogen generation", authors: "Selopal GS, Mohammadnezhad M, Navarro-Pardo F, Vidal F, Zhao H, et al.", journal: "Nanoscale Horizons", year: 2019, doi: "10.1039/C8NH00330K", citations: 44 },
     ];
 
     let allPubs = [];
@@ -586,15 +601,16 @@
       const html = pubs.map(pub => `
         <div class="pub-card">
           <div class="pub-title">
-            <a href="https://doi.org/${pub.doi}" target="_blank">${pub.title}</a>
+            ${pub.doi ? `<a href="https://doi.org/${pub.doi}" target="_blank">${pub.title}</a>` : pub.title}
           </div>
           <div class="pub-meta">
             ${pub.authors}<br>
             <span class="pub-journal">${pub.journal}</span>
             <span class="pub-year">(${pub.year})</span>
+            ${pub.citations ? `<span style="margin-left:0.5rem; font-size:0.8rem; color: rgba(56,189,248,0.7);">· ${pub.citations} citations</span>` : ''}
           </div>
           <div class="pub-footer">
-            <span class="doi-badge">DOI: ${pub.doi}</span>
+            ${pub.doi ? `<span class="doi-badge">DOI: ${pub.doi}</span>` : ''}
             <button class="copy-btn" onclick="copyAPA(${JSON.stringify(pub).replace(/"/g, '&quot;')})">Copy Citation</button>
           </div>
         </div>
@@ -615,19 +631,21 @@
       });
     }
 
-    /* CNS FOLDER INTEGRATION POINT — replace fetch with your CNS data source */
+    // Auto-fetches live publications via CrossRef ORCID lookup — updates automatically when new papers are indexed
     async function loadPublications() {
       showLoading();
       try {
-        const res = await fetch('https://api.crossref.org/works?filter=orcid:0000-0003-1057-9522&rows=50&sort=published&order=desc&mailto=gs.selopal@dal.ca');
+        // Try CrossRef first (indexes by ORCID, auto-updates with new papers)
+        const res = await fetch('https://api.crossref.org/works?filter=orcid:0000-0003-1057-9522&rows=100&sort=published&order=desc&mailto=gs.selopal@dal.ca');
         if (!res.ok) throw new Error('API failed');
         const data = await res.json();
         const pubs = data.message.items.map(item => ({
           title: item.title?.[0] || 'Untitled',
-          authors: (item.author || []).slice(0,3).map(a => `${a.family} ${a.given?.[0]||''}`).join(', ') + ((item.author?.length > 3) ? ', et al.' : ''),
+          authors: (item.author || []).slice(0,4).map(a => `${a.family || ''} ${a.given?.[0] || ''}`.trim()).join(', ') + ((item.author?.length > 4) ? ', et al.' : ''),
           journal: item['container-title']?.[0] || item.publisher || '',
           year: item.published?.['date-parts']?.[0]?.[0] || '',
           doi: item.DOI || '',
+          citations: item['is-referenced-by-count'] || null,
         }));
         allPubs = pubs.length > 0 ? pubs : FALLBACK_PUBS;
       } catch(e) {
