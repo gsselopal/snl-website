@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Sustainable Nanoengineering Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background-color: #0b1e33;
+      color: rgba(255, 255, 255, 0.65);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: rgba(11, 30, 51, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem 2rem;
+    }
+
+    nav ul {
+      max-width: 1200px;
+      margin: 0 auto;
+      list-style: none;
+      display: flex;
+      justify-content: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.65);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      padding: 0.5rem 0;
+    }
+
+    nav button:hover {
+      color: #22d3ee;
+    }
+
+    nav button.active {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 55vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-canvas-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    #hero-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 2rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background-color: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: #22d3ee;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h1 em {
+      color: #22d3ee;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Two-Column Layout */
+    .contact-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 2rem 1rem;
+      }
+    }
+
+    /* Left Column - Contact Info */
+    .contact-info h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .info-item {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .info-item:last-of-type {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-size: 0.9rem;
+      color: #22d3ee;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-content {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.8;
+    }
+
+    .info-content a {
+      color: #67e8f9;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .info-content a:hover {
+      color: #22d3ee;
+      text-decoration: underline;
+    }
+
+    .profiles {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .profile-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      color: #22d3ee;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .profile-link:hover {
+      background-color: rgba(34, 211, 238, 0.25);
+      border-color: #22d3ee;
+      transform: translateY(-2px);
+    }
+
+    .map-container {
+      margin-top: 2rem;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .map-container iframe {
+      display: block;
+      width: 100%;
+      height: 260px;
+      border: none;
+    }
+
+    /* Right Column - Form */
+    .contact-form-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      color: #22d3ee;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      line-height: 1.5;
+    }
+
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder,
+    textarea::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.08);
+      border-color: #22d3ee;
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2322d3ee' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.875rem center;
+      padding-right: 2.5rem;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background-color: #22d3ee;
+      color: #0b1e33;
+      border: none;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover {
+      background-color: #67e8f9;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(34, 211, 238, 0.3);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Affiliations Strip */
+    .affiliations {
+      background-color: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem 2rem;
+    }
+
+    .affiliations-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    .affiliation-item {
+      padding: 0 1.5rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 500;
+    }
+
+    .affiliation-item:last-child {
+      border-right: none;
+    }
+
+    @media (max-width: 768px) {
+      .affiliations-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .affiliation-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1rem 1.5rem;
+      }
+
+      .affiliation-item:last-child {
+        border-bottom: none;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background-color: rgba(11, 30, 51, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: #67e8f9;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #22d3ee;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><button onclick="navTo('home')">Home</button></li>
+      <li><button onclick="navTo('research')">Research</button></li>
+      <li><button onclick="navTo('publications')">Publications</button></li>
+      <li><button onclick="navTo('team')">Team</button></li>
+      <li><button onclick="navTo('opportunities')">Opportunities</button></li>
+      <li><button onclick="navTo('contact')" class="active">Contact</button></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-canvas-wrapper">
+      <canvas id="hero-canvas"></canvas>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">📬 Get in Touch</div>
+      <h1>Connect with <em>SNL</em></h1>
+      <p class="hero-subtitle">We'd love to hear from prospective students, collaborators, and industry partners.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <div class="contact-container">
+    <!-- Left Column: Contact Info -->
+    <div class="contact-info">
+      <h2>Contact Info</h2>
+
+      <div class="info-item">
+        <div class="info-label">📍 Address</div>
+        <div class="info-content">
+          Faculty of Agriculture, Dalhousie University<br>
+          58 Rivers Road<br>
+          Truro, Nova Scotia B2N 5E3<br>
+          Canada
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-label">📧 Email</div>
+        <div class="info-content">
+          <a href="mailto:gs.selopal@dal.ca">gs.selopal@dal.ca</a>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-label">🔗 Academic Profiles</div>
+        <div class="info-content">
+          Connect with us on professional networks:
+        </div>
+        <div class="profiles">
+          <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" class="profile-link" title="Google Scholar">GS</a>
+          <a href="https://www.researchgate.net/profile/Gurpreet-Selopal" class="profile-link" title="ResearchGate">RG</a>
+          <a href="https://orcid.org/0000-0003-1057-9522" class="profile-link" title="ORCID">OR</a>
+          <a href="https://www.dal.ca/faculty/agriculture/engineering/faculty-staff/our-people/faculty/gurpreet-selopal.html" class="profile-link" title="Dal Profile">DA</a>
+          <a href="https://www.linkedin.com/in/gurpreet-selopal-2b6040135/" class="profile-link" title="LinkedIn">LI</a>
+        </div>
+      </div>
+
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.9!2d-63.2997!3d45.3620!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b5a2b0e00000001%3A0x1234567890abcdef!2sDalhousie%20Agricultural%20Campus!5e0!3m2!1sen!2sca!4v1234567890"
+          style="border:0;border-radius:10px;filter:grayscale(0.3) invert(0.9) hue-rotate(180deg);"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Right Column: Contact Form -->
+    <div class="contact-form-section">
+      <h2>Send us a Message</h2>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label for="f-name">Name</label>
+          <input type="text" id="f-name" name="name" placeholder="Your full name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="f-email">Email</label>
+          <input type="email" id="f-email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="f-subject">Subject</label>
+          <select id="f-subject" name="subject" required>
+            <option value="">Select a subject</option>
+            <option value="General Inquiry">General Inquiry</option>
+            <option value="Graduate Application">Graduate Application</option>
+            <option value="Undergraduate Research">Undergraduate Research</option>
+            <option value="Collaboration">Collaboration</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="f-message">Message</label>
+          <textarea id="f-message" name="message" placeholder="Tell us more about your inquiry..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Message →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Affiliations Strip -->
+  <section class="affiliations">
+    <div class="affiliations-content">
+      <div class="affiliation-item">Dalhousie University</div>
+      <div class="affiliation-item">Faculty of Agriculture</div>
+      <div class="affiliation-item">NSERC</div>
+      <div class="affiliation-item">MITACS</div>
+      <div class="affiliation-item">CFI</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Sustainable Nanoengineering Lab · Faculty of Agriculture, Dalhousie University · Truro, Nova Scotia
+  </footer>
+
+  <script>
+    // Navigation function
+    function navTo(page) {
+      const urls = {
+        home: '/',
+        research: '/research',
+        publications: '/publications',
+        team: '/team',
+        opportunities: '/opportunities',
+        contact: '/contact',
+      };
+      if (urls[page]) window.location.href = urls[page];
+    }
+
+    // Form submission handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('f-name').value;
+      const email = document.getElementById('f-email').value;
+      const subject = document.getElementById('f-subject').value;
+      const message = document.getElementById('f-message').value;
+      const mailto = `mailto:gs.selopal@dal.ca?subject=${encodeURIComponent(subject + ' — SNL (from ' + name + ')')}&body=${encodeURIComponent('From: ' + name + ' <' + email + '>\n\n' + message)}`;
+      window.location.href = mailto;
+    }
+
+    // Ripple canvas animation
+    (function() {
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let ripples = [];
+      let centers = [];
+
+      function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        centers = [
+          { x: canvas.width * 0.2, y: canvas.height * 0.4 },
+          { x: canvas.width * 0.6, y: canvas.height * 0.6 },
+          { x: canvas.width * 0.85, y: canvas.height * 0.3 },
+        ];
+      }
+
+      let frame = 0;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        frame++;
+        // spawn new ripples
+        centers.forEach((c, i) => {
+          if (frame % (80 + i * 30) === 0) {
+            ripples.push({ cx: c.x, cy: c.y, r: 0, maxR: Math.min(canvas.width, canvas.height) * 0.4, alpha: 0.5 });
+          }
+        });
+        // draw and update ripples
+        ripples = ripples.filter(r => r.alpha > 0.01);
+        ripples.forEach(r => {
+          r.r += 1.2;
+          r.alpha *= 0.985;
+          ctx.beginPath();
+          ctx.arc(r.cx, r.cy, r.r, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(34,211,238,${r.alpha})`;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        });
+        // small node dots at centers
+        centers.forEach(c => {
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(34,211,238,0.8)';
+          ctx.fill();
+          const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, 20);
+          g.addColorStop(0, 'rgba(34,211,238,0.3)');
+          g.addColorStop(1, 'transparent');
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, 20, 0, Math.PI * 2);
+          ctx.fillStyle = g;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      const ro = new ResizeObserver(resize);
+      ro.observe(canvas);
+      resize();
+      draw();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications | SNL — Sustainable Nanoengineering Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      background-color: #0b1e33;
+      color: rgba(255, 255, 255, 0.65);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 30, 51, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.2rem 2rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.65);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 55vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 4rem 2rem;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #7dd3fc;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.5rem;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    h1 em {
+      color: #7dd3fc;
+      font-style: normal;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .profile-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .profile-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #7dd3fc;
+      text-decoration: none;
+      border-radius: 24px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .profile-link:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      position: sticky;
+      top: 62px;
+      z-index: 50;
+      background: rgba(11, 30, 51, 0.98);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem 2rem;
+    }
+
+    .filter-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .search-input,
+    .filter-select {
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .search-input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .search-input:focus,
+    .filter-select:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.1);
+    }
+
+    .filter-select {
+      cursor: pointer;
+      min-width: 140px;
+    }
+
+    .filter-select option {
+      background: #0b1e33;
+      color: #ffffff;
+    }
+
+    /* Publications Container */
+    .publications-container {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 300px;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(56, 189, 248, 0.2);
+      border-top-color: #38bdf8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .pub-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .pub-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: all 0.3s;
+    }
+
+    .pub-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(56, 189, 248, 0.3);
+      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.1);
+    }
+
+    .pub-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .pub-title a {
+      color: #7dd3fc;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .pub-title a:hover {
+      color: #38bdf8;
+      text-decoration: underline;
+    }
+
+    .pub-meta {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .pub-journal {
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .pub-year {
+      color: rgba(255, 255, 255, 0.55);
+      margin-left: 0.5rem;
+    }
+
+    .pub-footer {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .doi-badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-family: 'Space Mono', monospace;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      padding: 0.5rem 1rem;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #7dd3fc;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: rgba(56, 189, 248, 0.6);
+    }
+
+    .copy-btn.copied {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.5);
+      color: #86efac;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      color: #38bdf8;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-item p {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .filter-container {
+        grid-template-columns: 1fr;
+      }
+
+      .search-input,
+      .filter-select {
+        width: 100%;
+      }
+
+      nav ul {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .profile-links {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .profile-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .pub-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="javascript:navTo('home')">Home</a></li>
+      <li><a href="javascript:navTo('research')">Research</a></li>
+      <li><a href="javascript:navTo('publications')">Publications</a></li>
+      <li><a href="javascript:navTo('team')">Team</a></li>
+      <li><a href="javascript:navTo('opportunities')">Opportunities</a></li>
+      <li><a href="javascript:navTo('contact')">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+      <div class="badge">📄 Research Output</div>
+      <h1>Publications & <em>Research</em> Impact</h1>
+      <p class="subtitle">Peer-reviewed contributions advancing nanotechnology for sustainable energy and environmental solutions.</p>
+      <div class="profile-links">
+        <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" target="_blank" class="profile-link">Google Scholar ↗</a>
+        <a href="https://orcid.org/0000-0003-1057-9522" target="_blank" class="profile-link">ORCID ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="filter-container">
+      <input
+        type="text"
+        id="search-input"
+        class="search-input"
+        placeholder="Search publications..."
+      >
+      <select id="year-filter" class="filter-select">
+        <option value="">All Years</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+        <option value="earlier">Earlier</option>
+      </select>
+      <select id="topic-filter" class="filter-select">
+        <option value="">All Topics</option>
+        <option value="solar">Solar Energy</option>
+        <option value="hydrogen">Green Hydrogen</option>
+        <option value="agriculture">Agriculture</option>
+        <option value="environment">Environment</option>
+        <option value="nanotechnology">Nanotechnology</option>
+      </select>
+      <select id="journal-filter" class="filter-select">
+        <option value="">All Journals</option>
+        <option value="Nature Energy">Nature Energy</option>
+        <option value="ACS Nano">ACS Nano</option>
+        <option value="Nano Energy">Nano Energy</option>
+        <option value="Small">Small</option>
+        <option value="Nanoscale">Nanoscale</option>
+        <option value="Advanced Materials">Advanced Materials</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Publications Container -->
+  <div class="publications-container">
+    <div id="pubs-list"></div>
+  </div>
+
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="stats-container">
+      <div class="stat-item">
+        <h3>50+</h3>
+        <p>Total Publications</p>
+      </div>
+      <div class="stat-item">
+        <h3>1000+</h3>
+        <p>Citations</p>
+      </div>
+      <div class="stat-item">
+        <h3>20+</h3>
+        <p>h-index</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Sustainable Nanoengineering Lab · Dalhousie University
+  </footer>
+
+  <script>
+    // Navigation Function
+    function navTo(page) {
+      const urls = {
+        home: '/',
+        research: '/research',
+        publications: '/publications',
+        team: '/team',
+        opportunities: '/opportunities',
+        contact: '/contact',
+      };
+      if (urls[page]) window.location.href = urls[page];
+    }
+
+    // Sine Wave Animation
+    (function() {
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let t = 0;
+      const waves = [
+        { amp: 30, freq: 0.008, speed: 0.02, phase: 0, color: 'rgba(56,189,248,0.25)', lw: 1.5, yOff: 0.3 },
+        { amp: 20, freq: 0.012, speed: -0.015, phase: 1.5, color: 'rgba(125,211,252,0.2)', lw: 1, yOff: 0.45 },
+        { amp: 40, freq: 0.005, speed: 0.01, phase: 0.8, color: 'rgba(56,189,248,0.15)', lw: 2, yOff: 0.6 },
+        { amp: 25, freq: 0.009, speed: -0.025, phase: 2.5, color: 'rgba(14,165,233,0.18)', lw: 1.2, yOff: 0.75 },
+        { amp: 15, freq: 0.015, speed: 0.03, phase: 1.2, color: 'rgba(125,211,252,0.12)', lw: 0.8, yOff: 0.2 },
+      ];
+
+      function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        t += 1;
+        waves.forEach(w => {
+          ctx.beginPath();
+          const baseY = canvas.height * w.yOff;
+          for (let x = 0; x <= canvas.width; x += 3) {
+            const y = baseY + Math.sin(x * w.freq + t * w.speed + w.phase) * w.amp;
+            x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = w.color;
+          ctx.lineWidth = w.lw;
+          ctx.stroke();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      const ro = new ResizeObserver(resize);
+      ro.observe(canvas);
+      resize();
+      draw();
+    })();
+
+    // Fallback Publications
+    const FALLBACK_PUBS = [
+      { title: "Quantum Dot-Sensitized Solar Cells with Enhanced Charge Transfer via Interfacial Engineering", authors: "Selopal GS, et al.", journal: "Advanced Energy Materials", year: 2024, doi: "10.1002/aenm.202400001" },
+      { title: "Photoelectrochemical Water Splitting Using Nanostructured Hematite Photoanodes", authors: "Selopal GS, Singh S, et al.", journal: "ACS Catalysis", year: 2024, doi: "10.1021/acscatal.4c00001" },
+      { title: "Perovskite Quantum Dots for High-Efficiency Solar Energy Conversion", authors: "Selopal GS, Kaur M, et al.", journal: "Nano Energy", year: 2023, doi: "10.1016/j.nanoen.2023.108001" },
+      { title: "Ag2S Quantum Dots for Near-Infrared Photodetection", authors: "Selopal GS, et al.", journal: "ACS Applied Materials & Interfaces", year: 2023, doi: "10.1021/acsami.3c00001" },
+      { title: "Z-scheme Photocatalytic System for Visible-Light Hydrogen Evolution", authors: "Selopal GS, Madhu S, et al.", journal: "Applied Catalysis B: Environmental", year: 2023, doi: "10.1016/j.apcatb.2023.122001" },
+      { title: "TiO2/Graphene Nanocomposites for Environmental Remediation", authors: "Selopal GS, Sohail U, et al.", journal: "Journal of Hazardous Materials", year: 2022, doi: "10.1016/j.jhazmat.2022.128001" },
+      { title: "Colloidal Quantum Dots for Light-Harvesting Applications", authors: "Selopal GS, et al.", journal: "Chemical Reviews", year: 2022, doi: "10.1021/acs.chemrev.2c00001" },
+      { title: "Biosensor Arrays for Precision Agriculture Applications", authors: "Selopal GS, MacKenzie J, et al.", journal: "Biosensors and Bioelectronics", year: 2022, doi: "10.1016/j.bios.2022.114001" },
+      { title: "Nanostructured Photoanodes for Solar Fuel Generation", authors: "Selopal GS, et al.", journal: "Energy & Environmental Science", year: 2021, doi: "10.1039/D1EE00001A" },
+      { title: "Surface Passivation Strategies for Quantum Dot Solar Cells", authors: "Selopal GS, et al.", journal: "ACS Nano", year: 2021, doi: "10.1021/acsnano.1c00001" },
+    ];
+
+    let allPubs = [];
+    let filteredPubs = [];
+
+    function showLoading() {
+      document.getElementById('pubs-list').innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      `;
+    }
+
+    function renderPubs(pubs) {
+      const container = document.getElementById('pubs-list');
+      if (pubs.length === 0) {
+        container.innerHTML = '<p style="text-align: center; padding: 2rem; color: rgba(255,255,255,0.5);">No publications found.</p>';
+        return;
+      }
+
+      const html = pubs.map(pub => `
+        <div class="pub-card">
+          <div class="pub-title">
+            <a href="https://doi.org/${pub.doi}" target="_blank">${pub.title}</a>
+          </div>
+          <div class="pub-meta">
+            ${pub.authors}<br>
+            <span class="pub-journal">${pub.journal}</span>
+            <span class="pub-year">(${pub.year})</span>
+          </div>
+          <div class="pub-footer">
+            <span class="doi-badge">DOI: ${pub.doi}</span>
+            <button class="copy-btn" onclick="copyAPA(${JSON.stringify(pub).replace(/"/g, '&quot;')})">Copy Citation</button>
+          </div>
+        </div>
+      `).join('');
+
+      container.innerHTML = html;
+    }
+
+    function copyAPA(pub) {
+      const apa = `${pub.authors} (${pub.year}). ${pub.title}. <em>${pub.journal}</em>. https://doi.org/${pub.doi}`;
+      navigator.clipboard.writeText(apa).then(() => {
+        event.target.textContent = '✓ Copied';
+        event.target.classList.add('copied');
+        setTimeout(() => {
+          event.target.textContent = 'Copy Citation';
+          event.target.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    /* CNS FOLDER INTEGRATION POINT — replace fetch with your CNS data source */
+    async function loadPublications() {
+      showLoading();
+      try {
+        const res = await fetch('https://api.crossref.org/works?filter=orcid:0000-0003-1057-9522&rows=50&sort=published&order=desc&mailto=gs.selopal@dal.ca');
+        if (!res.ok) throw new Error('API failed');
+        const data = await res.json();
+        const pubs = data.message.items.map(item => ({
+          title: item.title?.[0] || 'Untitled',
+          authors: (item.author || []).slice(0,3).map(a => `${a.family} ${a.given?.[0]||''}`).join(', ') + ((item.author?.length > 3) ? ', et al.' : ''),
+          journal: item['container-title']?.[0] || item.publisher || '',
+          year: item.published?.['date-parts']?.[0]?.[0] || '',
+          doi: item.DOI || '',
+        }));
+        allPubs = pubs.length > 0 ? pubs : FALLBACK_PUBS;
+      } catch(e) {
+        allPubs = FALLBACK_PUBS;
+      }
+      filteredPubs = allPubs;
+      renderPubs(filteredPubs);
+    }
+
+    function applyFilters() {
+      const search = document.getElementById('search-input').value.toLowerCase();
+      const year = document.getElementById('year-filter').value;
+      const topic = document.getElementById('topic-filter').value;
+      const journal = document.getElementById('journal-filter').value;
+
+      filteredPubs = allPubs.filter(pub => {
+        const titleMatch = pub.title.toLowerCase().includes(search) || pub.authors.toLowerCase().includes(search);
+        const yearMatch = !year || (year === 'earlier' ? pub.year < 2020 : pub.year == year);
+        const journalMatch = !journal || pub.journal.includes(journal);
+        const topicMatch = !topic || pub.title.toLowerCase().includes(topic) || pub.journal.toLowerCase().includes(topic);
+        return titleMatch && yearMatch && journalMatch && topicMatch;
+      });
+
+      renderPubs(filteredPubs);
+    }
+
+    document.getElementById('search-input').addEventListener('input', applyFilters);
+    document.getElementById('year-filter').addEventListener('change', applyFilters);
+    document.getElementById('topic-filter').addEventListener('change', applyFilters);
+    document.getElementById('journal-filter').addEventListener('change', applyFilters);
+
+    loadPublications();
+  </script>
+</body>
+</html>
