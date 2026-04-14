@@ -316,9 +316,9 @@
     }
 
     .team-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 0.5rem;
+      width: 96px;
+      height: 96px;
+      border-radius: 0.6rem;
       margin: 0 auto 1.5rem;
       display: flex;
       align-items: center;
@@ -327,7 +327,16 @@
       font-size: 1.8rem;
       color: #ffffff;
       font-weight: 700;
-      border: 2px solid rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
     }
 
     .avatar-1 { background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%); }
@@ -582,8 +591,8 @@
     <section style="margin-bottom:3.5rem;">
       <div style="position:relative;border-radius:1rem;overflow:hidden;aspect-ratio:16/7;border:1px solid rgba(255,255,255,0.08);">
         <img src="/assets/images/teampicture.jpeg" alt="SNL Lab Team"
-             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(3,7,15,0.8) 100%);"></div>
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 70%;display:block;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,rgba(3,7,15,0.8) 100%);"></div>
         <div style="position:absolute;bottom:1.5rem;left:2rem;">
           <p style="margin:0;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Sustainable Nanoengineering Lab · Dalhousie University</p>
         </div>
@@ -597,11 +606,12 @@
       </div>
       <div class="team-grid">
         <div class="team-card" style="animation-delay: 0.1s">
-          <div class="team-avatar avatar-1">MK</div>
-          <h3 class="team-name">Dr. Manmeet Kaur</h3>
-          <div class="team-role">Postdoctoral Fellow</div>
-          <div class="team-badge">McCain Postdoctoral Fellowship</div>
-          <p class="team-focus">Quantum dot synthesis and solar applications</p>
+          <div class="team-avatar avatar-1"><img src="/assets/images/Manmeet.jpeg" alt="Dr. Manmeet Chhina"></div>
+          <h3 class="team-name">Dr. Manmeet Chhina</h3>
+          <div class="team-role">Postdoctoral Research Fellow</div>
+          <div class="team-badge">McCain Fellowship Scholar</div>
+          <p class="team-focus">Nanofertilizers, carbon dot-based luminescent solar concentrators, and building-integrated photovoltaics</p>
+          <a href="https://www.linkedin.com/in/manmeet-chhina-phd-869558151" class="team-email" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
@@ -613,12 +623,20 @@
       </div>
       <div class="team-grid">
         <div class="team-card" style="animation-delay: 0.1s">
-          <div class="team-avatar avatar-2">SS</div>
+          <div class="team-avatar avatar-2"><img src="/assets/images/sukhjinder.jpeg" alt="Sukhjinder Singh"></div>
           <h3 class="team-name">Sukhjinder Singh</h3>
-          <div class="team-role">PhD Candidate</div>
+          <div class="team-role">PhD Student</div>
           <div class="team-badge">FGS Harmonized Scholarship</div>
-          <p class="team-focus">Photoelectrochemical water splitting</p>
-          <a href="mailto:Singh.S@dal.ca" class="team-email">Singh.S@dal.ca</a>
+          <p class="team-focus">Photoelectrochemical water splitting and 2D nanomaterials</p>
+          <a href="https://www.linkedin.com/in/sukhjinder-singh-4b738824b" class="team-email" target="_blank">LinkedIn</a>
+        </div>
+        <div class="team-card" style="animation-delay: 0.15s">
+          <div class="team-avatar avatar-3"><img src="/assets/images/Kokilavani.jpeg" alt="Kokilavani S"></div>
+          <h3 class="team-name">Kokilavani S</h3>
+          <div class="team-role">PhD Student</div>
+          <div class="team-badge">DRES Awardee · NSGD Scholar</div>
+          <p class="team-focus">Luminescent solar concentrator photomicroreactor for nitrate reduction to ammonia</p>
+          <a href="https://www.linkedin.com/in/kokilavani-20102000" class="team-email" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
@@ -630,58 +648,50 @@
       </div>
       <div class="team-grid">
         <div class="team-card" style="animation-delay: 0.1s">
-          <div class="team-avatar avatar-3">SM</div>
+          <div class="team-avatar avatar-4"><img src="/assets/images/swedha.avif" alt="Swedha Madhu"></div>
           <h3 class="team-name">Swedha Madhu</h3>
           <div class="team-role">MSc Student</div>
-          <p class="team-focus">Photocatalysis</p>
+          <p class="team-focus">Nanotechnology for sustainable agriculture and environmental remediation of pharmaceuticals and pesticides</p>
+          <a href="https://www.linkedin.com/in/swedha-madhu" class="team-email" target="_blank">LinkedIn</a>
         </div>
         <div class="team-card" style="animation-delay: 0.15s">
-          <div class="team-avatar avatar-4">US</div>
+          <div class="team-avatar avatar-5"><img src="/assets/images/umair.jpeg" alt="Umair Sohail"></div>
           <h3 class="team-name">Umair Sohail</h3>
           <div class="team-role">MSc Student</div>
-          <p class="team-focus">Environmental remediation</p>
+          <p class="team-focus">Clean energy production using quantum dots and electrocatalysts for hydrogen evolution</p>
+          <a href="https://www.linkedin.com/in/umair-sohail-b5b483179" class="team-email" target="_blank">LinkedIn</a>
         </div>
         <div class="team-card" style="animation-delay: 0.2s">
-          <div class="team-avatar avatar-5">MG</div>
-          <h3 class="team-name">Msughter J. Guusu</h3>
+          <div class="team-avatar avatar-6"><img src="/assets/images/guusu.jpeg" alt="Msughter Joseph Guusu"></div>
+          <h3 class="team-name">Msughter Joseph Guusu</h3>
           <div class="team-role">MSc Student</div>
-          <p class="team-focus">Nano-sensors</p>
+          <div class="team-badge">BMO Scholar</div>
+          <p class="team-focus">Quantum dots for renewable energy and nano-sensor applications</p>
+          <a href="https://www.linkedin.com/in/msughter-joseph-guusu-baa743180" class="team-email" target="_blank">LinkedIn</a>
+        </div>
+        <div class="team-card" style="animation-delay: 0.25s">
+          <div class="team-avatar avatar-7"><img src="/assets/images/joshita.jpeg" alt="Joshita P S"></div>
+          <h3 class="team-name">Joshita P S</h3>
+          <div class="team-role">MSc Student</div>
+          <p class="team-focus">Crop growth dynamics under spectrum-controlled greenhouse roofs</p>
+          <a href="https://www.linkedin.com/in/joshitaps" class="team-email" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
 
-    <!-- Undergraduate / Interns Section -->
+    <!-- Undergraduate Researchers Section -->
     <section>
       <div class="section-header">
-        <h2>Undergraduate Researchers & Interns</h2>
+        <h2>Undergraduate Researchers</h2>
       </div>
       <div class="team-grid">
         <div class="team-card" style="animation-delay: 0.1s">
-          <div class="team-avatar avatar-6">JM</div>
+          <div class="team-avatar avatar-1"><img src="/assets/images/jayden.jpeg" alt="Jayden MacKenzie"></div>
           <h3 class="team-name">Jayden MacKenzie</h3>
           <div class="team-role">Undergraduate Researcher</div>
           <div class="team-badge">2× NSERC USRA</div>
-          <p class="team-focus">Materials synthesis and characterization</p>
-        </div>
-        <div class="team-card" style="animation-delay: 0.15s">
-          <div class="team-avatar avatar-7">AB</div>
-          <h3 class="team-name">Akshit Bhalla</h3>
-          <div class="team-role">Undergraduate Researcher</div>
-          <p class="team-focus">Nanostructure design and testing</p>
-        </div>
-        <div class="team-card" style="animation-delay: 0.2s">
-          <div class="team-avatar avatar-1">JS</div>
-          <h3 class="team-name">Jonathan Uriel Saldana Lozano</h3>
-          <div class="team-role">Intern</div>
-          <div class="team-badge">MITACS Globalink</div>
-          <p class="team-focus">Photovoltaic device optimization</p>
-        </div>
-        <div class="team-card" style="animation-delay: 0.25s">
-          <div class="team-avatar avatar-2">AP</div>
-          <h3 class="team-name">Aditi Prabhu</h3>
-          <div class="team-role">Intern</div>
-          <div class="team-badge">MITACS Globalink</div>
-          <p class="team-focus">Hydrogen production research</p>
+          <p class="team-focus">Quantum dots, carbon quantum dots, and luminescent solar concentrators</p>
+          <a href="https://www.linkedin.com/in/jaydenmackenzie" class="team-email" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
