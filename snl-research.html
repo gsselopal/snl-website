@@ -137,13 +137,6 @@
       overflow: hidden;
     }
 
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
     .hero-content {
       position: relative;
       z-index: 1;
@@ -245,13 +238,6 @@
       align-items: flex-start;
       gap: 1rem;
       margin-bottom: 1rem;
-    }
-
-    .pillar-icon {
-      font-size: 2.5rem;
-      min-width: 3rem;
-      text-align: center;
-      margin-top: -0.25rem;
     }
 
     .pillar-header-text h3 {
@@ -384,10 +370,7 @@
       transform: translateY(-4px);
     }
 
-    .technique-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
+
 
     .technique-card h3 {
       font-size: 1.25rem;
@@ -556,7 +539,6 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <canvas id="hero-canvas"></canvas>
     <div class="hero-content">
       <div class="hero-badge">Research Focus Areas</div>
       <h1>Pioneering <em>Sustainable</em> Nano-Materials</h1>
@@ -571,7 +553,6 @@
         <!-- Pillar 0: Photoelectrochemical Solar Energy -->
         <div class="pillar-card" onclick="togglePillar(0)">
           <div class="pillar-header">
-            <div class="pillar-icon"></div>
             <div class="pillar-header-text">
               <h3>Photoelectrochemical Solar Energy</h3>
             </div>
@@ -593,8 +574,8 @@
               </ul>
             </div>
             <div class="pillar-actions">
-              <button class="pillar-btn" onclick="navTo('publications')">View Publications →</button>
-              <button class="pillar-btn" onclick="navTo('contact')">Collaborate →</button>
+              <a class="pillar-btn" href="/publications">View Publications →</a>
+              <a class="pillar-btn" href="/contact">Collaborate →</a>
             </div>
           </div>
         </div>
@@ -602,7 +583,6 @@
         <!-- Pillar 1: Green Hydrogen Production -->
         <div class="pillar-card" onclick="togglePillar(1)">
           <div class="pillar-header">
-            <div class="pillar-icon"></div>
             <div class="pillar-header-text">
               <h3>Green Hydrogen Production</h3>
             </div>
@@ -624,8 +604,8 @@
               </ul>
             </div>
             <div class="pillar-actions">
-              <button class="pillar-btn" onclick="navTo('publications')">View Publications →</button>
-              <button class="pillar-btn" onclick="navTo('contact')">Collaborate →</button>
+              <a class="pillar-btn" href="/publications">View Publications →</a>
+              <a class="pillar-btn" href="/contact">Collaborate →</a>
             </div>
           </div>
         </div>
@@ -633,7 +613,6 @@
         <!-- Pillar 2: Precision Agriculture & Nano-Sensors -->
         <div class="pillar-card" onclick="togglePillar(2)">
           <div class="pillar-header">
-            <div class="pillar-icon"></div>
             <div class="pillar-header-text">
               <h3>Precision Agriculture & Nano-Sensors</h3>
             </div>
@@ -655,8 +634,8 @@
               </ul>
             </div>
             <div class="pillar-actions">
-              <button class="pillar-btn" onclick="navTo('publications')">View Publications →</button>
-              <button class="pillar-btn" onclick="navTo('contact')">Collaborate →</button>
+              <a class="pillar-btn" href="/publications">View Publications →</a>
+              <a class="pillar-btn" href="/contact">Collaborate →</a>
             </div>
           </div>
         </div>
@@ -664,7 +643,6 @@
         <!-- Pillar 3: Environmental Remediation -->
         <div class="pillar-card" onclick="togglePillar(3)">
           <div class="pillar-header">
-            <div class="pillar-icon"></div>
             <div class="pillar-header-text">
               <h3>Environmental Remediation</h3>
             </div>
@@ -686,8 +664,8 @@
               </ul>
             </div>
             <div class="pillar-actions">
-              <button class="pillar-btn" onclick="navTo('publications')">View Publications →</button>
-              <button class="pillar-btn" onclick="navTo('contact')">Collaborate →</button>
+              <a class="pillar-btn" href="/publications">View Publications →</a>
+              <a class="pillar-btn" href="/contact">Collaborate →</a>
             </div>
           </div>
         </div>
@@ -701,32 +679,26 @@
       <h2>Techniques & Tools</h2>
       <div class="techniques-grid">
         <div class="technique-card">
-          <div class="technique-icon"></div>
           <h3>Electron Microscopy</h3>
           <p>TEM/SEM for nanoscale imaging and structural analysis</p>
         </div>
         <div class="technique-card">
-          <div class="technique-icon"></div>
           <h3>X-Ray Diffraction</h3>
           <p>XRD for crystal phase identification and characterization</p>
         </div>
         <div class="technique-card">
-          <div class="technique-icon"></div>
           <h3>UV-Vis Spectroscopy</h3>
           <p>Optical absorption and bandgap measurements</p>
         </div>
         <div class="technique-card">
-          <div class="technique-icon"></div>
           <h3>Electrochemical Analysis</h3>
           <p>CV, EIS, and photoelectrochemical measurements</p>
         </div>
         <div class="technique-card">
-          <div class="technique-icon"></div>
           <h3>Thermal Analysis</h3>
           <p>TGA/DSC for thermal stability and decomposition studies</p>
         </div>
         <div class="technique-card">
-          <div class="technique-icon"></div>
           <h3>Photoluminescence Spectroscopy</h3>
           <p>Fluorescence and quantum yield characterization</p>
         </div>
@@ -780,93 +752,6 @@
         cards[idx].classList.add('open');
       }
     }
-
-    // Orbital electron rings animation
-    (function() {
-      const canvas = document.getElementById('hero-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let rings = [];
-      let t = 0;
-
-      function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        initRings();
-      }
-
-      function initRings() {
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
-        rings = [
-          { cx, cy, rx: canvas.width * 0.15, ry: canvas.height * 0.12, tilt: 0.3, speed: 0.008, color: 'rgba(245,158,11,0.5)', dotColor: '#f59e0b', dotR: 4 },
-          { cx, cy, rx: canvas.width * 0.28, ry: canvas.height * 0.2, tilt: -0.5, speed: -0.005, color: 'rgba(251,191,36,0.35)', dotColor: '#fbbf24', dotR: 3 },
-          { cx, cy, rx: canvas.width * 0.42, ry: canvas.height * 0.3, tilt: 0.8, speed: 0.003, color: 'rgba(245,158,11,0.2)', dotColor: '#f59e0b', dotR: 2.5 },
-          { cx, cy, rx: canvas.width * 0.55, ry: canvas.height * 0.38, tilt: -0.2, speed: -0.002, color: 'rgba(251,191,36,0.15)', dotColor: '#fbbf24', dotR: 2 },
-        ];
-      }
-
-      function drawEllipse(ring, angle) {
-        // Draw the elliptical orbit ring
-        ctx.beginPath();
-        ctx.save();
-        ctx.translate(ring.cx, ring.cy);
-        ctx.rotate(ring.tilt);
-        ctx.scale(1, ring.ry / ring.rx);
-        ctx.arc(0, 0, ring.rx, 0, Math.PI * 2);
-        ctx.restore();
-        ctx.strokeStyle = ring.color;
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-
-        // Draw orbiting dot
-        const dotX = ring.cx + Math.cos(angle) * ring.rx * Math.cos(ring.tilt) - Math.sin(angle) * ring.ry * Math.sin(ring.tilt);
-        const dotY = ring.cy + Math.cos(angle) * ring.rx * Math.sin(ring.tilt) + Math.sin(angle) * ring.ry * Math.cos(ring.tilt);
-        ctx.beginPath();
-        ctx.arc(dotX, dotY, ring.dotR, 0, Math.PI * 2);
-        ctx.fillStyle = ring.dotColor;
-        ctx.fill();
-        // glow
-        const g = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, ring.dotR * 5);
-        g.addColorStop(0, ring.dotColor.replace(')', ',0.4)').replace('rgb', 'rgba'));
-        g.addColorStop(1, 'transparent');
-        ctx.beginPath();
-        ctx.arc(dotX, dotY, ring.dotR * 5, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        t += 1;
-        // Central nucleus glow
-        const cx = canvas.width / 2, cy = canvas.height / 2;
-        const ng = ctx.createRadialGradient(cx, cy, 0, cx, cy, 40);
-        ng.addColorStop(0, 'rgba(245,158,11,0.4)');
-        ng.addColorStop(0.5, 'rgba(245,158,11,0.1)');
-        ng.addColorStop(1, 'transparent');
-        ctx.beginPath();
-        ctx.arc(cx, cy, 40, 0, Math.PI * 2);
-        ctx.fillStyle = ng;
-        ctx.fill();
-        // nucleus dot
-        ctx.beginPath();
-        ctx.arc(cx, cy, 5, 0, Math.PI * 2);
-        ctx.fillStyle = '#f59e0b';
-        ctx.fill();
-
-        rings.forEach((ring, i) => {
-          drawEllipse(ring, t * ring.speed + i * 0.8);
-        });
-        requestAnimationFrame(draw);
-      }
-
-      const ro = new ResizeObserver(resize);
-      ro.observe(canvas);
-      resize();
-      draw();
-    })();
-
     // Full-page background particle animation
     (function() {
       const canvas = document.getElementById('bg-canvas');
