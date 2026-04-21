@@ -151,6 +151,24 @@
     .supporter-card img { max-width: 130px; max-height: 55px; width: auto; height: auto; object-fit: contain; filter: grayscale(10%); transition: filter 0.2s; }
     .supporter-card:hover img { filter: grayscale(0%); }
     .supporter-card-label { font-size: 0.63rem; font-weight: 700; text-align: center; line-height: 1.4; }
+
+    /* ── Mobile ─────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero { padding: 3rem 1.25rem; min-height: 55vh; }
+      .hero h1 { font-size: 2rem; }
+      .container { padding: 0 1.25rem; }
+      .framework-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .subthemes-grid { grid-template-columns: 1fr; }
+      .grants-grid { grid-template-columns: 1fr; }
+      section { padding: 3rem 0; }
+      .section-intro { padding: 0 1.25rem; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.7rem; }
+      .theme-tabs { gap: 0.5rem; }
+      .theme-tab { padding: 0.5rem 0.9rem; font-size: 0.78rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -614,13 +632,9 @@
       <div class="grants-header">
         <div class="hero-badge">Research Funding · Dalhousie (2022 – Present)</div>
         <h2>Grants & Active Projects</h2>
-        <p>Dr. Selopal has secured over $8.79 million in research funding since joining Dalhousie, spanning clean energy, sustainable agriculture, and precision nanotechnology — through NSERC, CFI, MITACS, and government partnerships.</p>
+        <p>Dr. Selopal has secured significant research funding since joining Dalhousie, spanning clean energy, sustainable agriculture, and precision nanotechnology — through NSERC, CFI, MITACS, and government partnerships.</p>
       </div>
       <div class="grants-totals">
-        <div class="grants-total-pill">
-          <div class="grants-total-num">$8.8M+</div>
-          <div class="grants-total-lbl">Total Research Funding<br>2022 – 2025</div>
-        </div>
         <div class="grants-total-pill">
           <div class="grants-total-num">20</div>
           <div class="grants-total-lbl">Active &amp; Recent Grants<br>across federal &amp; provincial agencies</div>

@@ -162,6 +162,32 @@
     .supporter-card img { max-width: 130px; max-height: 55px; width: auto; height: auto; object-fit: contain; filter: grayscale(10%); transition: filter 0.2s; }
     .supporter-card:hover img { filter: grayscale(0%); }
     .supporter-card-label { font-size: 0.63rem; font-weight: 700; text-align: center; line-height: 1.4; }
+
+    /* ── Mobile ─────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero { min-height: 70vh; padding: 3rem 1.25rem; }
+      .hero h1 { font-size: 2.2rem; letter-spacing: -0.5px; }
+      .hero-subtitle { font-size: 0.95rem; }
+      .section-header h2 { font-size: 1.8rem; }
+      .research-pillars, .lab-carousel, .team-preview, .opportunities-cta, .courses-section { margin: 3rem auto; padding: 0 1.25rem; }
+      .news-section { padding: 3rem 1.25rem; }
+      .pillars-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .news-grid { grid-template-columns: 1fr; }
+      .team-cards { grid-template-columns: 1fr; }
+      .opportunities-box { padding: 2.5rem 1.25rem; }
+      .courses-card { flex-direction: column; gap: 1.5rem; padding: 1.75rem 1.25rem; }
+      .courses-intro { flex: none; }
+      .hero-stats { grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
+      .stat-number { font-size: 1.7rem; }
+      .hero-buttons { gap: 0.75rem; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.75rem; }
+      .hero-buttons { flex-direction: column; }
+      .btn { width: 100%; text-align: center; }
+      .pillars-grid { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
@@ -197,9 +223,7 @@
     <!-- Funding callout -->
     <div class="funding-callout">
       <div class="funding-pill">
-        <span class="funding-pill-num">$8.8M</span>
-        <span class="funding-pill-sep"></span>
-        <span class="funding-pill-label">in research funding secured since 2022 across 20 active grants</span>
+        <span class="funding-pill-label">20 active grants since 2022 across federal &amp; provincial agencies</span>
       </div>
     </div>
 

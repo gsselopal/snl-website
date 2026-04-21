@@ -124,6 +124,23 @@
     .supporter-card img { max-width: 130px; max-height: 55px; width: auto; height: auto; object-fit: contain; filter: grayscale(10%); transition: filter 0.2s; }
     .supporter-card:hover img { filter: grayscale(0%); }
     .supporter-card-label { font-size: 0.63rem; font-weight: 700; text-align: center; line-height: 1.4; }
+
+    /* ── Mobile ─────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero { padding: 3rem 1.25rem; min-height: 50vh; }
+      .hero h1 { font-size: 2rem; }
+      .container { padding: 0 1.25rem; }
+      .pi-card { flex-direction: column; gap: 1.5rem; padding: 1.75rem 1.25rem; }
+      .pi-photo { width: 140px; height: 140px; margin: 0 auto; }
+      .team-grid { grid-template-columns: repeat(2,1fr); gap: 1rem; }
+      .section-block { padding: 3rem 1.25rem; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.7rem; }
+      .team-grid { grid-template-columns: 1fr; }
+      .pi-stats { grid-template-columns: repeat(2,1fr); }
+    }
+
   </style>
 </head>
 <body>
