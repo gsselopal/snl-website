@@ -327,7 +327,7 @@
 
   <nav class="tab-nav">
     <button class="tab-nav-btn active" data-tab="news"         onclick="switchTab('news')">📰 News</button>
-    <button class="tab-nav-btn"        data-tab="team"         onclick="switchTab('team')">👥 Team</button>
+    <button class="tab-nav-btn"        data-tab="team"         onclick="switchTab('team');loadLinkedIn()">👥 Team</button>
     <button class="tab-nav-btn"        data-tab="covers"       onclick="switchTab('covers')">🖼 Journal Covers</button>
     <button class="tab-nav-btn"        data-tab="publications" onclick="switchTab('publications');loadPubsTab()">📄 Publications</button>
     <button class="tab-nav-btn"        data-tab="profile"      onclick="switchTab('profile');loadProfile()">👤 Profile</button>
@@ -448,6 +448,10 @@
         <input type="email" id="t-email" placeholder="e.g. student@dal.ca">
       </div>
       <div class="form-group">
+        <label>LinkedIn URL <span style="color:#94a3b8;font-weight:400">(optional)</span></label>
+        <input type="url" id="t-linkedin" placeholder="e.g. https://www.linkedin.com/in/username">
+      </div>
+      <div class="form-group">
         <label>Profile Photo <span style="color:#94a3b8;font-weight:400">(optional)</span></label>
         <div id="t-photo-drop" class="file-drop" onclick="document.getElementById('t-photo-file').click()" ondragover="handleDragOver(event,'t-photo-drop')" ondragleave="handleDragLeave('t-photo-drop')" ondrop="handleDrop(event,'t-photo-drop','t-photo-file','t-photo-preview')">
           <input type="file" id="t-photo-file" accept="image/*" onchange="previewFile('t-photo-file','t-photo-preview','t-photo-drop')">
@@ -462,6 +466,56 @@
         <button class="btn-primary" onclick="saveTeamMember()">Save Member</button>
         <button class="btn-secondary" id="cancel-edit-btn" onclick="cancelEdit()" style="display:none">Cancel Edit</button>
         <span id="team-form-msg"></span>
+      </div>
+    </div>
+
+
+    <!-- LinkedIn quick-edit -->
+    <div class="form-card" style="margin-top:2rem;">
+      <h3>Student LinkedIn URLs</h3>
+      <p class="form-hint" style="margin-bottom:1.25rem;">Update LinkedIn profile links for each current team member. Leave blank to keep the existing link.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Dr. Manmeet Chhina <span style="color:#94a3b8;font-weight:400">· Postdoc</span></label>
+          <input type="url" id="li-manmeet" placeholder="https://www.linkedin.com/in/...">
+        </div>
+        <div class="form-group">
+          <label>Sukhjinder Singh <span style="color:#94a3b8;font-weight:400">· PhD</span></label>
+          <input type="url" id="li-sukhjinder" placeholder="https://www.linkedin.com/in/...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Kokilavani S <span style="color:#94a3b8;font-weight:400">· PhD</span></label>
+          <input type="url" id="li-kokilavani" placeholder="https://www.linkedin.com/in/...">
+        </div>
+        <div class="form-group">
+          <label>Umair Sohail <span style="color:#94a3b8;font-weight:400">· MSc</span></label>
+          <input type="url" id="li-umair" placeholder="https://www.linkedin.com/in/...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Msughter Joseph Guusu <span style="color:#94a3b8;font-weight:400">· MSc</span></label>
+          <input type="url" id="li-guusu" placeholder="https://www.linkedin.com/in/...">
+        </div>
+        <div class="form-group">
+          <label>Joshita P S <span style="color:#94a3b8;font-weight:400">· MSc</span></label>
+          <input type="url" id="li-joshita" placeholder="https://www.linkedin.com/in/...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Jayden MacKenzie <span style="color:#94a3b8;font-weight:400">· MSc</span></label>
+          <input type="url" id="li-jayden" placeholder="https://www.linkedin.com/in/...">
+        </div>
+        <div class="form-group"></div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-primary" onclick="saveLinkedIn()">💾 Save LinkedIn URLs</button>
+        <span id="linkedin-msg"></span>
       </div>
     </div>
 
@@ -1753,6 +1807,47 @@ async function saveHomeContent() {
     setMsg('home-content-msg', '✓ Saved!');
     showToast('Home hero text saved');
   } catch(e) { setMsg('home-content-msg', '✗ ' + e.message, true); }
+}
+
+
+// ══════════════════════════════════════════════════════════════════════════
+//  LINKEDIN URLS
+// ══════════════════════════════════════════════════════════════════════════
+const LI_KEYS = ['manmeet','sukhjinder','kokilavani','umair','guusu','joshita','jayden'];
+
+async function loadLinkedIn() {
+  const cfg = getCfg();
+  if (!cfg.url || !cfg.key) return;
+  try {
+    const res = await sbFetch('site_content?section=eq.student_linkedin&select=section,data');
+    const rows = await res.json();
+    if (!Array.isArray(rows) || rows.length === 0) return;
+    const d = rows[0].data || {};
+    LI_KEYS.forEach(k => {
+      const el = document.getElementById('li-' + k);
+      if (el && d[k]) el.value = d[k];
+    });
+  } catch(e) {}
+}
+
+async function saveLinkedIn() {
+  const cfg = getCfg();
+  if (!cfg.url || !cfg.key) { setMsg('linkedin-msg', '⚠ Configure Supabase in Settings first', true); return; }
+  const data = {};
+  LI_KEYS.forEach(k => {
+    const el = document.getElementById('li-' + k);
+    if (el && el.value.trim()) data[k] = el.value.trim();
+  });
+  try {
+    const res = await sbFetch('site_content?on_conflict=section', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ section: 'student_linkedin', data })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    setMsg('linkedin-msg', '✓ LinkedIn URLs saved!');
+    showToast('Student LinkedIn URLs updated — live on Team page');
+  } catch(e) { setMsg('linkedin-msg', '✗ ' + e.message, true); }
 }
 
 // ══════════════════════════════════════════════════════════════════════════

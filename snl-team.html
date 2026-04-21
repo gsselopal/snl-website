@@ -225,7 +225,7 @@
           <div class="team-role">Postdoctoral Research Fellow</div>
           <div class="team-badge">McCain Fellowship Scholar</div>
           <p class="team-focus">Nanofertilizers, carbon dot-based luminescent solar concentrators, and building-integrated photovoltaics</p>
-          <a href="https://www.linkedin.com/in/manmeet-chhina-phd-869558151" class="team-link-btn" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/manmeet-chhina-phd-869558151" id="li-manmeet" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
@@ -240,7 +240,7 @@
           <div class="team-role">PhD Student</div>
           <div class="team-badge">FGS Harmonized Scholarship</div>
           <p class="team-focus">Triboelectric nanogenerators and 2D nanomaterials for clean energy applications</p>
-          <a href="https://www.linkedin.com/in/sukhjinder-singh-4b738824b" class="team-link-btn" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/sukhjinder-singh-4b738824b" id="li-sukhjinder" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
         <div class="team-card" style="animation-delay:0.15s">
           <div class="team-avatar avatar-3"><img src="/assets/images/Kokilavani.jpeg" alt="Kokilavani S"></div>
@@ -248,7 +248,7 @@
           <div class="team-role">PhD Student</div>
           <div class="team-badge">DRES Awardee · NSGD Scholar</div>
           <p class="team-focus">Luminescent solar concentrator photomicroreactor for nitrate reduction to ammonia</p>
-          <a href="https://www.linkedin.com/in/kokilavani-20102000" class="team-link-btn" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/kokilavani-20102000" id="li-kokilavani" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
@@ -263,7 +263,7 @@
           <div class="team-role">MSc Student</div>
           <div class="team-badge">KILM Scholar</div>
           <p class="team-focus">Clean energy production using quantum dots and electrocatalysts for hydrogen evolution</p>
-          <a href="https://www.linkedin.com/in/umair-sohail-b5b483179" class="team-link-btn" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/umair-sohail-b5b483179" id="li-umair" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
         <div class="team-card" style="animation-delay:0.15s">
           <div class="team-avatar avatar-5"><img src="/assets/images/guusu.jpeg" alt="Msughter Joseph Guusu"></div>
@@ -271,14 +271,14 @@
           <div class="team-role">MSc Student</div>
           <div class="team-badge">BMO Scholar</div>
           <p class="team-focus">Quantum dots for renewable energy and nano-sensor applications</p>
-          <a href="https://www.linkedin.com/in/msughter-joseph-guusu-baa743180" class="team-link-btn" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/msughter-joseph-guusu-baa743180" id="li-guusu" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
         <div class="team-card" style="animation-delay:0.2s">
           <div class="team-avatar avatar-6"><img src="/assets/images/joshita.jpeg" alt="Joshita P S"></div>
           <h3 class="team-name">Joshita P S</h3>
           <div class="team-role">MSc Student</div>
           <p class="team-focus">Crop growth dynamics under spectrum-controlled greenhouse roofs</p>
-          <a href="https://www.linkedin.com/in/joshitaps" class="team-link-btn" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/joshitaps" id="li-joshita" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
         <div class="team-card" style="animation-delay:0.25s">
           <div class="team-avatar avatar-7"><img src="/assets/images/jayden.jpeg" alt="Jayden MacKenzie"></div>
@@ -286,7 +286,7 @@
           <div class="team-role">MSc Student</div>
           <div class="team-badge">2× NSERC USRA</div>
           <p class="team-focus">Quantum dots, carbon quantum dots, and luminescent solar concentrators</p>
-          <a href="https://www.linkedin.com/in/jaydenmackenzie" class="team-link-btn" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/jaydenmackenzie" id="li-jayden" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
@@ -478,6 +478,26 @@
       document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(rafId);else loop();});
       resize(); init(); loop();
     })();
+  </script>
+
+  <script>
+  (async function() {
+    const SB_URL = 'https://ozjtupdoejuotbzqrnwx.supabase.co';
+    const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96anR1cGRvZWp1b3RienFybnd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4Mjg2ODUsImV4cCI6MjA2MDQwNDY4NX0.cgjscBQkFnMvS9HfpYtVFGZgWuoMEisFCjZNRqXmGYs';
+    try {
+      const res = await fetch(`${SB_URL}/rest/v1/site_content?section=eq.student_linkedin&select=section,data`, {
+        headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+      });
+      const rows = await res.json();
+      if (!Array.isArray(rows) || rows.length === 0) return;
+      const d = rows[0].data || {};
+      Object.entries(d).forEach(([key, url]) => {
+        if (!url) return;
+        const el = document.getElementById('li-' + key);
+        if (el) el.href = url;
+      });
+    } catch(e) {}
+  })();
   </script>
 
   <script>
