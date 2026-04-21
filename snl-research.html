@@ -157,23 +157,7 @@
 <canvas id="bg-canvas"></canvas>
 <div class="page-wrap">
 
-  <nav>
-    <div class="nav-container">
-      <a href="/" class="nav-logo">
-        <img src="/assets/images/snl-logo.png" alt="SNL" class="nav-logo-img">
-        <span>Sustainable Nanoengineering Lab</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/research" class="active">Research</a></li>
-        <li><a href="/publications">Publications</a></li>
-        <li><a href="/team">Team</a></li>
-        <li><a href="/news">News</a></li>
-        <li><a href="/opportunities">Opportunities</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div id="snl-nav"></div>
 
   <!-- Hero -->
   <div class="hero">
@@ -745,7 +729,7 @@
           <img src="/assets/images/funder-nsfc.png" alt="Research funding partner">
         </a>
         <a class="funder-card" href="https://www.dal.ca" target="_blank" rel="noopener">
-          <img src="/assets/images/funder-dal.png" alt="Dalhousie University">
+          <img src="/assets/images/funder-dal.svg" alt="Dalhousie University">
         </a>
         <a class="funder-card" href="https://novascotia.ca" target="_blank" rel="noopener">
           <img src="/assets/images/funder-novaScotia.png" alt="Nova Scotia">
@@ -757,13 +741,8 @@
     </div>
   </div>
 
-  <footer style="text-align:center;padding:2rem;border-top:1px solid #e2e8f0;">
-      <div style="display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
-        <img src="/assets/images/funder-dal.png" alt="Dalhousie University" style="height:36px;width:auto;opacity:0.7;filter:grayscale(10%);">
-      </div>
-      <p style="color:#94a3b8;font-size:0.82rem;">&copy; 2025 Sustainable Nanoengineering Lab &middot; Dalhousie University</p>
-    <a href="/admin" style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.75rem;padding:0.4rem 0.9rem;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;color:#94a3b8;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='#7c3aed';this.style.color='#7c3aed'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#94a3b8'">🔐 Admin Portal</a>
-  </footer>
+  <div id="snl-supporters"></div>
+<div id="snl-footer"></div>
 
 </div><!-- /page-wrap -->
 
@@ -880,5 +859,6 @@
   } catch(e) {}
 })();
 </script>
+<script src="/assets/shared.js"></script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" width="220" height="70">
+  <!-- Shield / crest shape -->
+  <g transform="translate(10, 5)">
+    <!-- Shield outline -->
+    <path d="M22,0 L44,0 L44,30 Q44,48 22,56 Q0,48 0,30 L0,0 Z" fill="#1a1a2e" stroke="none"/>
+    <!-- Gold cross -->
+    <rect x="19" y="4" width="6" height="48" fill="#FFB81C" opacity="0.9"/>
+    <rect x="4" y="20" width="36" height="6" fill="#FFB81C" opacity="0.9"/>
+    <!-- Small accent stars -->
+    <circle cx="10" cy="12" r="2.5" fill="#FFB81C" opacity="0.7"/>
+    <circle cx="34" cy="12" r="2.5" fill="#FFB81C" opacity="0.7"/>
+    <circle cx="10" cy="34" r="2.5" fill="#FFB81C" opacity="0.7"/>
+    <circle cx="34" cy="34" r="2.5" fill="#FFB81C" opacity="0.7"/>
+  </g>
+  <!-- DALHOUSIE text -->
+  <text x="64" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="16" font-weight="700" fill="#1a1a2e" letter-spacing="1.5">DALHOUSIE</text>
+  <!-- UNIVERSITY text -->
+  <text x="64" y="46" font-family="Georgia, 'Times New Roman', serif" font-size="11" font-weight="400" fill="#475569" letter-spacing="2.5">UNIVERSITY</text>
+  <!-- Gold underline accent -->
+  <rect x="64" y="51" width="148" height="2" fill="#FFB81C" rx="1"/>
+</svg>
