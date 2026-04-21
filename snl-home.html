@@ -81,7 +81,7 @@
     .research-link a { color: #d97706; font-weight: 600; font-size: 1rem; }
     /* Photo Carousel */
     .lab-carousel { max-width: 1200px; margin: 3rem auto 0; padding: 0 2rem; }
-    .carousel-inner { position: relative; border-radius: 1rem; overflow: hidden; aspect-ratio: 16/6; border: 1px solid #e2e8f0; box-shadow: 0 4px 16px rgba(0,0,0,0.07); background: #0f172a; }
+    .carousel-inner { position: relative; border-radius: 1rem; overflow: hidden; aspect-ratio: 16/9; border: 1px solid #e2e8f0; box-shadow: 0 4px 16px rgba(0,0,0,0.07); background: #0f172a; }
     .carousel-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.9s ease; }
     .carousel-slide.active { opacity: 1; }
     .carousel-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, rgba(248,250,252,0.85) 100%); pointer-events: none; }
@@ -377,7 +377,6 @@
     <div class="lab-carousel">
       <div class="carousel-inner" id="lab-carousel">
         <img class="carousel-slide active" src="/assets/images/teampicture.jpeg" alt="SNL Team" style="object-position:center 72%;">
-        <img class="carousel-slide" src="/assets/images/lab-team-photo.jpg" alt="SNL Team Outdoor" style="object-position:center center;">
         <img class="carousel-slide" src="/assets/images/lab-photo-2.jpg" alt="SNL Lab Research" style="object-position:center center;">
         <img class="carousel-slide" src="/assets/images/WhatsApp Image 2026-04-21 at 16.34.47.jpeg" alt="SNL Lab" style="object-position:center center;">
         <img class="carousel-slide" src="/assets/images/WhatsApp Image 2026-04-21 at 16.37.13.jpeg" alt="SNL Lab Outreach" style="object-position:center center;">
@@ -407,7 +406,6 @@
         <button class="carousel-dot" onclick="goToSlide(10)" aria-label="Photo 11"></button>
         <button class="carousel-dot" onclick="goToSlide(11)" aria-label="Photo 12"></button>
         <button class="carousel-dot" onclick="goToSlide(12)" aria-label="Photo 13"></button>
-        <button class="carousel-dot" onclick="goToSlide(13)" aria-label="Photo 14"></button>
       </div>
     </div>
 
