@@ -1727,12 +1727,11 @@ async function saveProfile() {
     orcid:       document.getElementById('pi-orcid').value.trim()
   };
   try {
-    const res = await sbFetch('site_content?on_conflict=section', {
+    await sbFetch('site_content?on_conflict=section', {
       method: 'POST',
       headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
       body: JSON.stringify({ section: 'pi_profile', data })
     });
-    if (!res.ok) throw new Error(await res.text());
     setMsg('profile-msg', '✓ Profile saved!');
     showToast('PI Profile saved — Team page will reflect changes on next load');
   } catch(e) { setMsg('profile-msg', '✗ ' + e.message, true); }
@@ -1779,12 +1778,11 @@ async function savePageContent() {
     if (d) data[`theme${i}_desc`]  = d.value.trim();
   }
   try {
-    const res = await sbFetch('site_content?on_conflict=section', {
+    await sbFetch('site_content?on_conflict=section', {
       method: 'POST',
       headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
       body: JSON.stringify({ section: 'research_themes', data })
     });
-    if (!res.ok) throw new Error(await res.text());
     setMsg('pages-msg', '✓ Themes saved!');
     showToast('Research themes saved — Research page reflects changes on next load');
   } catch(e) { setMsg('pages-msg', '✗ ' + e.message, true); }
@@ -1798,12 +1796,11 @@ async function saveHomeContent() {
     subtitle: document.getElementById('home-subtitle').value.trim()
   };
   try {
-    const res = await sbFetch('site_content?on_conflict=section', {
+    await sbFetch('site_content?on_conflict=section', {
       method: 'POST',
       headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
       body: JSON.stringify({ section: 'home_hero', data })
     });
-    if (!res.ok) throw new Error(await res.text());
     setMsg('home-content-msg', '✓ Saved!');
     showToast('Home hero text saved');
   } catch(e) { setMsg('home-content-msg', '✗ ' + e.message, true); }
@@ -1839,12 +1836,11 @@ async function saveLinkedIn() {
     if (el && el.value.trim()) data[k] = el.value.trim();
   });
   try {
-    const res = await sbFetch('site_content?on_conflict=section', {
+    await sbFetch('site_content?on_conflict=section', {
       method: 'POST',
       headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
       body: JSON.stringify({ section: 'student_linkedin', data })
     });
-    if (!res.ok) throw new Error(await res.text());
     setMsg('linkedin-msg', '✓ LinkedIn URLs saved!');
     showToast('Student LinkedIn URLs updated — live on Team page');
   } catch(e) { setMsg('linkedin-msg', '✗ ' + e.message, true); }
