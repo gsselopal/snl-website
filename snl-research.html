@@ -76,11 +76,24 @@
     .subtheme-tags { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
     .subtheme-tag { font-size: 0.65rem; font-family: 'Space Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.16rem 0.6rem; border-radius: 2rem; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.28); color: #92400e; }
     .subtheme-desc { font-size: 0.88rem; color: #475569; line-height: 1.75; margin-bottom: 0.85rem; }
-    .subtheme-desc-full { display: none; font-size: 0.88rem; color: #475569; line-height: 1.75; margin-bottom: 0.85rem; }
-    .subtheme-card.expanded .subtheme-desc-full { display: block; }
-    .subtheme-card.expanded .subtheme-desc-short { display: none; }
+    .subtheme-desc-full { display: none; }
     .subtheme-expand-btn { margin-top: auto; display: inline-flex; align-items: center; gap: 0.3rem; background: none; border: none; color: #d97706; font-family: 'DM Sans', sans-serif; font-size: 0.83rem; font-weight: 600; cursor: pointer; padding: 0; transition: color 0.2s; }
     .subtheme-expand-btn:hover { color: #b45309; }
+
+    /* ── Research Modal ──────────────────────────────────────────────── */
+    .research-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); z-index: 9000; align-items: center; justify-content: center; padding: 1.5rem; }
+    .research-modal-overlay.open { display: flex; }
+    .research-modal { background: #fff; border-radius: 1rem; max-width: 640px; width: 100%; max-height: 85vh; overflow-y: auto; box-shadow: 0 25px 60px rgba(0,0,0,0.2); position: relative; animation: modalIn 0.22s ease; }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
+    .research-modal-header { padding: 1.75rem 1.75rem 1rem; border-bottom: 1px solid #e2e8f0; }
+    .research-modal-num { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: #d97706; margin-bottom: 0.4rem; }
+    .research-modal-header h3 { font-size: 1.15rem; color: #0f172a; margin-bottom: 0.75rem; line-height: 1.4; }
+    .research-modal-tags { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+    .research-modal-body { padding: 1.5rem 1.75rem 2rem; font-size: 0.9rem; color: #475569; line-height: 1.8; }
+    .research-modal-body p { margin-bottom: 1rem; }
+    .research-modal-body p:last-child { margin-bottom: 0; }
+    .research-modal-close { position: absolute; top: 1rem; right: 1rem; background: #f1f5f9; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; font-size: 1.1rem; transition: all 0.2s; line-height: 1; }
+    .research-modal-close:hover { background: #e2e8f0; color: #0f172a; }
 
     /* ── Techniques ────────────────────────────────────────────────────── */
     .techniques-section { padding: 5rem 0; border-top: 1px solid #e2e8f0; }
@@ -265,7 +278,7 @@
             </div>
             <div class="subtheme-desc subtheme-desc-short">Advancing high-efficiency PV technologies through nanoengineering of colloidal quantum dots and hybrid nanostructures. Core/shell interface engineering, band alignment optimization, and surface defect passivation suppress non-radiative recombination and enhance charge carrier dynamics.</div>
             <div class="subtheme-desc subtheme-desc-full">Our research advances high-efficiency third-generation photovoltaic technologies through nanoengineering of colloidal quantum dots, low-dimensional, and hybrid nanostructures. By leveraging strategies such as core/shell interface engineering, band alignment optimization, and surface defect passivation, we suppress non-radiative recombination and enhance charge carrier dynamics.<br><br>We have demonstrated that incorporating controlled amounts of carbonaceous nanostructures into mesoporous TiO₂ photoanodes significantly improves power conversion efficiency and long-term stability — not through percolation effects, but by facilitating improved electron injection at the photoanode/front-contact interface. Further innovations include spray-assisted blocking layers, graphene as a low-cost transparent conducting alternative to FTO/ITO, and scalable single-step synthesis of Cu₂S cathodes with superior catalytic activity compared to noble metals.</div>
-            <button class="subtheme-expand-btn" onclick="toggleCard('card-1i',this)">Read More ↓</button>
+            <button class="subtheme-expand-btn" onclick="openModal('card-1i')">Read More →</button>
           </div>
         </div>
 
@@ -306,7 +319,7 @@
             </div>
             <div class="subtheme-desc subtheme-desc-short">Developing scalable technologies for clean fuel production via high-performance photoelectrodes and tandem PEC–PV systems enabling bias-free, solar-driven H₂ generation. We also pioneer a closed-loop N₂O capture pathway converting agricultural waste into locally produced NH₃ fertilizer.</div>
             <div class="subtheme-desc subtheme-desc-full">We develop scalable, low-cost technologies for clean fuel and chemical production using advanced quantum materials and interfacial nanoengineering, aligned with Canada's Hydrogen Strategy. High-performance photoelectrodes and tandem photoelectrochemical–photovoltaic systems enable bias-free, solar-driven green hydrogen (H₂) generation through optimized charge separation and transport.<br><br>Our work on colloidal core/shell nanocrystals demonstrates precise control over electron–hole dynamics for enhanced solar energy conversion. Extending beyond hydrogen, we have pioneered a closed-loop nitrogen approach that captures N₂O emissions from agricultural waste streams and converts them into locally produced ammonia (NH₃) fertilizer, offering a sustainable pathway for circular agriculture. Additional innovations include radiation-resilient nanomaterials and nanoengineered solid-state electrolytes based on functionalized h-BN nanosheets.</div>
-            <button class="subtheme-expand-btn" onclick="toggleCard('card-1ii',this)">Read More ↓</button>
+            <button class="subtheme-expand-btn" onclick="openModal('card-1ii')">Read More →</button>
           </div>
         </div>
 
@@ -353,7 +366,7 @@
             </div>
             <div class="subtheme-desc subtheme-desc-short">Eco-friendly QD-based nanohybrid photocatalysts enable highly efficient solar-driven degradation of toxic organic pollutants and industrial dyes — achieving up to ~99.9% removal with improved stability and recyclability.</div>
             <div class="subtheme-desc subtheme-desc-full">Our team advances sustainable water treatment technologies by designing eco-friendly quantum dot–based nanohybrid photocatalysts. These multifunctional QD-nanostructured systems enable highly efficient degradation of toxic organic pollutants and industrial dyes under solar-driven conditions.<br><br>By engineering interfacial charge transfer, enhancing light absorption, and incorporating external stimuli such as magnetic or electric fields, these systems achieve complete pollutant removal (up to ~99.9%) with improved stability and recyclability. We are advancing these technologies by coupling pollutant degradation with clean energy generation (e.g., hydrogen production), offering scalable, low-cost, and environmentally benign solutions for next-generation water purification and environmental remediation.</div>
-            <button class="subtheme-expand-btn" onclick="toggleCard('card-1iii',this)">Read More ↓</button>
+            <button class="subtheme-expand-btn" onclick="openModal('card-1iii')">Read More →</button>
           </div>
         </div>
 
@@ -420,7 +433,7 @@
             </div>
             <div class="subtheme-desc subtheme-desc-short">Eco-friendly quantum materials integrated into greenhouse roofs selectively tune transmitted light within the photosynthetically active radiation (PAR) region. Coupled with nanogenerators and energy-harvesting architectures, these systems reduce operational costs and enable year-round cultivation.</div>
             <div class="subtheme-desc subtheme-desc-full">We develop next-generation controlled-environment agriculture technologies based on eco-friendly quantum materials engineered into greenhouse roofs that selectively tune the quality and quantity of transmitted light within the photosynthetically active radiation (PAR) region. This enables spectrum-controlled greenhouses to boost crop production while maintaining sustainability.<br><br>By coupling these systems with nanogenerators and energy-harvesting architectures, we aim to significantly reduce operational energy costs, enhance crop productivity, and enable sustainable, year-round cultivation. This has strong potential to reduce greenhouse carbon footprints, support off-grid and remote farming communities, and contribute to Canada's net-zero and food security goals.</div>
-            <button class="subtheme-expand-btn" onclick="toggleCard('card-2i',this)">Read More ↓</button>
+            <button class="subtheme-expand-btn" onclick="openModal('card-2i')">Read More →</button>
           </div>
         </div>
 
@@ -472,7 +485,7 @@
             </div>
             <div class="subtheme-desc subtheme-desc-short">Next-generation crop-specific nanofertilizers valorize agricultural and marine waste into high-performance nutrient-delivery systems with controlled, targeted release — improving nutrient-use efficiency while reducing environmental losses and supporting a circular economy.</div>
             <div class="subtheme-desc subtheme-desc-full">We develop next-generation, crop-specific nanoengineered fertilizers using a novel template-assisted approach that valorizes agricultural and marine waste into high-performance nutrient-delivery systems. These nano-fertilizers provide controlled and targeted nutrient release, significantly improving nutrient-use efficiency while reducing fertilizer input and environmental losses.<br><br>Our approach promotes a circular economy by converting waste into value-added products, while enhancing soil health, farmer profitability, and long-term food security. The promising outcomes have attracted growing interest from industrial partners and non-profit organizations, opening new avenues for scalable and impactful nanofertilizer technologies.</div>
-            <button class="subtheme-expand-btn" onclick="toggleCard('card-2ii',this)">Read More ↓</button>
+            <button class="subtheme-expand-btn" onclick="openModal('card-2ii')">Read More →</button>
           </div>
         </div>
 
@@ -520,7 +533,7 @@
             </div>
             <div class="subtheme-desc subtheme-desc-short">Luminescent nanomaterials from agricultural and marine waste exhibit strong, tunable fluorescence under UV excitation — enabling invisible, high-resolution QR codes embedded directly into packaging for authentication, counterfeit prevention, and real-time supply chain tracking.</div>
             <div class="subtheme-desc subtheme-desc-full">We develop advanced anti-counterfeiting and smart food packaging technologies using luminescent nanomaterials derived from agricultural and marine waste. These materials exhibit strong, tunable fluorescence under UV or specific light excitation, enabling the creation of invisible, high-resolution codes (e.g., QR/barcodes) directly embedded into packaging systems.<br><br>Such nano-enabled security features provide robust solutions for product authentication, counterfeit prevention, and real-time tracking across the supply chain. In addition, these technologies support food quality and safety monitoring by enabling rapid, non-destructive inspection, enhancing consumer trust, reducing economic losses, and contributing to safer and more transparent food systems.</div>
-            <button class="subtheme-expand-btn" onclick="toggleCard('card-2iii',this)">Read More ↓</button>
+            <button class="subtheme-expand-btn" onclick="openModal('card-2iii')">Read More →</button>
           </div>
         </div>
 
@@ -745,18 +758,64 @@
   </div>
 
   <footer style="text-align:center;padding:2rem;border-top:1px solid #e2e8f0;">
-    <p style="color:#94a3b8;font-size:0.82rem;">&copy; 2025 Sustainable Nanoengineering Lab &middot; Dalhousie University</p>
+      <div style="display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+        <img src="/assets/images/funder-dal.png" alt="Dalhousie University" style="height:36px;width:auto;opacity:0.7;filter:grayscale(10%);">
+      </div>
+      <p style="color:#94a3b8;font-size:0.82rem;">&copy; 2025 Sustainable Nanoengineering Lab &middot; Dalhousie University</p>
     <a href="/admin" style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.75rem;padding:0.4rem 0.9rem;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;color:#94a3b8;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='#7c3aed';this.style.color='#7c3aed'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#94a3b8'">🔐 Admin Portal</a>
   </footer>
 
 </div><!-- /page-wrap -->
 
+<!-- Research detail modal -->
+<div class="research-modal-overlay" id="research-modal-overlay">
+  <div class="research-modal">
+    <button class="research-modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    <div class="research-modal-header">
+      <div class="research-modal-num"></div>
+      <h3></h3>
+      <div class="research-modal-tags subtheme-tags"></div>
+    </div>
+    <div class="research-modal-body"></div>
+  </div>
+</div>
+
 <script>
-  function toggleCard(id, btn) {
+  // ── Research modal ──────────────────────────────────────────
+  function openModal(id) {
     const card = document.getElementById(id);
-    const expanded = card.classList.toggle('expanded');
-    btn.textContent = expanded ? 'Read Less ↑' : 'Read More ↓';
+    const num   = card.querySelector('.subtheme-num')?.innerHTML || '';
+    const title = card.querySelector('h3')?.innerHTML || '';
+    const tags  = card.querySelector('.subtheme-tags')?.innerHTML || '';
+    const full  = card.querySelector('.subtheme-desc-full')?.innerHTML || '';
+
+    // Convert <br><br> to paragraph breaks for nicer display
+    const bodyHtml = full
+      .split(/<br\s*\/?>\s*<br\s*\/?>/)
+      .map(p => `<p>${p.trim()}</p>`)
+      .join('');
+
+    const overlay = document.getElementById('research-modal-overlay');
+    overlay.querySelector('.research-modal-num').innerHTML = num;
+    overlay.querySelector('.research-modal-header h3').innerHTML = title;
+    overlay.querySelector('.research-modal-tags').innerHTML = tags;
+    overlay.querySelector('.research-modal-body').innerHTML = bodyHtml;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
+
+  function closeModal() {
+    document.getElementById('research-modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on overlay click
+  document.getElementById('research-modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
   // Background amber/gold particles on light bg
   (function() {
