@@ -425,6 +425,17 @@
         <label>Email <span style="color:#94a3b8;font-weight:400">(optional)</span></label>
         <input type="email" id="t-email" placeholder="e.g. student@dal.ca">
       </div>
+      <div class="form-group">
+        <label>Profile Photo <span style="color:#94a3b8;font-weight:400">(optional)</span></label>
+        <div id="t-photo-drop" class="file-drop" onclick="document.getElementById('t-photo-file').click()" ondragover="handleDragOver(event,'t-photo-drop')" ondragleave="handleDragLeave('t-photo-drop')" ondrop="handleDrop(event,'t-photo-drop','t-photo-file','t-photo-preview')">
+          <input type="file" id="t-photo-file" accept="image/*" onchange="previewFile('t-photo-file','t-photo-preview','t-photo-drop')">
+          <strong>Click or drag a photo here</strong>
+          <span>JPG, PNG, WEBP · max 5 MB</span>
+        </div>
+        <img id="t-photo-preview" style="display:none;margin-top:0.75rem;width:80px;height:80px;object-fit:cover;border-radius:50%;border:2px solid #e2e8f0;" alt="Preview">
+        <input type="hidden" id="t-photo-url">
+        <p class="form-hint">Uploading a new photo replaces any existing one. Leave empty to keep current photo.</p>
+      </div>
       <div class="form-actions">
         <button class="btn-primary" onclick="saveTeamMember()">Save Member</button>
         <button class="btn-secondary" id="cancel-edit-btn" onclick="cancelEdit()" style="display:none">Cancel Edit</button>
@@ -446,7 +457,7 @@
     </div>
 
     <div class="form-card">
-      <h3>Upload Journal Cover</h3>
+      <h3>Add Journal Cover</h3>
       <div class="form-row">
         <div class="form-group">
           <label>Paper Title *</label>
@@ -468,12 +479,16 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Cover Image URL *</label>
-        <input type="url" id="c-img-url" placeholder="https://... (direct image link or Supabase storage URL)">
-        <p class="form-hint">Upload your image to Supabase Storage → Public bucket, copy the public URL here.</p>
+        <label>Cover Image *</label>
+        <div id="c-img-drop" class="file-drop" onclick="document.getElementById('c-img-file').click()" ondragover="handleDragOver(event,'c-img-drop')" ondragleave="handleDragLeave('c-img-drop')" ondrop="handleDrop(event,'c-img-drop','c-img-file','c-img-preview')">
+          <input type="file" id="c-img-file" accept="image/*" onchange="previewFile('c-img-file','c-img-preview','c-img-drop')">
+          <strong>Click or drag cover image here</strong>
+          <span>JPG, PNG, WEBP · max 5 MB · portrait preferred (3:4 ratio)</span>
+        </div>
+        <img id="c-img-preview" style="display:none;margin-top:0.75rem;height:120px;object-fit:cover;border-radius:8px;border:1px solid #e2e8f0;" alt="Preview">
       </div>
       <div class="form-actions">
-        <button class="btn-primary" onclick="addCover()">Add Cover</button>
+        <button class="btn-primary" onclick="addCover()">Upload Cover</button>
         <span id="covers-form-msg"></span>
       </div>
     </div>
@@ -605,6 +620,16 @@ create policy "Anon write covers"  on journal_covers for all using (true) with c
 const DEFAULT_PASS_HASH = 'snl2025'; // plain text default; replaced by localStorage
 const PASS_KEY = 'snl_admin_pass';
 const SB_KEY   = 'snl_supabase';
+
+// Pre-load Supabase credentials if not already configured
+(function() {
+  if (!localStorage.getItem(SB_KEY)) {
+    localStorage.setItem(SB_KEY, JSON.stringify({
+      url: 'https://ozjtupdoejuotbzqrnwx.supabase.co',
+      key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96anR1cGRvZWp1b3RienFybnd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Mzk0ODQsImV4cCI6MjA5MjMxNTQ4NH0.J4r8LTLP_MOW9s2_VL3etjWoj46AaPvwXVemBIHzxrc'
+    }));
+  }
+})();
 
 function getPass() { return localStorage.getItem(PASS_KEY) || DEFAULT_PASS_HASH; }
 function getCfg()  { return JSON.parse(localStorage.getItem(SB_KEY) || '{}'); }
@@ -760,6 +785,77 @@ function copySQL() {
 }
 
 // ══════════════════════════════════════════════════════════════════════════
+//  FILE UPLOAD HELPERS  (Supabase Storage)
+// ══════════════════════════════════════════════════════════════════════════
+const SB_BUCKET = 'snl-media';
+
+function handleDragOver(e, dropId) {
+  e.preventDefault();
+  document.getElementById(dropId).classList.add('dragover');
+}
+function handleDragLeave(dropId) {
+  document.getElementById(dropId).classList.remove('dragover');
+}
+function handleDrop(e, dropId, fileInputId, previewId) {
+  e.preventDefault();
+  document.getElementById(dropId).classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+  const dt = new DataTransfer();
+  dt.items.add(file);
+  document.getElementById(fileInputId).files = dt.files;
+  showPreview(file, previewId, dropId);
+}
+function previewFile(fileInputId, previewId, dropId) {
+  const file = document.getElementById(fileInputId).files[0];
+  if (!file) return;
+  showPreview(file, previewId, dropId);
+}
+function showPreview(file, previewId, dropId) {
+  const preview = document.getElementById(previewId);
+  const reader = new FileReader();
+  reader.onload = e => {
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+    const drop = document.getElementById(dropId);
+    drop.querySelector('strong').textContent = file.name;
+    drop.querySelector('span').textContent = (file.size/1024/1024).toFixed(1) + ' MB';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function uploadToStorage(file, folder) {
+  const cfg = getCfg();
+  if (!cfg.url || !cfg.key) throw new Error('Supabase not configured');
+  const ext = file.name.split('.').pop();
+  const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const res = await fetch(`${cfg.url}/storage/v1/object/${SB_BUCKET}/${fileName}`, {
+    method: 'POST',
+    headers: {
+      'apikey': cfg.key,
+      'Authorization': `Bearer ${cfg.key}`,
+      'Content-Type': file.type,
+      'x-upsert': 'true'
+    },
+    body: file
+  });
+  if (!res.ok) { const t = await res.text(); throw new Error(t); }
+  return `${cfg.url}/storage/v1/object/public/${SB_BUCKET}/${fileName}`;
+}
+
+async function deleteFromStorage(publicUrl) {
+  const cfg = getCfg();
+  if (!cfg.url || !cfg.key || !publicUrl) return;
+  // Extract path after bucket name
+  const match = publicUrl.match(/\/object\/public\/[^/]+\/(.+)$/);
+  if (!match) return;
+  await fetch(`${cfg.url}/storage/v1/object/${SB_BUCKET}/${match[1]}`, {
+    method: 'DELETE',
+    headers: { 'apikey': cfg.key, 'Authorization': `Bearer ${cfg.key}` }
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════════════
 //  STUDENT TAG CHIPS
 // ══════════════════════════════════════════════════════════════════════════
 function handleStudentTag(e, tagsId, inputId) {
@@ -905,6 +1001,7 @@ function renderTeamList() {
   }
   list.innerHTML = teamMembers.map(m => `
     <div class="item-row" id="team-row-${m.id}">
+      ${m.photo_url ? `<img src="${m.photo_url}" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;flex-shrink:0;margin-right:0.25rem;" onerror="this.style.display='none'">` : `<div style="width:48px;height:48px;border-radius:50%;background:rgba(245,158,11,0.15);border:2px solid #e2e8f0;flex-shrink:0;margin-right:0.25rem;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#d97706;">${m.name.charAt(0).toUpperCase()}</div>`}
       <div class="item-row-main">
         <div class="item-title">${m.name} <span class="status-badge status-${m.status||'msc'}">${m.status||'msc'}</span> ${m.badge ? `<span style="font-size:0.78rem;color:#b45309;background:rgba(217,119,6,0.1);border-radius:20px;padding:0.15rem 0.5rem;">${m.badge}</span>` : ''}</div>
         <div class="item-meta">${m.role||'—'}${m.email ? ' · '+m.email : ''}</div>
@@ -928,6 +1025,17 @@ function editMember(id) {
   document.getElementById('t-badge').value = m.badge || '';
   document.getElementById('t-focus').value = m.focus || '';
   document.getElementById('t-email').value = m.email || '';
+  document.getElementById('t-photo-url').value = m.photo_url || '';
+  // Show existing photo preview
+  const prev = document.getElementById('t-photo-preview');
+  if (m.photo_url) {
+    prev.src = m.photo_url; prev.style.display = 'block';
+    const drop = document.getElementById('t-photo-drop');
+    drop.querySelector('strong').textContent = 'Current photo shown above';
+    drop.querySelector('span').textContent = 'Click or drag to replace';
+  } else {
+    prev.style.display = 'none';
+  }
   document.getElementById('team-form-title').textContent = 'Edit Team Member';
   document.getElementById('cancel-edit-btn').style.display = 'inline-block';
   switchTab('team');
@@ -937,8 +1045,13 @@ function editMember(id) {
 function cancelEdit() {
   editingTeamId = null;
   document.getElementById('t-id').value = '';
-  ['t-name','t-role','t-badge','t-focus','t-email'].forEach(id => document.getElementById(id).value='');
+  ['t-name','t-role','t-badge','t-focus','t-email','t-photo-url'].forEach(id => document.getElementById(id).value='');
   document.getElementById('t-status').value = 'msc';
+  document.getElementById('t-photo-file').value = '';
+  document.getElementById('t-photo-preview').style.display = 'none';
+  const drop = document.getElementById('t-photo-drop');
+  drop.querySelector('strong').textContent = 'Click or drag a photo here';
+  drop.querySelector('span').textContent = 'JPG, PNG, WEBP · max 5 MB';
   document.getElementById('team-form-title').textContent = 'Add Team Member';
   document.getElementById('cancel-edit-btn').style.display = 'none';
 }
@@ -946,15 +1059,32 @@ function cancelEdit() {
 async function saveTeamMember() {
   const name = document.getElementById('t-name').value.trim();
   if (!name) { setMsg('team-form-msg','Name is required',true); return; }
-  const payload = {
-    name,
-    status: document.getElementById('t-status').value,
-    role:   document.getElementById('t-role').value.trim(),
-    badge:  document.getElementById('t-badge').value.trim(),
-    focus:  document.getElementById('t-focus').value.trim(),
-    email:  document.getElementById('t-email').value.trim()
-  };
+  const btn = document.querySelector('#tab-team .btn-primary');
+  btn.disabled = true; btn.textContent = 'Saving…';
   try {
+    // Upload photo if one was selected
+    let photoUrl = document.getElementById('t-photo-url').value.trim() || null;
+    const photoFile = document.getElementById('t-photo-file').files[0];
+    if (photoFile) {
+      setMsg('team-form-msg','Uploading photo…');
+      // Delete old photo if editing
+      if (editingTeamId) {
+        const existing = teamMembers.find(m => m.id === editingTeamId);
+        if (existing?.photo_url) await deleteFromStorage(existing.photo_url);
+      }
+      photoUrl = await uploadToStorage(photoFile, 'team');
+    }
+
+    const payload = {
+      name,
+      status:    document.getElementById('t-status').value,
+      role:      document.getElementById('t-role').value.trim(),
+      badge:     document.getElementById('t-badge').value.trim(),
+      focus:     document.getElementById('t-focus').value.trim(),
+      email:     document.getElementById('t-email').value.trim(),
+      photo_url: photoUrl
+    };
+
     if (editingTeamId) {
       await sbFetch(`team_members?id=eq.${editingTeamId}`, { method:'PATCH', body: JSON.stringify(payload) });
       showToast('Member updated','success');
@@ -967,6 +1097,8 @@ async function saveTeamMember() {
     await loadTeam();
   } catch(e) {
     setMsg('team-form-msg', getCfg().url ? 'Error: '+e.message : 'Configure Supabase first (Settings tab)', true);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Member';
   }
 }
 
@@ -1011,31 +1143,45 @@ function renderCovers() {
 }
 
 async function addCover() {
-  const title  = document.getElementById('c-title').value.trim();
-  const imgUrl = document.getElementById('c-img-url').value.trim();
-  if (!title || !imgUrl) { setMsg('covers-form-msg','Title and image URL are required',true); return; }
-  const payload = {
-    title,
-    journal: document.getElementById('c-journal').value.trim(),
-    year:    document.getElementById('c-year').value.trim(),
-    img_url: imgUrl,
-    link:    document.getElementById('c-link').value.trim()
-  };
+  const title = document.getElementById('c-title').value.trim();
+  const file  = document.getElementById('c-img-file').files[0];
+  if (!title)  { setMsg('covers-form-msg','Title is required',true); return; }
+  if (!file)   { setMsg('covers-form-msg','Please select a cover image',true); return; }
+  const btn = document.querySelector('#tab-covers .btn-primary');
+  btn.disabled = true; btn.textContent = 'Uploading…';
   try {
+    setMsg('covers-form-msg','Uploading image…');
+    const imgUrl = await uploadToStorage(file, 'covers');
+    const payload = {
+      title,
+      journal: document.getElementById('c-journal').value.trim(),
+      year:    document.getElementById('c-year').value.trim(),
+      img_url: imgUrl,
+      link:    document.getElementById('c-link').value.trim()
+    };
     await sbFetch('journal_covers', { method:'POST', body: JSON.stringify(payload) });
     setMsg('covers-form-msg','Cover added!');
-    showToast('Journal cover added','success');
-    ['c-title','c-journal','c-year','c-img-url','c-link'].forEach(id => document.getElementById(id).value='');
+    showToast('Journal cover uploaded','success');
+    ['c-title','c-journal','c-year','c-link'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('c-img-file').value='';
+    document.getElementById('c-img-preview').style.display='none';
+    const drop = document.getElementById('c-img-drop');
+    drop.querySelector('strong').textContent='Click or drag cover image here';
+    drop.querySelector('span').textContent='JPG, PNG, WEBP · max 5 MB · portrait preferred (3:4 ratio)';
     await loadCovers();
   } catch(e) {
-    setMsg('covers-form-msg', getCfg().url ? 'Error: '+e.message : 'Configure Supabase first (Settings tab)', true);
+    setMsg('covers-form-msg', 'Upload failed: '+e.message, true);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Upload Cover';
   }
 }
 
 async function deleteCover(id) {
   if (!confirm('Remove this journal cover?')) return;
   try {
+    const cover = covers.find(c => c.id === id);
     await sbFetch(`journal_covers?id=eq.${id}`, { method:'DELETE' });
+    if (cover?.img_url) await deleteFromStorage(cover.img_url);
     covers = covers.filter(c => c.id !== id);
     renderCovers();
     showToast('Removed','success');

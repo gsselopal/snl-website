@@ -327,7 +327,8 @@
 
     // ── Load from Supabase or fall back to static ───────────────────────────
     (async function init() {
-      const cfg = JSON.parse(localStorage.getItem('snl_supabase') || '{}');
+      const SB_DEFAULT = { url: 'https://ozjtupdoejuotbzqrnwx.supabase.co', key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96anR1cGRvZWp1b3RienFybnd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Mzk0ODQsImV4cCI6MjA5MjMxNTQ4NH0.J4r8LTLP_MOW9s2_VL3etjWoj46AaPvwXVemBIHzxrc' };
+      const cfg = Object.assign({}, SB_DEFAULT, JSON.parse(localStorage.getItem('snl_supabase') || '{}'));
       if (cfg.url && cfg.key) {
         try {
           const res = await fetch(`${cfg.url}/rest/v1/news_items?order=date.desc`, {
