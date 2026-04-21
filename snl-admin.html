@@ -198,6 +198,22 @@
     .status-staff    { background: rgba(5,150,105,0.1);  color: #059669; }
     .empty-state { text-align: center; padding: 3rem; color: #94a3b8; font-size: 0.9rem; }
 
+    /* ── Student tag chips ─────────────────────────────────────────────── */
+    .student-chip {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      background: rgba(124,58,237,0.09); color: #6d28d9;
+      border: 1px solid rgba(124,58,237,0.2); border-radius: 20px;
+      padding: 0.2rem 0.6rem; font-size: 0.8rem; font-weight: 600;
+      white-space: nowrap;
+    }
+    .student-chip button {
+      background: none; border: none; cursor: pointer;
+      color: #6d28d9; font-size: 0.85rem; line-height: 1;
+      padding: 0 0.1rem; opacity: 0.6;
+    }
+    .student-chip button:hover { opacity: 1; }
+    .students-wrap-focus { border-color: #0ea5e9 !important; box-shadow: 0 0 0 3px rgba(14,165,233,0.1); }
+
     /* ── Settings tab ──────────────────────────────────────────────────── */
     .settings-section { margin-bottom: 2.5rem; }
     .settings-section h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
@@ -339,6 +355,18 @@
       <div class="form-group">
         <label>Description</label>
         <textarea id="n-desc" placeholder="Brief description of the news item…"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Tagged Students <span style="color:#94a3b8;font-weight:400">(optional)</span></label>
+        <div id="n-students-wrap" style="display:flex;flex-wrap:wrap;gap:0.5rem;padding:0.6rem;border:1.5px solid #e2e8f0;border-radius:8px;min-height:44px;cursor:text;background:#fff;transition:border-color 0.2s,box-shadow 0.2s;" onclick="document.getElementById('n-students-input').focus()">
+          <span id="n-students-tags" style="display:contents"></span>
+          <input id="n-students-input" type="text" placeholder="Type a name and press Enter…"
+            style="border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:0.9rem;min-width:160px;flex:1;"
+            onkeydown="handleStudentTag(event,'n-students-tags','n-students-input')"
+            onfocus="document.getElementById('n-students-wrap').classList.add('students-wrap-focus')"
+            onblur="document.getElementById('n-students-wrap').classList.remove('students-wrap-focus')">
+        </div>
+        <p class="form-hint">Press Enter after each name. These names appear on the news card so readers know who was involved.</p>
       </div>
       <div class="form-actions">
         <button class="btn-primary" onclick="addNews()">Add News Item</button>
@@ -493,14 +521,15 @@
 -- Run this in Supabase SQL Editor
 
 create table if not exists news_items (
-  id          bigint generated always as identity primary key,
-  title       text not null,
-  description text,
-  category    text default 'general',
-  date        text,
-  link        text,
-  link_label  text,
-  created_at  timestamptz default now()
+  id              bigint generated always as identity primary key,
+  title           text not null,
+  description     text,
+  category        text default 'general',
+  date            text,
+  link            text,
+  link_label      text,
+  tagged_students text,
+  created_at      timestamptz default now()
 );
 
 create table if not exists team_members (
@@ -731,6 +760,45 @@ function copySQL() {
 }
 
 // ══════════════════════════════════════════════════════════════════════════
+//  STUDENT TAG CHIPS
+// ══════════════════════════════════════════════════════════════════════════
+function handleStudentTag(e, tagsId, inputId) {
+  const input = document.getElementById(inputId);
+  const wrap  = input.closest('[id$="-wrap"]') || input.parentElement;
+
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const name = input.value.trim().replace(/,$/, '');
+    if (!name) return;
+    addStudentChip(name, tagsId, inputId);
+    input.value = '';
+  } else if (e.key === 'Backspace' && input.value === '') {
+    // Remove last chip
+    const tagsContainer = document.getElementById(tagsId);
+    const chips = tagsContainer.querySelectorAll('.student-chip');
+    if (chips.length > 0) chips[chips.length - 1].remove();
+  }
+}
+
+function addStudentChip(name, tagsId, inputId) {
+  const tagsContainer = document.getElementById(tagsId);
+  const chip = document.createElement('span');
+  chip.className = 'student-chip';
+  chip.innerHTML = `${name}<button type="button" onclick="this.parentElement.remove()" title="Remove">×</button>`;
+  tagsContainer.appendChild(chip);
+}
+
+function getTaggedStudents(tagsId) {
+  const chips = document.getElementById(tagsId).querySelectorAll('.student-chip');
+  return Array.from(chips).map(c => c.textContent.replace('×','').trim()).filter(Boolean);
+}
+
+function clearTaggedStudents(tagsId) {
+  const c = document.getElementById(tagsId);
+  c.querySelectorAll('.student-chip').forEach(ch => ch.remove());
+}
+
+// ══════════════════════════════════════════════════════════════════════════
 //  NEWS
 // ══════════════════════════════════════════════════════════════════════════
 let newsItems = [];
@@ -752,7 +820,12 @@ function renderNewsList() {
     list.innerHTML = '<div class="empty-state">No news items yet. Add one above.</div>';
     return;
   }
-  list.innerHTML = newsItems.map(n => `
+  list.innerHTML = newsItems.map(n => {
+    const students = n.tagged_students ? n.tagged_students.split(',').map(s=>s.trim()).filter(Boolean) : [];
+    const studentChips = students.length
+      ? `<div style="margin-top:0.45rem;display:flex;flex-wrap:wrap;gap:0.35rem">${students.map(s=>`<span class="student-chip" style="font-size:0.73rem">${s}</span>`).join('')}</div>`
+      : '';
+    return `
     <div class="item-row" id="news-row-${n.id}">
       <div class="item-row-main">
         <div class="item-title">
@@ -761,23 +834,27 @@ function renderNewsList() {
         </div>
         <div class="item-meta">${n.date||'—'} ${n.link ? `· <a href="${n.link}" target="_blank" style="color:#0ea5e9">link ↗</a>` : ''}</div>
         ${n.description ? `<div class="item-desc">${n.description}</div>` : ''}
+        ${studentChips}
       </div>
       <div class="item-actions">
         <button class="btn-danger" onclick="deleteNews(${n.id})">Delete</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 async function addNews() {
   const title = document.getElementById('n-title').value.trim();
   if (!title) { setMsg('news-form-msg','Title is required',true); return; }
+  const students = getTaggedStudents('n-students-tags');
   const payload = {
     title,
-    category:    document.getElementById('n-cat').value,
-    date:        document.getElementById('n-date').value.trim(),
-    description: document.getElementById('n-desc').value.trim(),
-    link:        document.getElementById('n-link').value.trim(),
-    link_label:  document.getElementById('n-link-label').value.trim()
+    category:        document.getElementById('n-cat').value,
+    date:            document.getElementById('n-date').value.trim(),
+    description:     document.getElementById('n-desc').value.trim(),
+    link:            document.getElementById('n-link').value.trim(),
+    link_label:      document.getElementById('n-link-label').value.trim(),
+    tagged_students: students.length ? students.join(', ') : null
   };
   try {
     await sbFetch('news_items', { method:'POST', body: JSON.stringify(payload) });
@@ -786,6 +863,8 @@ async function addNews() {
     // Clear form
     ['n-title','n-date','n-desc','n-link','n-link-label'].forEach(id => document.getElementById(id).value='');
     document.getElementById('n-cat').value = 'general';
+    clearTaggedStudents('n-students-tags');
+    document.getElementById('n-students-input').value = '';
     await loadNews();
   } catch(e) {
     setMsg('news-form-msg', getCfg().url ? 'Error: '+e.message : 'Configure Supabase first (Settings tab)', true);

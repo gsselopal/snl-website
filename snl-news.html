@@ -288,7 +288,17 @@
         </div>`;
         return;
       }
-      grid.innerHTML = visible.map(n => `
+      grid.innerHTML = visible.map(n => {
+        const students = n.tagged_students
+          ? n.tagged_students.split(',').map(s => s.trim()).filter(Boolean)
+          : [];
+        const studentBadges = students.length
+          ? `<div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.6rem;margin-bottom:0.2rem">
+               <span style="font-size:0.72rem;color:#94a3b8;margin-right:0.2rem;align-self:center;">🎓</span>
+               ${students.map(s => `<span style="display:inline-block;background:rgba(124,58,237,0.08);color:#6d28d9;border:1px solid rgba(124,58,237,0.18);border-radius:20px;padding:0.15rem 0.55rem;font-size:0.72rem;font-weight:600;">${s}</span>`).join('')}
+             </div>`
+          : '';
+        return `
         <div class="news-card" data-cat="${n.category}">
           <div class="news-card-top">
             <span class="news-cat ${catMap[n.category] || 'cat-general'}">${n.category || 'Update'}</span>
@@ -296,8 +306,10 @@
           </div>
           <h3>${n.title}</h3>
           <p>${n.description || ''}</p>
+          ${studentBadges}
           ${n.link ? `<a href="${n.link}" ${n.link.startsWith('http') ? 'target="_blank" rel="noopener"' : ''} class="news-read">${n.link_label || 'Learn More'} →</a>` : ''}
-        </div>`).join('');
+        </div>`;
+      }).join('');
 
       // Update count badge
       document.getElementById('count-all').textContent = items.length;

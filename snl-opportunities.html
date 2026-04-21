@@ -39,7 +39,8 @@
     .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 2rem; margin-bottom: 4rem; }
     .opportunity-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; transition: all 0.3s; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .opportunity-card:hover { border-color: #059669; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(5,150,105,0.1); }
-    .opportunity-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .opportunity-card .icon { width: 72px; height: 72px; margin-bottom: 1.25rem; font-size: 0; display: block; }
+    .opportunity-card .icon svg { width: 72px; height: 72px; }
     .opportunity-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
     .opportunity-card .description { color: #64748b; margin-bottom: 1.5rem; flex-grow: 1; }
     .opportunity-card .bullet-list { list-style: none; margin-bottom: 1.5rem; font-size: 0.95rem; }
@@ -55,7 +56,8 @@
     .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 2rem; }
     .benefit-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .benefit-card:hover { border-color: #059669; box-shadow: 0 6px 16px rgba(5,150,105,0.1); }
-    .benefit-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .benefit-card .icon { width: 60px; height: 60px; margin: 0 auto 1rem; font-size: 0; display: block; }
+    .benefit-card .icon svg { width: 60px; height: 60px; }
     .benefit-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
     .benefit-card p { font-size: 0.95rem; color: #64748b; line-height: 1.6; }
 
@@ -109,7 +111,32 @@
     <h2>Current Opportunities</h2>
     <div class="cards-grid">
       <div class="opportunity-card">
-        <div class="icon">🎓</div>
+        <div class="icon">
+          <!-- Graduate Students: Mortarboard cap + open book -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.1)" stroke="rgba(217,119,6,0.15)" stroke-width="1"/>
+            <!-- Mortarboard diamond -->
+            <polygon points="32,11 49,21 32,31 15,21" fill="rgba(245,158,11,0.22)" stroke="#d97706" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="32" cy="21" r="2.5" fill="#f59e0b"/>
+            <!-- Tassel cord + fringe -->
+            <line x1="49" y1="21" x2="49" y2="30" stroke="#d97706" stroke-width="2" stroke-linecap="round"/>
+            <line x1="46" y1="30" x2="44" y2="38" stroke="#d97706" stroke-width="1.6" stroke-linecap="round"/>
+            <line x1="49" y1="30" x2="49" y2="38" stroke="#d97706" stroke-width="1.6" stroke-linecap="round"/>
+            <line x1="52" y1="30" x2="54" y2="38" stroke="#d97706" stroke-width="1.6" stroke-linecap="round"/>
+            <!-- Open book below -->
+            <path d="M13,39 C13,38 14,37 16,37 L30,37 C31,37 32,38 32,39 L32,52 C32,52 22,50 13,52 Z" fill="rgba(245,158,11,0.18)" stroke="#d97706" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M51,39 C51,38 50,37 48,37 L34,37 C33,37 32,38 32,39 L32,52 C32,52 42,50 51,52 Z" fill="rgba(245,158,11,0.12)" stroke="#d97706" stroke-width="1.8" stroke-linejoin="round"/>
+            <!-- Spine -->
+            <line x1="32" y1="37" x2="32" y2="52" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Text lines on pages -->
+            <line x1="16" y1="41" x2="29" y2="40" stroke="#d97706" stroke-width="1" stroke-linecap="round"/>
+            <line x1="16" y1="44" x2="29" y2="43" stroke="#d97706" stroke-width="1" stroke-linecap="round"/>
+            <line x1="16" y1="47" x2="27" y2="46" stroke="#d97706" stroke-width="1" stroke-linecap="round"/>
+            <line x1="35" y1="40" x2="48" y2="41" stroke="#d97706" stroke-width="1" stroke-linecap="round"/>
+            <line x1="35" y1="43" x2="48" y2="44" stroke="#d97706" stroke-width="1" stroke-linecap="round"/>
+            <line x1="35" y1="46" x2="45" y2="47" stroke="#d97706" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
         <h3>Graduate Students</h3>
         <p class="description">We are actively seeking motivated graduate students with backgrounds in chemistry, engineering, materials science, or physics to pursue MSc or PhD research.</p>
         <ul class="bullet-list">
@@ -122,7 +149,26 @@
         <a href="mailto:gs.selopal@dal.ca?subject=Graduate Application — SNL&body=Dear Dr. Selopal,%0D%0A%0D%0AI am writing to express my interest in joining the SNL as a graduate student.%0D%0A%0D%0AName:%0D%0AProgram of interest (MSc/PhD):%0D%0ABackground:%0D%0A" class="cta-button">Apply Now →</a>
       </div>
       <div class="opportunity-card">
-        <div class="icon">🔬</div>
+        <div class="icon">
+          <!-- Undergraduate Students: Conical flask with bubbles -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.1)" stroke="rgba(217,119,6,0.15)" stroke-width="1"/>
+            <!-- Flask stopper -->
+            <rect x="25" y="9" width="14" height="5" rx="2" fill="rgba(217,119,6,0.3)" stroke="#d97706" stroke-width="1.5"/>
+            <!-- Flask neck -->
+            <rect x="27" y="14" width="10" height="15" rx="2" fill="rgba(245,158,11,0.15)" stroke="#d97706" stroke-width="2"/>
+            <!-- Flask body (expanding) -->
+            <path d="M27,29 L13,49 C11,53 16,56 32,56 C48,56 53,53 51,49 L37,29 Z" fill="rgba(245,158,11,0.15)" stroke="#d97706" stroke-width="2" stroke-linejoin="round"/>
+            <!-- Liquid fill -->
+            <path d="M15.5,47.5 C18,53 24,55 32,55 C40,55 46,53 48.5,47.5 Z" fill="rgba(245,158,11,0.5)" stroke="none"/>
+            <!-- Bubbles -->
+            <circle cx="24" cy="43" r="3.5" fill="rgba(255,255,255,0.55)" stroke="#d97706" stroke-width="1.3"/>
+            <circle cx="36" cy="37" r="2.8" fill="rgba(255,255,255,0.55)" stroke="#d97706" stroke-width="1.2"/>
+            <circle cx="29" cy="34" r="1.8" fill="rgba(255,255,255,0.45)" stroke="#d97706" stroke-width="1"/>
+            <!-- Shine on flask -->
+            <path d="M17,36 Q19,31 23,29" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
         <h3>Undergraduate Students</h3>
         <p class="description">Gain hands-on research experience in nanotechnology. We offer summer research positions (NSERC USRA) and year-round opportunities for high-achieving undergrads.</p>
         <ul class="bullet-list">
@@ -135,7 +181,29 @@
         <a href="mailto:gs.selopal@dal.ca?subject=Undergraduate Research Inquiry — SNL" class="cta-button">Express Interest →</a>
       </div>
       <div class="opportunity-card">
-        <div class="icon">🤝</div>
+        <div class="icon">
+          <!-- Industry Collaborations: Two people + spark connection -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.1)" stroke="rgba(217,119,6,0.15)" stroke-width="1"/>
+            <!-- Person 1 (left) -->
+            <circle cx="18" cy="19" r="7" fill="rgba(245,158,11,0.2)" stroke="#d97706" stroke-width="2"/>
+            <path d="M8,46 C8,37 12,33 18,33 C22,33 25,35 27,38" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8,46 C8,50 12,52 18,52 C21,52 23,51 25,50" fill="rgba(245,158,11,0.12)" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Person 2 (right) -->
+            <circle cx="46" cy="19" r="7" fill="rgba(245,158,11,0.2)" stroke="#d97706" stroke-width="2"/>
+            <path d="M56,46 C56,37 52,33 46,33 C42,33 39,35 37,38" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M56,46 C56,50 52,52 46,52 C43,52 41,51 39,50" fill="rgba(245,158,11,0.12)" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Connecting bridge / handshake area -->
+            <path d="M27,38 C29,42 35,42 37,38" fill="rgba(245,158,11,0.25)" stroke="#d97706" stroke-width="2" stroke-linecap="round"/>
+            <!-- Center spark -->
+            <circle cx="32" cy="40" r="4" fill="rgba(251,191,36,0.35)" stroke="#d97706" stroke-width="1.5"/>
+            <circle cx="32" cy="40" r="2" fill="#f59e0b"/>
+            <!-- Spark rays -->
+            <line x1="32" y1="34" x2="32" y2="36" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="37" y1="35" x2="36" y2="37" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="27" y1="35" x2="28" y2="37" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
         <h3>Industry Collaborations</h3>
         <p class="description">We collaborate with industry partners on applied research in cleantech, agriculture, and environmental solutions. Contact us to discuss partnership opportunities.</p>
         <ul class="bullet-list">
@@ -153,10 +221,102 @@
   <section class="why-snl">
     <h2>Why Join SNL?</h2>
     <div class="benefits-grid">
-      <div class="benefit-card"><div class="icon">🌍</div><h3>Impactful Research</h3><p>Work on real-world problems: clean energy, food security, environmental remediation</p></div>
-      <div class="benefit-card"><div class="icon">💰</div><h3>Fully Funded</h3><p>Strong track record of securing NSERC, MITACS, and CFI funding for lab members</p></div>
-      <div class="benefit-card"><div class="icon">🏛️</div><h3>World-Class Facilities</h3><p>Access to Dalhousie's state-of-the-art characterization equipment</p></div>
-      <div class="benefit-card"><div class="icon">🌐</div><h3>International Network</h3><p>Collaborate with researchers in Canada, Europe, and globally</p></div>
+      <div class="benefit-card">
+        <div class="icon">
+          <!-- Impactful Research: Globe with leaf sprout -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.08)" stroke="rgba(217,119,6,0.12)" stroke-width="1"/>
+            <!-- Globe body -->
+            <circle cx="32" cy="36" r="21" fill="rgba(245,158,11,0.1)" stroke="#d97706" stroke-width="2"/>
+            <!-- Latitude lines -->
+            <ellipse cx="32" cy="36" rx="21" ry="8" fill="none" stroke="#d97706" stroke-width="1.2" opacity="0.6"/>
+            <line x1="11" y1="36" x2="53" y2="36" stroke="#d97706" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+            <!-- Meridian arc -->
+            <path d="M32,15 Q42,20 43,36 Q42,52 32,57" fill="none" stroke="#d97706" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+            <!-- Leaf sprout from top of globe -->
+            <path d="M32,15 Q28,8 24,10 Q28,10 32,15" fill="rgba(245,158,11,0.4)" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M32,15 Q36,8 40,10 Q36,10 32,15" fill="rgba(245,158,11,0.3)" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+            <line x1="32" y1="8" x2="32" y2="15" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Sunrays dots -->
+            <circle cx="46" cy="20" r="2" fill="#f59e0b"/>
+            <circle cx="50" cy="26" r="1.5" fill="rgba(245,158,11,0.6)"/>
+            <circle cx="52" cy="33" r="1.2" fill="rgba(245,158,11,0.4)"/>
+          </svg>
+        </div>
+        <h3>Impactful Research</h3><p>Work on real-world problems: clean energy, food security, environmental remediation</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon">
+          <!-- Fully Funded: Award medal with ribbon -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.08)" stroke="rgba(217,119,6,0.12)" stroke-width="1"/>
+            <!-- Ribbon left -->
+            <path d="M25,41 L18,55 L25,51 L28,55 L28,41 Z" fill="rgba(245,158,11,0.25)" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+            <!-- Ribbon right -->
+            <path d="M39,41 L46,55 L39,51 L36,55 L36,41 Z" fill="rgba(245,158,11,0.18)" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+            <!-- Medal circle -->
+            <circle cx="32" cy="28" r="16" fill="rgba(245,158,11,0.2)" stroke="#d97706" stroke-width="2.2"/>
+            <circle cx="32" cy="28" r="12" fill="rgba(245,158,11,0.15)" stroke="#d97706" stroke-width="1.2"/>
+            <!-- Star -->
+            <polygon points="32,19 33.9,24.8 40,24.8 35,28.3 36.9,34.1 32,30.5 27.1,34.1 29,28.3 24,24.8 30.1,24.8" fill="#f59e0b" stroke="#d97706" stroke-width="1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Fully Funded</h3><p>Strong track record of securing NSERC, MITACS, and CFI funding for lab members</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon">
+          <!-- World-Class Facilities: Microscope -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.08)" stroke="rgba(217,119,6,0.12)" stroke-width="1"/>
+            <!-- Base plate -->
+            <rect x="17" y="52" width="28" height="5" rx="2.5" fill="rgba(245,158,11,0.25)" stroke="#d97706" stroke-width="1.8"/>
+            <!-- Vertical column -->
+            <rect x="29" y="30" width="7" height="22" rx="2" fill="rgba(245,158,11,0.18)" stroke="#d97706" stroke-width="1.8"/>
+            <!-- Stage arm (horizontal) -->
+            <rect x="18" y="36" width="22" height="5" rx="2" fill="rgba(245,158,11,0.2)" stroke="#d97706" stroke-width="1.8"/>
+            <!-- Focus knobs -->
+            <circle cx="40" cy="35" r="3.5" fill="rgba(245,158,11,0.3)" stroke="#d97706" stroke-width="1.5"/>
+            <circle cx="40" cy="42" r="3" fill="rgba(245,158,11,0.2)" stroke="#d97706" stroke-width="1.3"/>
+            <!-- Objective lens (angled tube going down) -->
+            <rect x="28" y="41" width="7" height="11" rx="2" fill="rgba(245,158,11,0.25)" stroke="#d97706" stroke-width="1.6"/>
+            <ellipse cx="31.5" cy="52" rx="4" ry="1.5" fill="rgba(217,119,6,0.3)" stroke="#d97706" stroke-width="1.2"/>
+            <!-- Eyepiece tube (angled up-left) -->
+            <path d="M29,30 L24,12" stroke="#d97706" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Eyepiece cup -->
+            <ellipse cx="23" cy="11" rx="5" ry="3" fill="rgba(245,158,11,0.25)" stroke="#d97706" stroke-width="1.8"/>
+            <!-- Specimen dot on stage -->
+            <circle cx="25" cy="38.5" r="3" fill="rgba(245,158,11,0.4)" stroke="#d97706" stroke-width="1.3"/>
+          </svg>
+        </div>
+        <h3>World-Class Facilities</h3><p>Access to Dalhousie's state-of-the-art characterization equipment</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon">
+          <!-- International Network: Globe with connection nodes -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.08)" stroke="rgba(217,119,6,0.12)" stroke-width="1"/>
+            <!-- Globe outline -->
+            <circle cx="32" cy="32" r="22" fill="rgba(245,158,11,0.08)" stroke="#d97706" stroke-width="1.8"/>
+            <!-- Latitude lines (2) -->
+            <ellipse cx="32" cy="24" rx="22" ry="7" fill="none" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2" opacity="0.55"/>
+            <ellipse cx="32" cy="40" rx="22" ry="7" fill="none" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2" opacity="0.55"/>
+            <!-- Equator -->
+            <line x1="10" y1="32" x2="54" y2="32" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2" opacity="0.4"/>
+            <!-- Meridian -->
+            <path d="M32,10 Q43,18 43,32 Q43,46 32,54" fill="none" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+            <!-- Network nodes (dots at intersections) -->
+            <circle cx="32" cy="10" r="3.5" fill="#f59e0b" stroke="#d97706" stroke-width="1.3"/>
+            <circle cx="43" cy="25" r="3.5" fill="#f59e0b" stroke="#d97706" stroke-width="1.3"/>
+            <circle cx="21" cy="38" r="3.5" fill="#f59e0b" stroke="#d97706" stroke-width="1.3"/>
+            <circle cx="44" cy="42" r="3.5" fill="rgba(245,158,11,0.5)" stroke="#d97706" stroke-width="1.3"/>
+            <!-- Connection lines between nodes (solid, on top) -->
+            <line x1="32" y1="10" x2="43" y2="25" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="43" y1="25" x2="44" y2="42" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="43" y1="25" x2="21" y2="38" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>International Network</h3><p>Collaborate with researchers in Canada, Europe, and globally</p>
+      </div>
     </div>
   </section>
 
