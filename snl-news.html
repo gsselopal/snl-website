@@ -137,6 +137,24 @@
     footer p { color: #94a3b8; font-size: 0.82rem; }
     footer a { color: #64748b; }
     footer a:hover { color: #0ea5e9; }
+
+    /* Press Coverage section */
+    .press-section { max-width: 1200px; margin: 0 auto; padding: 0 2rem 6rem; }
+    .press-divider { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+    .press-divider h2 { font-size: 1.6rem; white-space: nowrap; }
+    .press-divider-line { flex: 1; height: 1px; background: #e2e8f0; }
+    .press-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 1.25rem; }
+    .press-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1.5rem 1.75rem; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: all 0.3s; }
+    .press-card:hover { border-color: #d97706; box-shadow: 0 6px 16px rgba(217,119,6,0.1); transform: translateY(-3px); }
+    .press-card.featured { border-left: 3px solid #d97706; }
+    .press-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; gap: 0.5rem; }
+    .press-outlet { font-family: 'Space Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; }
+    .press-date { font-size: 0.72rem; color: #94a3b8; font-family: 'Space Mono', monospace; white-space: nowrap; }
+    .press-card h3 { font-size: 1rem; color: #0f172a; line-height: 1.4; margin-bottom: 0.5rem; }
+    .press-card p { font-size: 0.86rem; color: #64748b; line-height: 1.65; flex: 1; margin-bottom: 0.9rem; }
+    .press-footer { display: flex; align-items: center; justify-content: space-between; }
+    .press-tag { font-size: 0.65rem; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.6rem; border-radius: 2rem; background: rgba(217,119,6,0.08); border: 1px solid rgba(217,119,6,0.22); color: #92400e; }
+    .press-read { font-size: 0.82rem; color: #d97706; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -199,6 +217,122 @@
         </div>
       </div>
     </main>
+
+
+    <!-- Press Coverage -->
+    <section class="press-section">
+      <div class="press-divider">
+        <h2>Press &amp; Media Coverage</h2>
+        <div class="press-divider-line"></div>
+      </div>
+      <div class="press-grid">
+
+        <a class="press-card featured" href="https://www.nationalobserver.com/2024/04/26/news/green-hydrogen-nova-scotia" target="_blank" rel="noopener">
+          <div class="press-card-top">
+            <span class="press-outlet">Canada's National Observer</span>
+            <span class="press-date">June 2024</span>
+          </div>
+          <h3>Green Hydrogen Research in Nova Scotia</h3>
+          <p>Coverage of Dr. Selopal's research on quantum dot-based photoelectrochemical systems for producing green hydrogen — a key part of Canada's clean energy transition.</p>
+          <div class="press-footer">
+            <span class="press-tag">Clean Energy</span>
+            <span class="press-read">Read Article →</span>
+          </div>
+        </a>
+
+        <a class="press-card featured" href="https://timesofindia.indiatimes.com/city/ludhiana/pau-and-canadian-varsity-collaborate-on-sustainable-agriculture/articleshow/107979448.cms" target="_blank" rel="noopener">
+          <div class="press-card-top">
+            <span class="press-outlet">Times of India</span>
+            <span class="press-date">February 2024</span>
+          </div>
+          <h3>PAU and Canadian University Collaborate on Sustainable Agriculture</h3>
+          <p>Reports on the collaborative research initiative between Punjab Agricultural University and Dalhousie University's SNL to advance sustainable agriculture.</p>
+          <div class="press-footer">
+            <span class="press-tag">Collaboration</span>
+            <span class="press-read">Read Article →</span>
+          </div>
+        </a>
+
+        <a class="press-card" href="https://www.dal.ca/faculty/agriculture/news-events/news/2025/11/10/dalhousie_students_to_represent_sustainable_innovation_at_women_in_agriculture_conference.html" target="_blank" rel="noopener">
+          <div class="press-card-top">
+            <span class="press-outlet">Dalhousie Faculty of Agriculture</span>
+            <span class="press-date">November 2025</span>
+          </div>
+          <h3>SNL Students to Represent Sustainable Innovation at Women in Agriculture Conference</h3>
+          <p>SNL-trained students selected to represent sustainable innovation at the Advancing Women in Agriculture Conference in Niagara Falls.</p>
+          <div class="press-footer">
+            <span class="press-tag">Student Achievement</span>
+            <span class="press-read">Read Article →</span>
+          </div>
+        </a>
+
+        <a class="press-card" href="https://www.dal.ca/faculty/agriculture/news-events/news/2025/06/18/atlantic_biocon_conference.html" target="_blank" rel="noopener">
+          <div class="press-card-top">
+            <span class="press-outlet">Dalhousie Faculty of Agriculture</span>
+            <span class="press-date">June 2025</span>
+          </div>
+          <h3>SNL Researchers Showcase at Atlantic BIOCON Conference</h3>
+          <p>SNL-trained researchers presenting their work at the Atlantic BIOCON Conference, underscoring the lab's growing footprint in biotech and agriculture innovation.</p>
+          <div class="press-footer">
+            <span class="press-tag">Agriculture</span>
+            <span class="press-read">Read Article →</span>
+          </div>
+        </a>
+
+        <a class="press-card" href="https://rivervalleysun.ca/230675-2/" target="_blank" rel="noopener">
+          <div class="press-card-top">
+            <span class="press-outlet">River Valley Sun</span>
+            <span class="press-date">February 2025</span>
+          </div>
+          <h3>Nano-fertilizer Research Featured at Potatoes New Brunswick Conference</h3>
+          <p>SNL's nano-fertilizer research presented at the Potatoes New Brunswick conference and annual general meeting in Woodstock.</p>
+          <div class="press-footer">
+            <span class="press-tag">Agriculture · NB</span>
+            <span class="press-read">Read Article →</span>
+          </div>
+        </a>
+
+        <a class="press-card" href="https://krishijagran.com/agriculture-world/pau-and-dalhousie-university-in-nova-scotia-canada-join-hands-for-achieving-sustainable-agriculture-practices/" target="_blank" rel="noopener">
+          <div class="press-card-top">
+            <span class="press-outlet">Krishi Jagran</span>
+            <span class="press-date">February 2024</span>
+          </div>
+          <h3>PAU and Dalhousie Join Hands for Sustainable Agriculture</h3>
+          <p>India's Krishi Jagran covers the landmark collaboration between Punjab Agricultural University and Dalhousie's SNL for global food security.</p>
+          <div class="press-footer">
+            <span class="press-tag">International Collaboration</span>
+            <span class="press-read">Read Article →</span>
+          </div>
+        </a>
+
+        <a class="press-card" href="https://www.pau.edu/index.php?_act=manageEvent&DO=viewEventDetail&intID=8738" target="_blank" rel="noopener">
+          <div class="press-card-top">
+            <span class="press-outlet">Punjab Agricultural University</span>
+            <span class="press-date">June 2024</span>
+          </div>
+          <h3>Dal-PAU Collaboration Highlighted by Punjab Agricultural University</h3>
+          <p>Punjab Agricultural University highlights the research collaboration with SNL, featuring Dr. Selopal's visit and joint initiatives in nanotechnology for agriculture.</p>
+          <div class="press-footer">
+            <span class="press-tag">Research Partnership</span>
+            <span class="press-read">View Feature →</span>
+          </div>
+        </a>
+
+        <a class="press-card" href="https://advancingwomenconference.ca/2025east/student-program/" target="_blank" rel="noopener">
+          <div class="press-card-top">
+            <span class="press-outlet">Advancing Women in Agriculture Conference</span>
+            <span class="press-date">November 2025</span>
+          </div>
+          <h3>SNL Researchers Featured in National Agriculture Leadership Program</h3>
+          <p>Students trained under Dr. Selopal at SNL are featured in the student program of the Advancing Women in Agriculture Conference (Ontario, Canada).</p>
+          <div class="press-footer">
+            <span class="press-tag">Student Recognition</span>
+            <span class="press-read">View Program →</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
 
     <footer>
       <p>© 2025 Sustainable Nanoengineering Lab · Dalhousie University ·
