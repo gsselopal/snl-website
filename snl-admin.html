@@ -1311,6 +1311,7 @@ function editMember(id) {
   document.getElementById('t-focus').value = m.focus || '';
   document.getElementById('t-email').value = m.email || '';
   document.getElementById('t-photo-url').value = m.photo_url || '';
+  document.getElementById('t-linkedin').value  = m.linkedin  || '';
   // Show existing photo preview
   const prev = document.getElementById('t-photo-preview');
   if (m.photo_url) {
@@ -1367,6 +1368,7 @@ async function saveTeamMember() {
       badge:     document.getElementById('t-badge').value.trim(),
       focus:     document.getElementById('t-focus').value.trim(),
       email:     document.getElementById('t-email').value.trim(),
+      linkedin:  document.getElementById('t-linkedin').value.trim(),
       photo_url: photoUrl
     };
 

@@ -273,7 +273,7 @@
           <div class="team-avatar avatar-4"><img src="/assets/images/umair.jpeg" alt="Umair Sohail"></div>
           <h3 class="team-name">Umair Sohail</h3>
           <div class="team-role">MSc Student</div>
-          <div class="team-badge">KILM Scholar</div>
+          <div class="team-badge">Killam Predoctoral Scholar</div>
           <p class="team-focus">Clean energy production using quantum dots and electrocatalysts for hydrogen evolution</p>
           <a href="https://www.linkedin.com/in/umair-sohail-b5b483179" id="li-umair" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
@@ -542,5 +542,60 @@
   </script>
   </div>
 <script src="/assets/shared.js"></script>
+<script>
+/* ── Dynamic team loading from Supabase ─────────────────────────── */
+(async function() {
+  const cfg = JSON.parse(localStorage.getItem('snl_supabase') || '{}');
+  if (!cfg.url || !cfg.key) return; // no config — keep static HTML
+
+  try {
+    const res = await fetch(cfg.url + '/rest/v1/team_members?order=created_at.asc', {
+      headers: { 'apikey': cfg.key, 'Authorization': 'Bearer ' + cfg.key }
+    });
+    if (!res.ok) return;
+    const members = await res.json();
+    if (!Array.isArray(members) || members.length === 0) return;
+
+    // Group by status
+    const groups = { postdoc: [], phd: [], msc: [] };
+    members.forEach(m => {
+      const s = (m.status || 'msc').toLowerCase();
+      if (groups[s]) groups[s].push(m);
+      else groups.msc.push(m);
+    });
+
+    function cardHTML(m) {
+      const photo = m.photo_url
+        ? `<img src="${m.photo_url}" alt="${m.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+        : '';
+      const badge = m.badge ? `<div class="team-badge">${m.badge}</div>` : '';
+      const focus = m.focus ? `<p class="team-focus">${m.focus}</p>` : '';
+      const link  = m.linkedin
+        ? `<a href="${m.linkedin}" class="team-link-btn" target="_blank" rel="noopener">LinkedIn</a>`
+        : '';
+      return `<div class="team-card">
+        <div class="team-avatar">${photo}</div>
+        <h3 class="team-name">${m.name}</h3>
+        <div class="team-role">${m.role || m.status}</div>
+        ${badge}${focus}${link}
+      </div>`;
+    }
+
+    // Replace each section's grid if we have data for it
+    const sectionMap = { postdoc: 'Postdoctoral Fellow', phd: 'PhD Students', msc: 'MSc Students' };
+    document.querySelectorAll('.container section').forEach(sec => {
+      const heading = sec.querySelector('.section-header h2');
+      if (!heading) return;
+      const title = heading.textContent.trim();
+      for (const [key, label] of Object.entries(sectionMap)) {
+        if (title === label && groups[key].length > 0) {
+          const grid = sec.querySelector('.team-grid');
+          if (grid) grid.innerHTML = groups[key].map(cardHTML).join('');
+        }
+      }
+    });
+  } catch(e) { /* fail silently — static HTML stays */ }
+})();
+</script>
 </body>
 </html>
