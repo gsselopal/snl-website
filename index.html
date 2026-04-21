@@ -66,15 +66,28 @@
     .section-header h2 { font-size: 2.8rem; margin-bottom: 0.75rem; }
     .section-header p { font-size: 1.05rem; color: #64748b; max-width: 560px; margin: 0 auto; }
     .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .pillar-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; transition: all 0.3s; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .pillar-card:hover { border-color: #0ea5e9; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(14,165,233,0.1); }
+    .pillar-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; transition: all 0.3s; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05); position: relative; overflow: hidden; }
+    .pillar-card::after { content: attr(data-num); position: absolute; top: 1rem; right: 1.25rem; font-family: 'Space Mono', monospace; font-size: 1.6rem; color: rgba(217,119,6,0.1); font-weight: 700; line-height: 1; pointer-events: none; }
+    .pillar-card:hover { border-color: rgba(217,119,6,0.45); transform: translateY(-4px); box-shadow: 0 8px 20px rgba(217,119,6,0.12); }
+    .pillar-card:hover::after { color: rgba(217,119,6,0.18); }
     .pillar-icon { width: 60px; height: 60px; margin-bottom: 1.1rem; display: block; font-size: 0; }
     .pillar-icon svg { width: 60px; height: 60px; }
     .pillar-card h3 { font-size: 1.35rem; margin-bottom: 0.75rem; }
     .pillar-card p { color: #64748b; font-size: 0.93rem; margin-bottom: 1.2rem; line-height: 1.65; }
-    .pillar-tag { display: inline-block; background: rgba(13,148,136,0.09); color: #0d9488; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .pillar-tag { display: inline-block; background: rgba(217,119,6,0.08); color: #b45309; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(217,119,6,0.2); }
     .research-link { text-align: center; margin-top: 2rem; }
-    .research-link a { color: #0ea5e9; font-weight: 600; font-size: 1rem; }
+    .research-link a { color: #d97706; font-weight: 600; font-size: 1rem; }
+    /* Photo Carousel */
+    .lab-carousel { max-width: 1200px; margin: 3rem auto 0; padding: 0 2rem; }
+    .carousel-inner { position: relative; border-radius: 1rem; overflow: hidden; aspect-ratio: 16/6; border: 1px solid #e2e8f0; box-shadow: 0 4px 16px rgba(0,0,0,0.07); background: #0f172a; }
+    .carousel-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.9s ease; }
+    .carousel-slide.active { opacity: 1; }
+    .carousel-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, rgba(248,250,252,0.85) 100%); pointer-events: none; }
+    .carousel-caption { position: absolute; bottom: 1.25rem; left: 1.75rem; }
+    .carousel-caption p { margin: 0; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(15,23,42,0.5); }
+    .carousel-dots { display: flex; justify-content: center; gap: 0.55rem; margin-top: 1rem; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0; cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
+    .carousel-dot.active { background: #d97706; transform: scale(1.25); }
 
     /* News & Highlights */
     .news-section { background: #f1f5f9; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 4rem 2rem; }
@@ -112,21 +125,27 @@
     .opportunities-box h2 { font-size: 2.5rem; margin-bottom: 1rem; }
     .opportunities-box p { font-size: 1.05rem; color: #64748b; max-width: 560px; margin: 0 auto 2rem; }
 
+    /* Courses Taught */
+    .courses-section { max-width: 1200px; margin: 0 auto 5rem; padding: 0 2rem; }
+    .courses-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 2.5rem 3rem; display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap; }
+    .courses-intro { flex: 0 0 220px; }
+    .courses-intro .courses-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: #7c3aed; margin-bottom: 0.5rem; }
+    .courses-intro h3 { font-size: 1.4rem; margin-bottom: 0.6rem; }
+    .courses-intro p { font-size: 0.86rem; color: #64748b; line-height: 1.7; }
+    .courses-pills { display: flex; flex-wrap: wrap; gap: 1rem; flex: 1; align-content: flex-start; padding-top: 0.1rem; }
+    .course-pill { background: rgba(124,58,237,0.04); border: 1px solid rgba(124,58,237,0.18); border-radius: 0.6rem; padding: 0.8rem 1.3rem; min-width: 160px; }
+    .course-code { font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; color: #7c3aed; letter-spacing: 0.06em; margin-bottom: 0.25rem; }
+    .course-name { font-size: 0.84rem; color: #475569; }
+
+
+    /* Funding callout */
+    .funding-callout { max-width: 1200px; margin: -1rem auto 0; padding: 0 2rem 3.5rem; display: flex; justify-content: center; }
+    .funding-pill { display: inline-flex; align-items: center; gap: 0.75rem; background: rgba(217,119,6,0.06); border: 1px solid rgba(217,119,6,0.2); border-radius: 2rem; padding: 0.6rem 1.4rem; }
+    .funding-pill-num { font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 700; color: #d97706; }
+    .funding-pill-sep { width: 1px; height: 1rem; background: rgba(217,119,6,0.25); }
+    .funding-pill-label { font-size: 0.82rem; color: #64748b; }
     footer { background: #f1f5f9; border-top: 1px solid #e2e8f0; padding: 2.5rem; text-align: center; color: #94a3b8; font-size: 0.88rem; margin-top: 6rem; }
 
-    /* Dal Impact Ribbon */
-    .dal-impact { background: linear-gradient(135deg, #0f172a 0%, #1a2744 100%); padding: 4.5rem 2rem; }
-    .dal-impact-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
-    .dal-impact-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,158,11,0.65); margin-bottom: 0.6rem; }
-    .dal-impact-headline { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: rgba(255,255,255,0.88); margin-bottom: 2.8rem; font-weight: 400; }
-    .dal-impact-headline em { color: #f59e0b; font-style: normal; }
-    .dal-stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; overflow: hidden; }
-    .dal-stat-cell { background: rgba(15,23,42,0.85); padding: 2rem 1rem; text-align: center; transition: background 0.3s; }
-    .dal-stat-cell:hover { background: rgba(245,158,11,0.06); }
-    .dal-stat-num { font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700; color: #f59e0b; line-height: 1; margin-bottom: 0.55rem; }
-    .dal-stat-lbl { font-size: 0.72rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.07em; line-height: 1.4; }
-    @media (max-width: 900px) { .dal-stats-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 520px) { .dal-stats-grid { grid-template-columns: repeat(2, 1fr); } .dal-stat-num { font-size: 1.6rem; } }
 
     @media (max-width: 768px) { .hero h1 { font-size: 2.4rem; } .hero-subtitle { font-size: 1rem; } .section-header h2 { font-size: 2rem; } }
     @media (max-width: 480px) { .hero h1 { font-size: 1.9rem; } .hero-buttons { flex-direction: column; } .btn { width: 100%; } }
@@ -147,7 +166,6 @@
           <li><a href="/publications">Publications</a></li>
           <li><a href="/team">Team</a></li>
           <li><a href="/news">News</a></li>
-          <li><a href="/media">Media</a></li>
           <li><a href="/opportunities">Opportunities</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
@@ -173,45 +191,20 @@
         <div class="hero-stats">
           <div class="stat"><div class="stat-number" id="stat-pubs">100+</div><div class="stat-label">Publications</div></div>
           <div class="stat"><div class="stat-number" id="stat-citations">3,500+</div><div class="stat-label">Citations</div></div>
-          <div class="stat"><div class="stat-number" id="stat-hindex">h-33</div><div class="stat-label">h-index</div></div>
+          <div class="stat"><div class="stat-number" id="stat-hindex">h-31</div><div class="stat-label">h-index</div></div>
           <div class="stat"><div class="stat-number">4</div><div class="stat-label">Research Pillars</div></div>
         </div>
       </div>
     </section>
 
-    <!-- Dalhousie Impact Ribbon -->
-    <section class="dal-impact">
-      <div class="dal-impact-inner">
-        <div class="dal-impact-eyebrow">Dalhousie University · 2022 – Present</div>
-        <h2 class="dal-impact-headline">Building <em>SNL</em> from the Ground Up</h2>
-        <div class="dal-stats-grid">
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">$8.8M+</div>
-            <div class="dal-stat-lbl">Research Funding</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">20</div>
-            <div class="dal-stat-lbl">Active Grants</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">30+</div>
-            <div class="dal-stat-lbl">Publications Since 2022</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">30+</div>
-            <div class="dal-stat-lbl">Researchers Trained</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">4</div>
-            <div class="dal-stat-lbl">Academic Appointments</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">1</div>
-            <div class="dal-stat-lbl">International Patent</div>
-          </div>
-        </div>
+    <!-- Funding callout -->
+    <div class="funding-callout">
+      <div class="funding-pill">
+        <span class="funding-pill-num">$8.8M</span>
+        <span class="funding-pill-sep"></span>
+        <span class="funding-pill-label">in research funding secured since 2022 across 20 active grants</span>
       </div>
-    </section>
+    </div>
 
     <section class="research-pillars">
       <div class="section-header">
@@ -219,7 +212,7 @@
         <p>Four interconnected research areas driving innovation in nanotechnology for sustainable solutions.</p>
       </div>
       <div class="pillars-grid">
-        <div class="pillar-card" onclick="location.href='/research'">
+        <div class="pillar-card" data-num="01" onclick="location.href='/research'">
           <span class="pillar-icon">
             <!-- Solar Energy: Sun + layered photoelectrode cell -->
             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -249,7 +242,7 @@
           <p>Converting sunlight into electricity using nanostructured photoelectrodes for sustainable energy generation.</p>
           <span class="pillar-tag">Energy</span>
         </div>
-        <div class="pillar-card" onclick="location.href='/research'">
+        <div class="pillar-card" data-num="02" onclick="location.href='/research'">
           <span class="pillar-icon">
             <!-- Green Hydrogen: Photoelectrode in water + H₂ bubbles -->
             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -277,7 +270,7 @@
           <p>Sustainable hydrogen via photoelectrochemical water splitting for the future clean energy economy.</p>
           <span class="pillar-tag">Hydrogen</span>
         </div>
-        <div class="pillar-card" onclick="location.href='/research'">
+        <div class="pillar-card" data-num="03" onclick="location.href='/research'">
           <span class="pillar-icon">
             <!-- Precision Agriculture: Plant + sensor signal rings -->
             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -304,7 +297,7 @@
           <p>Nanomaterial-based sensors for smart farming, enabling data-driven agriculture and crop monitoring.</p>
           <span class="pillar-tag">Agriculture</span>
         </div>
-        <div class="pillar-card" onclick="location.href='/research'">
+        <div class="pillar-card" data-num="04" onclick="location.href='/research'">
           <span class="pillar-icon">
             <!-- Environmental Remediation: Contaminated water → clean via QD photocatalysis -->
             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -378,16 +371,21 @@
       </div>
     </section>
 
-    <!-- Lab Photo Banner -->
-    <section style="padding:3rem 2rem 0;max-width:1200px;margin:0 auto;">
-      <div style="position:relative;border-radius:1rem;overflow:hidden;aspect-ratio:16/6;border:1px solid #e2e8f0;box-shadow:0 4px 16px rgba(0,0,0,0.07);">
-        <img src="/assets/images/teampicture.jpeg" alt="SNL Lab Team" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 72%;display:block;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(248,250,252,0.88) 100%);"></div>
-        <div style="position:absolute;bottom:1.25rem;left:1.75rem;">
-          <p style="margin:0;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(15,23,42,0.5);">SNL · Dalhousie University</p>
-        </div>
+    <!-- Lab Photo Carousel -->
+    <div class="lab-carousel">
+      <div class="carousel-inner" id="lab-carousel">
+        <img class="carousel-slide active" src="/assets/images/teampicture.jpeg" alt="SNL Team" style="object-position:center 72%;">
+        <img class="carousel-slide" src="/assets/images/lab-team-photo.jpg" alt="SNL Team Outdoor" style="object-position:center center;">
+        <img class="carousel-slide" src="/assets/images/lab-photo-2.jpg" alt="SNL Team" style="object-position:center center;">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-caption"><p>Sustainable Nanoengineering Lab · Dalhousie University</p></div>
       </div>
-    </section>
+      <div class="carousel-dots">
+        <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Photo 1"></button>
+        <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Photo 2"></button>
+        <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Photo 3"></button>
+      </div>
+    </div>
 
     <section class="team-preview">
       <div class="section-header">
@@ -423,6 +421,35 @@
       <div class="team-link"><a href="/team">Meet Everyone →</a></div>
     </section>
 
+    <!-- Courses Taught -->
+    <section class="courses-section">
+      <div class="courses-card">
+        <div class="courses-intro">
+          <div class="courses-eyebrow">Teaching</div>
+          <h3>Courses Taught</h3>
+          <p>Dr. Selopal teaches undergraduate physics and engineering at Dalhousie University, Faculty of Agriculture.</p>
+        </div>
+        <div class="courses-pills">
+          <div class="course-pill">
+            <div class="course-code">PHYS 1000</div>
+            <div class="course-name">Introductory Physics I</div>
+          </div>
+          <div class="course-pill">
+            <div class="course-code">PHYS 1002</div>
+            <div class="course-name">Introductory Physics II</div>
+          </div>
+          <div class="course-pill">
+            <div class="course-code">PHYS 1003</div>
+            <div class="course-name">Physics for Life Sciences</div>
+          </div>
+          <div class="course-pill">
+            <div class="course-code">ENGN 3000</div>
+            <div class="course-name">Engineering Applications</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="opportunities-cta">
       <div class="opportunities-box">
         <h2>Join the Lab</h2>
@@ -432,12 +459,44 @@
     </section>
 
     <footer>
+      <div style="display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:1rem;flex-wrap:wrap;">
+        <img src="/assets/images/funder-dal.png" alt="Dalhousie University" style="height:34px;opacity:0.65;filter:grayscale(15%);">
+      </div>
       <p>&copy; 2025 Sustainable Nanoengineering Lab &middot; Dalhousie University &middot; Halifax, Nova Scotia</p>
       <a href="/admin" style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.75rem;padding:0.4rem 0.9rem;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;color:#94a3b8;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='#7c3aed';this.style.color='#7c3aed'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#94a3b8'">🔐 Admin Portal</a>
     </footer>
   </div>
 
   <script>
+    // ── Team Photo Carousel ───────────────────────────────────────────
+    (function() {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dots   = document.querySelectorAll('.carousel-dot');
+      let current = 0, timer;
+
+      window.goToSlide = function(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = ((n % slides.length) + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      };
+
+      function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goToSlide(current + 1), 5000);
+      }
+
+      // Pause on hover
+      const carousel = document.getElementById('lab-carousel');
+      if (carousel) {
+        carousel.addEventListener('mouseenter', () => clearInterval(timer));
+        carousel.addEventListener('mouseleave', startTimer);
+      }
+
+      startTimer();
+    })();
+
     // Stats from Semantic Scholar
     (async function() {
       try {
