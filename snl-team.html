@@ -91,6 +91,17 @@
     .pi-cred-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .pi-cred-tag { font-size: 0.78rem; background: rgba(124,58,237,0.05); border: 1px solid rgba(124,58,237,0.15); color: #475569; padding: 0.22rem 0.7rem; border-radius: 20px; }
 
+    /* Teaching */
+    .teaching-section { margin: 2rem 0 4rem; }
+    .teaching-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 2rem 2.5rem; display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap; }
+    .teaching-intro { flex: 1; min-width: 220px; }
+    .teaching-intro h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .teaching-intro p { font-size: 0.88rem; color: #64748b; line-height: 1.7; }
+    .teaching-courses { display: flex; flex-wrap: wrap; gap: 1rem; flex: 2; min-width: 280px; align-items: flex-start; padding-top: 0.25rem; }
+    .course-pill { background: rgba(124,58,237,0.05); border: 1px solid rgba(124,58,237,0.18); border-radius: 0.5rem; padding: 0.75rem 1.25rem; }
+    .course-code { font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; color: #7c3aed; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+    .course-name { font-size: 0.82rem; color: #475569; }
+
     /* Alumni */
     .alumni-section { margin-top: 4rem; margin-bottom: 3rem; }
     .alumni-sub { margin-bottom: 2rem; }
@@ -131,7 +142,6 @@
         <li><a href="/publications">Publications</a></li>
         <li><a href="/team" class="active">Team</a></li>
         <li><a href="/news">News</a></li>
-        <li><a href="/media">Media</a></li>
         <li><a href="/opportunities">Opportunities</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
@@ -153,10 +163,10 @@
       <div class="pi-card">
         <div class="pi-avatar"><img src="/assets/images/headshot.jpeg" alt="Dr. G.S. Selopal"></div>
         <div class="pi-content">
-          <h2>Dr. G.S. Selopal</h2>
-          <div class="pi-title">Assistant Professor</div>
-          <div class="pi-affiliation">Department of Engineering, Faculty of Agriculture, Dalhousie University</div>
-          <p class="pi-bio">Dr. Selopal is an expert in the advanced nanoengineering of multifunctional quantum materials for clean energy conversion and sustainable agriculture technologies. He is widely recognized for optimizing quantum materials to develop reliable, cost-effective, and scalable solutions that address critical challenges in environmental sustainability and food security. With a multidisciplinary background in materials science, chemical engineering, and applied physics, his research bridges the gap between fundamental quantum materials design and field-scale applications. He holds Adjunct Professor appointments at INRS-EMT (QC) and the University of Prince Edward Island (PEI), and is a Licensed Professional Engineer (P.Eng.).</p>
+          <h2 id="pi-card-name">Dr. G.S. Selopal</h2>
+          <div class="pi-title" id="pi-card-title">Assistant Professor</div>
+          <div class="pi-affiliation" id="pi-card-affil">Department of Engineering, Faculty of Agriculture, Dalhousie University</div>
+          <p class="pi-bio" id="pi-card-bio">Dr. Selopal is an expert in the advanced nanoengineering of multifunctional quantum materials for clean energy conversion and sustainable agriculture technologies. He is widely recognized for optimizing quantum materials to develop reliable, cost-effective, and scalable solutions that address critical challenges in environmental sustainability and food security. With a multidisciplinary background in materials science, chemical engineering, and applied physics, his research bridges the gap between fundamental quantum materials design and field-scale applications. He holds Adjunct Professor appointments at INRS-EMT (QC) and the University of Prince Edward Island (PEI), and is a Licensed Professional Engineer (P.Eng.).</p>
           <div class="pi-links">
             <a href="https://www.dal.ca/faculty/agriculture/faculty/eng/Gurpreet-Selopal.html" class="profile-link" target="_blank">Dal Profile</a>
             <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" class="profile-link" target="_blank">Google Scholar</a>
@@ -184,15 +194,7 @@
                 <span class="pi-cred-tag">Expert Reviewer · NSERC Alliance &amp; Discovery Grants</span>
               </div>
             </div>
-            <div class="pi-cred-row">
-              <span class="pi-cred-label">Teaching</span>
-              <div class="pi-cred-tags">
-                <span class="pi-cred-tag">PHYS 1000</span>
-                <span class="pi-cred-tag">PHYS 1002</span>
-                <span class="pi-cred-tag">PHYS 1003</span>
-                <span class="pi-cred-tag">ENGN 3000</span>
-              </div>
-            </div>
+
             <div class="pi-cred-row">
               <span class="pi-cred-label">Patent</span>
               <div class="pi-cred-tags">
@@ -235,6 +237,34 @@
           <div class="team-badge">McCain Fellowship Scholar</div>
           <p class="team-focus">Nanofertilizers, carbon dot-based luminescent solar concentrators, and building-integrated photovoltaics</p>
           <a href="https://www.linkedin.com/in/manmeet-chhina-phd-869558151" class="team-link-btn" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaching -->
+    <section class="teaching-section">
+      <div class="teaching-card">
+        <div class="teaching-intro">
+          <h3>Courses Taught</h3>
+          <p>Dr. Selopal teaches undergraduate physics and engineering courses at Dalhousie University, Faculty of Agriculture.</p>
+        </div>
+        <div class="teaching-courses">
+          <div class="course-pill">
+            <div class="course-code">PHYS 1000</div>
+            <div class="course-name">Introductory Physics I</div>
+          </div>
+          <div class="course-pill">
+            <div class="course-code">PHYS 1002</div>
+            <div class="course-name">Introductory Physics II</div>
+          </div>
+          <div class="course-pill">
+            <div class="course-code">PHYS 1003</div>
+            <div class="course-name">Physics for Life Sciences</div>
+          </div>
+          <div class="course-pill">
+            <div class="course-code">ENGN 3000</div>
+            <div class="course-name">Engineering Applications</div>
+          </div>
         </div>
       </div>
     </section>
@@ -487,6 +517,29 @@
       document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(rafId);else loop();});
       resize(); init(); loop();
     })();
+  </script>
+
+  <script>
+  (async function() {
+    const SB_URL = 'https://ozjtupdoejuotbzqrnwx.supabase.co';
+    const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96anR1cGRvZWp1b3RienFybnd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4Mjg2ODUsImV4cCI6MjA2MDQwNDY4NX0.cgjscBQkFnMvS9HfpYtVFGZgWuoMEisFCjZNRqXmGYs';
+    try {
+      const res = await fetch(`${SB_URL}/rest/v1/site_content?section=eq.pi_profile&select=section,data`, {
+        headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+      });
+      const rows = await res.json();
+      if (!Array.isArray(rows) || rows.length === 0) return;
+      const d = rows[0].data || {};
+      if (d.name)       { const el = document.getElementById('pi-card-name');  if (el) el.textContent = d.name; }
+      if (d.title)      { const el = document.getElementById('pi-card-title'); if (el) el.textContent = d.title; }
+      if (d.affiliation){ const el = document.getElementById('pi-card-affil'); if (el) el.textContent = d.affiliation; }
+      if (d.bio)        { const el = document.getElementById('pi-card-bio');   if (el) el.textContent = d.bio; }
+      if (d.scholar_url){ const el = document.querySelector('a[href*="scholar.google"]'); if (el) el.href = d.scholar_url; }
+      if (d.linkedin_url){ const el = document.querySelector('a[href*="linkedin"]');      if (el) el.href = d.linkedin_url; }
+      if (d.rg_url)     { const el = document.querySelector('a[href*="researchgate"]');   if (el) el.href = d.rg_url; }
+      if (d.orcid_url)  { const el = document.querySelector('a[href*="orcid"]');          if (el) el.href = d.orcid_url; }
+    } catch(e) {}
+  })();
   </script>
   </div>
 </body>

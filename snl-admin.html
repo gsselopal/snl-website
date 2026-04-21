@@ -330,6 +330,8 @@
     <button class="tab-nav-btn"        data-tab="team"         onclick="switchTab('team')">👥 Team</button>
     <button class="tab-nav-btn"        data-tab="covers"       onclick="switchTab('covers')">🖼 Journal Covers</button>
     <button class="tab-nav-btn"        data-tab="publications" onclick="switchTab('publications');loadPubsTab()">📄 Publications</button>
+    <button class="tab-nav-btn"        data-tab="profile"      onclick="switchTab('profile');loadProfile()">👤 Profile</button>
+    <button class="tab-nav-btn"        data-tab="pages"        onclick="switchTab('pages');loadPageContent()">📝 Pages</button>
     <button class="tab-nav-btn"        data-tab="settings"     onclick="switchTab('settings')">⚙️ Settings</button>
   </nav>
 
@@ -596,6 +598,135 @@
         <button class="btn-primary" onclick="savePubMeta()">Save</button>
         <span id="drawer-msg"></span>
       </div>
+    </div>
+  </div>
+
+  <!-- ────────────────────── PROFILE TAB ─────────────────────────────── -->
+  <div class="tab-panel" id="tab-profile">
+    <div class="panel-heading">
+      <h2>PI Profile</h2>
+      <p>Edit Dr. Selopal's bio and credentials. Changes are saved to the database and shown on the Team page.</p>
+    </div>
+
+    <div class="form-card">
+      <h3>Profile Information</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="pi-name" value="Dr. G.S. Selopal" placeholder="Dr. Gurpreet Singh Selopal">
+        </div>
+        <div class="form-group">
+          <label>Title / Position</label>
+          <input type="text" id="pi-title" value="Assistant Professor (Tenure-Track)" placeholder="Assistant Professor">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Affiliation</label>
+        <input type="text" id="pi-affil" value="Department of Engineering, Faculty of Agriculture, Dalhousie University" placeholder="Department, University">
+      </div>
+      <div class="form-group">
+        <label>Bio</label>
+        <textarea id="pi-bio" rows="7" placeholder="Write a professional bio...">Dr. Selopal is an expert in the advanced nanoengineering of multifunctional quantum materials for clean energy conversion and sustainable agriculture technologies. He is widely recognized for optimizing quantum materials to develop reliable, cost-effective, and scalable solutions that address critical challenges in environmental sustainability and food security. With a multidisciplinary background in materials science, chemical engineering, and applied physics, his research bridges the gap between fundamental quantum materials design and field-scale applications. He holds Adjunct Professor appointments at INRS-EMT (QC) and the University of Prince Edward Island (PEI), and is a Licensed Professional Engineer (P.Eng.).</textarea>
+      </div>
+      <h3 style="margin-top:1.5rem;margin-bottom:1rem;font-size:1.1rem;">Profile Links</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Google Scholar URL</label>
+          <input type="url" id="pi-scholar" value="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" placeholder="https://scholar.google.com/...">
+        </div>
+        <div class="form-group">
+          <label>LinkedIn URL</label>
+          <input type="url" id="pi-linkedin" value="https://www.linkedin.com/in/drgsselopal/" placeholder="https://linkedin.com/in/...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>ResearchGate URL</label>
+          <input type="url" id="pi-researchgate" value="https://www.researchgate.net/profile/Gurpreet-Selopal" placeholder="https://researchgate.net/...">
+        </div>
+        <div class="form-group">
+          <label>ORCID URL</label>
+          <input type="url" id="pi-orcid" value="https://orcid.org/0000-0002-4703-8829" placeholder="https://orcid.org/...">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" onclick="saveProfile()">💾 Save Profile</button>
+        <span id="profile-msg"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────────── PAGES TAB ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-pages">
+    <div class="panel-heading">
+      <h2>Page Content</h2>
+      <p>Edit key text sections across the website. Changes are saved to the database and appear live when visitors load those pages.</p>
+    </div>
+
+    <!-- Research Themes -->
+    <div class="form-card">
+      <h3>Research Page — Themes</h3>
+      <p class="form-hint" style="margin-bottom:1.25rem;">Edit the title and description for each of the 2 research themes shown on the Research page.</p>
+
+      <div style="border:1px solid rgba(217,119,6,0.2);border-radius:10px;padding:1.25rem;margin-bottom:1rem;background:rgba(217,119,6,0.03);">
+        <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:#d97706;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Theme I · Clean Energy</div>
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="theme1-title" value="Clean Energy Technologies">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="theme1-desc" rows="4" placeholder="Describe this research theme...">Developing high-performing and cost-effective clean energy technologies to meet future energy needs while mitigating climate change. Smart nanoengineered materials offer unique size-dependent photophysical and chemical properties, enabling breakthroughs across photovoltaics, green fuel generation, and environmental remediation.</textarea>
+        </div>
+      </div>
+
+      <div style="border:1px solid rgba(217,119,6,0.2);border-radius:10px;padding:1.25rem;margin-bottom:1.25rem;background:rgba(217,119,6,0.03);">
+        <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:#d97706;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Theme II · Sustainable Agriculture</div>
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="theme2-title" value="Sustainable Agriculture Technologies">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="theme2-desc" rows="4" placeholder="Describe this research theme...">The accelerating impacts of climate change and rising global food demand have created an urgent need for transformative agricultural technologies. In Canada, the loss of approximately three farms per day over the past two decades underscores the need for innovation. Our research explores how light interacts with advanced quantum materials and electrostatic energy to develop next-generation smart greenhouse technologies and nanoengineered fertilizers.</textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-primary" onclick="savePageContent()">💾 Save All Themes</button>
+        <span id="pages-msg"></span>
+      </div>
+    </div>
+
+    <!-- Home Hero -->
+    <div class="form-card" style="margin-top:1.5rem;">
+      <h3>Home Page — Hero Text</h3>
+      <div class="form-group">
+        <label>Headline</label>
+        <input type="text" id="home-headline" value="Engineering Tomorrow's Nanosolutions Today">
+      </div>
+      <div class="form-group">
+        <label>Subtitle</label>
+        <textarea id="home-subtitle" rows="3">Pushing the boundaries of nanoengineered materials for sustainable energy, green hydrogen, precision agriculture, and environmental remediation.</textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" onclick="saveHomeContent()">💾 Save Hero Text</button>
+        <span id="home-content-msg"></span>
+      </div>
+    </div>
+
+    <!-- SQL reminder -->
+    <div class="form-card" style="margin-top:1.5rem;background:rgba(217,119,6,0.03);border-color:rgba(217,119,6,0.2);">
+      <h3>⚠️ First-Time Setup</h3>
+      <p style="font-size:0.88rem;color:#64748b;margin-bottom:0.75rem;">For this tab to work, run the following SQL in your Supabase SQL Editor to create the <code>site_content</code> table:</p>
+      <pre style="background:#0f172a;color:#e2e8f0;padding:1rem;border-radius:8px;font-size:0.78rem;overflow-x:auto;font-family:'Space Mono',monospace;">create table if not exists site_content (
+  section    text primary key,
+  data       jsonb not null default '{}',
+  updated_at timestamptz default now()
+);
+alter table site_content enable row level security;
+create policy "Public read content" on site_content for select using (true);
+create policy "Anon write content"  on site_content for all using (true) with check (true);</pre>
     </div>
   </div>
 
@@ -1503,6 +1634,125 @@ async function savePubMeta() {
   } catch(e) {
     setMsg('drawer-msg', 'Error: '+e.message, true);
   }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  PROFILE TAB
+// ══════════════════════════════════════════════════════════════════════════
+async function loadProfile() {
+  const cfg = getCfg();
+  if (!cfg.url || !cfg.key) return;
+  try {
+    const res = await sbFetch('site_content?section=eq.pi_profile&select=data');
+    const rows = await res.json();
+    if (!Array.isArray(rows) || !rows.length) return;
+    const d = rows[0].data || {};
+    const map = {
+      'pi-name': d.name, 'pi-title': d.title, 'pi-affil': d.affiliation,
+      'pi-bio': d.bio, 'pi-scholar': d.scholar, 'pi-linkedin': d.linkedin,
+      'pi-researchgate': d.researchgate, 'pi-orcid': d.orcid
+    };
+    Object.entries(map).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (el && val) el.value = val;
+    });
+  } catch(e) {}
+}
+
+async function saveProfile() {
+  const cfg = getCfg();
+  if (!cfg.url || !cfg.key) { setMsg('profile-msg', '⚠ Configure Supabase in Settings first', true); return; }
+  const data = {
+    name:        document.getElementById('pi-name').value.trim(),
+    title:       document.getElementById('pi-title').value.trim(),
+    affiliation: document.getElementById('pi-affil').value.trim(),
+    bio:         document.getElementById('pi-bio').value.trim(),
+    scholar:     document.getElementById('pi-scholar').value.trim(),
+    linkedin:    document.getElementById('pi-linkedin').value.trim(),
+    researchgate:document.getElementById('pi-researchgate').value.trim(),
+    orcid:       document.getElementById('pi-orcid').value.trim()
+  };
+  try {
+    const res = await sbFetch('site_content?on_conflict=section', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ section: 'pi_profile', data })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    setMsg('profile-msg', '✓ Profile saved!');
+    showToast('PI Profile saved — Team page will reflect changes on next load');
+  } catch(e) { setMsg('profile-msg', '✗ ' + e.message, true); }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  PAGES TAB
+// ══════════════════════════════════════════════════════════════════════════
+async function loadPageContent() {
+  const cfg = getCfg();
+  if (!cfg.url || !cfg.key) return;
+  try {
+    // Research themes
+    const r1 = await sbFetch('site_content?section=in.(research_themes,home_hero)&select=section,data');
+    const rows = await r1.json();
+    if (!Array.isArray(rows)) return;
+    rows.forEach(row => {
+      if (row.section === 'research_themes') {
+        const d = row.data || {};
+        for (let i = 1; i <= 4; i++) {
+          const ti = document.getElementById(`theme${i}-title`);
+          const di = document.getElementById(`theme${i}-desc`);
+          if (ti && d[`theme${i}_title`]) ti.value = d[`theme${i}_title`];
+          if (di && d[`theme${i}_desc`])  di.value = d[`theme${i}_desc`];
+        }
+      }
+      if (row.section === 'home_hero') {
+        const d = row.data || {};
+        if (d.headline) document.getElementById('home-headline').value = d.headline;
+        if (d.subtitle) document.getElementById('home-subtitle').value = d.subtitle;
+      }
+    });
+  } catch(e) {}
+}
+
+async function savePageContent() {
+  const cfg = getCfg();
+  if (!cfg.url || !cfg.key) { setMsg('pages-msg', '⚠ Configure Supabase in Settings first', true); return; }
+  const data = {};
+  for (let i = 1; i <= 2; i++) {
+    const t = document.getElementById(`theme${i}-title`);
+    const d = document.getElementById(`theme${i}-desc`);
+    if (t) data[`theme${i}_title`] = t.value.trim();
+    if (d) data[`theme${i}_desc`]  = d.value.trim();
+  }
+  try {
+    const res = await sbFetch('site_content?on_conflict=section', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ section: 'research_themes', data })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    setMsg('pages-msg', '✓ Themes saved!');
+    showToast('Research themes saved — Research page reflects changes on next load');
+  } catch(e) { setMsg('pages-msg', '✗ ' + e.message, true); }
+}
+
+async function saveHomeContent() {
+  const cfg = getCfg();
+  if (!cfg.url || !cfg.key) { setMsg('home-content-msg', '⚠ Configure Supabase in Settings first', true); return; }
+  const data = {
+    headline: document.getElementById('home-headline').value.trim(),
+    subtitle: document.getElementById('home-subtitle').value.trim()
+  };
+  try {
+    const res = await sbFetch('site_content?on_conflict=section', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ section: 'home_hero', data })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    setMsg('home-content-msg', '✓ Saved!');
+    showToast('Home hero text saved');
+  } catch(e) { setMsg('home-content-msg', '✗ ' + e.message, true); }
 }
 
 // ══════════════════════════════════════════════════════════════════════════

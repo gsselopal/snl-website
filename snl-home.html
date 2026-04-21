@@ -66,15 +66,28 @@
     .section-header h2 { font-size: 2.8rem; margin-bottom: 0.75rem; }
     .section-header p { font-size: 1.05rem; color: #64748b; max-width: 560px; margin: 0 auto; }
     .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .pillar-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; transition: all 0.3s; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .pillar-card:hover { border-color: #0ea5e9; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(14,165,233,0.1); }
+    .pillar-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; transition: all 0.3s; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05); position: relative; overflow: hidden; }
+    .pillar-card::after { content: attr(data-num); position: absolute; top: 1rem; right: 1.25rem; font-family: 'Space Mono', monospace; font-size: 1.6rem; color: rgba(217,119,6,0.1); font-weight: 700; line-height: 1; pointer-events: none; }
+    .pillar-card:hover { border-color: rgba(217,119,6,0.45); transform: translateY(-4px); box-shadow: 0 8px 20px rgba(217,119,6,0.12); }
+    .pillar-card:hover::after { color: rgba(217,119,6,0.18); }
     .pillar-icon { width: 60px; height: 60px; margin-bottom: 1.1rem; display: block; font-size: 0; }
     .pillar-icon svg { width: 60px; height: 60px; }
     .pillar-card h3 { font-size: 1.35rem; margin-bottom: 0.75rem; }
     .pillar-card p { color: #64748b; font-size: 0.93rem; margin-bottom: 1.2rem; line-height: 1.65; }
-    .pillar-tag { display: inline-block; background: rgba(13,148,136,0.09); color: #0d9488; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .pillar-tag { display: inline-block; background: rgba(217,119,6,0.08); color: #b45309; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(217,119,6,0.2); }
     .research-link { text-align: center; margin-top: 2rem; }
-    .research-link a { color: #0ea5e9; font-weight: 600; font-size: 1rem; }
+    .research-link a { color: #d97706; font-weight: 600; font-size: 1rem; }
+    /* Photo Carousel */
+    .lab-carousel { max-width: 1200px; margin: 3rem auto 0; padding: 0 2rem; }
+    .carousel-inner { position: relative; border-radius: 1rem; overflow: hidden; aspect-ratio: 16/6; border: 1px solid #e2e8f0; box-shadow: 0 4px 16px rgba(0,0,0,0.07); background: #0f172a; }
+    .carousel-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.9s ease; }
+    .carousel-slide.active { opacity: 1; }
+    .carousel-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, rgba(248,250,252,0.85) 100%); pointer-events: none; }
+    .carousel-caption { position: absolute; bottom: 1.25rem; left: 1.75rem; }
+    .carousel-caption p { margin: 0; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(15,23,42,0.5); }
+    .carousel-dots { display: flex; justify-content: center; gap: 0.55rem; margin-top: 1rem; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0; cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
+    .carousel-dot.active { background: #d97706; transform: scale(1.25); }
 
     /* News & Highlights */
     .news-section { background: #f1f5f9; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 4rem 2rem; }
@@ -147,7 +160,6 @@
           <li><a href="/publications">Publications</a></li>
           <li><a href="/team">Team</a></li>
           <li><a href="/news">News</a></li>
-          <li><a href="/media">Media</a></li>
           <li><a href="/opportunities">Opportunities</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
@@ -179,47 +191,13 @@
       </div>
     </section>
 
-    <!-- Dalhousie Impact Ribbon -->
-    <section class="dal-impact">
-      <div class="dal-impact-inner">
-        <div class="dal-impact-eyebrow">Dalhousie University · 2022 – Present</div>
-        <h2 class="dal-impact-headline">Building <em>SNL</em> from the Ground Up</h2>
-        <div class="dal-stats-grid">
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">$8.8M+</div>
-            <div class="dal-stat-lbl">Research Funding</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">20</div>
-            <div class="dal-stat-lbl">Active Grants</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">30+</div>
-            <div class="dal-stat-lbl">Publications Since 2022</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">30+</div>
-            <div class="dal-stat-lbl">Researchers Trained</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">4</div>
-            <div class="dal-stat-lbl">Academic Appointments</div>
-          </div>
-          <div class="dal-stat-cell">
-            <div class="dal-stat-num">1</div>
-            <div class="dal-stat-lbl">International Patent</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="research-pillars">
       <div class="section-header">
         <h2>Research Pillars</h2>
         <p>Four interconnected research areas driving innovation in nanotechnology for sustainable solutions.</p>
       </div>
       <div class="pillars-grid">
-        <div class="pillar-card" onclick="location.href='/research'">
+        <div class="pillar-card" data-num="01" onclick="location.href='/research'">
           <span class="pillar-icon">
             <!-- Solar Energy: Sun + layered photoelectrode cell -->
             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -249,7 +227,7 @@
           <p>Converting sunlight into electricity using nanostructured photoelectrodes for sustainable energy generation.</p>
           <span class="pillar-tag">Energy</span>
         </div>
-        <div class="pillar-card" onclick="location.href='/research'">
+        <div class="pillar-card" data-num="02" onclick="location.href='/research'">
           <span class="pillar-icon">
             <!-- Green Hydrogen: Photoelectrode in water + H₂ bubbles -->
             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -277,7 +255,7 @@
           <p>Sustainable hydrogen via photoelectrochemical water splitting for the future clean energy economy.</p>
           <span class="pillar-tag">Hydrogen</span>
         </div>
-        <div class="pillar-card" onclick="location.href='/research'">
+        <div class="pillar-card" data-num="03" onclick="location.href='/research'">
           <span class="pillar-icon">
             <!-- Precision Agriculture: Plant + sensor signal rings -->
             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -304,7 +282,7 @@
           <p>Nanomaterial-based sensors for smart farming, enabling data-driven agriculture and crop monitoring.</p>
           <span class="pillar-tag">Agriculture</span>
         </div>
-        <div class="pillar-card" onclick="location.href='/research'">
+        <div class="pillar-card" data-num="04" onclick="location.href='/research'">
           <span class="pillar-icon">
             <!-- Environmental Remediation: Contaminated water → clean via QD photocatalysis -->
             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -378,16 +356,21 @@
       </div>
     </section>
 
-    <!-- Lab Photo Banner -->
-    <section style="padding:3rem 2rem 0;max-width:1200px;margin:0 auto;">
-      <div style="position:relative;border-radius:1rem;overflow:hidden;aspect-ratio:16/6;border:1px solid #e2e8f0;box-shadow:0 4px 16px rgba(0,0,0,0.07);">
-        <img src="/assets/images/teampicture.jpeg" alt="SNL Lab Team" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 72%;display:block;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(248,250,252,0.88) 100%);"></div>
-        <div style="position:absolute;bottom:1.25rem;left:1.75rem;">
-          <p style="margin:0;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(15,23,42,0.5);">SNL · Dalhousie University</p>
-        </div>
+    <!-- Lab Photo Carousel -->
+    <div class="lab-carousel">
+      <div class="carousel-inner" id="lab-carousel">
+        <img class="carousel-slide active" src="/assets/images/teampicture.jpeg" alt="SNL Team" style="object-position:center 72%;">
+        <img class="carousel-slide" src="/assets/images/lab-team-photo.jpg" alt="SNL Team Outdoor" style="object-position:center center;">
+        <img class="carousel-slide" src="/assets/images/lab-photo-2.jpg" alt="SNL Team" style="object-position:center center;">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-caption"><p>Sustainable Nanoengineering Lab · Dalhousie University</p></div>
       </div>
-    </section>
+      <div class="carousel-dots">
+        <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Photo 1"></button>
+        <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Photo 2"></button>
+        <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Photo 3"></button>
+      </div>
+    </div>
 
     <section class="team-preview">
       <div class="section-header">
@@ -432,12 +415,44 @@
     </section>
 
     <footer>
+      <div style="display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:1rem;flex-wrap:wrap;">
+        <img src="/assets/images/funder-dal.png" alt="Dalhousie University" style="height:34px;opacity:0.65;filter:grayscale(15%);">
+      </div>
       <p>&copy; 2025 Sustainable Nanoengineering Lab &middot; Dalhousie University &middot; Halifax, Nova Scotia</p>
       <a href="/admin" style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.75rem;padding:0.4rem 0.9rem;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;color:#94a3b8;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='#7c3aed';this.style.color='#7c3aed'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#94a3b8'">🔐 Admin Portal</a>
     </footer>
   </div>
 
   <script>
+    // ── Team Photo Carousel ───────────────────────────────────────────
+    (function() {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dots   = document.querySelectorAll('.carousel-dot');
+      let current = 0, timer;
+
+      window.goToSlide = function(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = ((n % slides.length) + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      };
+
+      function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goToSlide(current + 1), 5000);
+      }
+
+      // Pause on hover
+      const carousel = document.getElementById('lab-carousel');
+      if (carousel) {
+        carousel.addEventListener('mouseenter', () => clearInterval(timer));
+        carousel.addEventListener('mouseleave', startTimer);
+      }
+
+      startTimer();
+    })();
+
     // Stats from Semantic Scholar
     (async function() {
       try {

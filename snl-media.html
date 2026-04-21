@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="/assets/images/snl-logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media & Press | Sustainable Nanoengineering Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100%; }
+    body { background-color: #f8fafc; color: #475569; font-family: 'DM Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'DM Serif Display', serif; color: #0f172a; font-weight: 400; }
+    a { color: #0ea5e9; text-decoration: none; }
+    em { color: #d97706; font-style: normal; }
+
+    #bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .page-wrap { position: relative; z-index: 1; }
+
+    nav { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); padding: 1.1rem 2rem; }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; color: #0f172a; font-weight: 700; font-size: 0.9rem; text-decoration: none; white-space: nowrap; }
+    .nav-logo-img { height: 38px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: #64748b; font-size: 0.88rem; font-weight: 500; text-decoration: none; transition: color 0.25s; }
+    .nav-links a:hover, .nav-links a.active { color: #0ea5e9; }
+    @media (max-width: 768px) { .nav-links { gap: 1rem; } .nav-logo span + span { display: none; } }
+
+    /* Hero */
+    .hero { min-height: 52vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5rem 2rem 4rem; }
+    .hero-content { max-width: 760px; animation: fadeInUp 0.9s ease-out; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-badge { display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: #d97706; border: 1px solid rgba(217,119,6,0.3); border-radius: 2rem; padding: 0.3rem 1rem; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: clamp(2.4rem, 5.5vw, 3.8rem); line-height: 1.15; margin-bottom: 1.1rem; }
+    .hero h1 em { color: #d97706; }
+    .hero-subtitle { font-size: 1.05rem; color: #64748b; max-width: 600px; margin: 0 auto; line-height: 1.78; }
+
+    /* Coverage count banner */
+    .coverage-banner { background: #fff; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 1.5rem 2rem; }
+    .coverage-banner-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .coverage-count { font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700; color: #d97706; }
+    .coverage-desc { color: #64748b; font-size: 0.92rem; }
+    .coverage-outlets { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-left: auto; }
+    .outlet-tag { font-size: 0.72rem; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.65rem; border-radius: 2rem; background: rgba(217,119,6,0.07); border: 1px solid rgba(217,119,6,0.2); color: #92400e; }
+
+    /* Media grid */
+    .media-section { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .section-label { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #d97706; margin-bottom: 1.5rem; }
+    .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+
+    .media-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; transition: all 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.04); text-decoration: none; color: inherit; }
+    .media-card:hover { border-color: rgba(217,119,6,0.4); box-shadow: 0 8px 20px rgba(217,119,6,0.1); transform: translateY(-3px); }
+    .media-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .outlet-name { font-family: 'Space Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: #d97706; font-weight: 700; }
+    .media-date { font-size: 0.74rem; color: #94a3b8; font-family: 'Space Mono', monospace; white-space: nowrap; }
+    .media-card h3 { font-size: 1.05rem; color: #0f172a; line-height: 1.45; font-family: 'DM Serif Display', serif; font-weight: 400; }
+    .media-card p { font-size: 0.88rem; color: #64748b; line-height: 1.65; flex: 1; }
+    .media-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid #f1f5f9; }
+    .media-tag { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 20px; }
+    .tag-energy { background: rgba(217,119,6,0.09); color: #b45309; border: 1px solid rgba(217,119,6,0.2); }
+    .tag-agriculture { background: rgba(5,150,105,0.09); color: #065f46; border: 1px solid rgba(5,150,105,0.2); }
+    .tag-collaboration { background: rgba(14,165,233,0.09); color: #0369a1; border: 1px solid rgba(14,165,233,0.2); }
+    .tag-student { background: rgba(124,58,237,0.09); color: #6d28d9; border: 1px solid rgba(124,58,237,0.2); }
+    .read-link { font-size: 0.82rem; color: #d97706; font-weight: 600; display: flex; align-items: center; gap: 0.3rem; }
+    .read-link::after { content: '→'; }
+
+    /* Featured card */
+    .media-card.featured { border-color: rgba(217,119,6,0.3); border-left: 4px solid #d97706; background: rgba(251,191,36,0.03); }
+    .featured-badge { font-size: 0.65rem; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #d97706; background: rgba(217,119,6,0.1); border: 1px solid rgba(217,119,6,0.25); padding: 0.15rem 0.55rem; border-radius: 20px; }
+
+    footer { border-top: 1px solid #e2e8f0; padding: 2rem; text-align: center; margin-top: 2rem; }
+    footer p { color: #94a3b8; font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <div class="page-wrap">
+
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="/assets/images/snl-logo.png" alt="SNL" class="nav-logo-img">
+        <span>Sustainable Nanoengineering Lab</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/research">Research</a></li>
+        <li><a href="/publications">Publications</a></li>
+        <li><a href="/team">Team</a></li>
+        <li><a href="/news">News</a></li>
+        <li><a href="/media" class="active">Media</a></li>
+        <li><a href="/opportunities">Opportunities</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Press & Media Coverage</div>
+      <h1>SNL in the <em>News</em></h1>
+      <p class="hero-subtitle">Research from the Sustainable Nanoengineering Lab has been featured by national and international media, highlighting our work in clean energy, green hydrogen, and sustainable agriculture.</p>
+    </div>
+  </section>
+
+  <div class="coverage-banner">
+    <div class="coverage-banner-inner">
+      <div class="coverage-count">8</div>
+      <div class="coverage-desc">media features since 2024 across<br>Canadian, Indian, and international outlets</div>
+      <div class="coverage-outlets">
+        <span class="outlet-tag">National Observer</span>
+        <span class="outlet-tag">Times of India</span>
+        <span class="outlet-tag">Dalhousie News</span>
+        <span class="outlet-tag">River Valley Sun</span>
+        <span class="outlet-tag">Krishi Jagran</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="media-section">
+    <div class="section-label">All Coverage · 2024 – 2025</div>
+    <div class="media-grid">
+
+      <!-- Card 1 -->
+      <a class="media-card featured" href="https://www.nationalobserver.com/2024/04/26/news/green-hydrogen-nova-scotia" target="_blank" rel="noopener">
+        <div class="media-card-top">
+          <span class="outlet-name">Canada's National Observer</span>
+          <span class="media-date">June 2024</span>
+        </div>
+        <div class="featured-badge">Featured</div>
+        <h3>Green Hydrogen Research in Nova Scotia</h3>
+        <p>Coverage of Dr. Selopal's research on quantum dot-based photoelectrochemical systems for producing green hydrogen in Nova Scotia — a key part of Canada's clean energy transition.</p>
+        <div class="media-card-footer">
+          <span class="media-tag tag-energy">Clean Energy</span>
+          <span class="read-link">Read Article</span>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a class="media-card featured" href="https://timesofindia.indiatimes.com/city/ludhiana/pau-and-canadian-varsity-collaborate-on-sustainable-agriculture/articleshow/107979448.cms" target="_blank" rel="noopener">
+        <div class="media-card-top">
+          <span class="outlet-name">Times of India</span>
+          <span class="media-date">February 2024</span>
+        </div>
+        <div class="featured-badge">Featured</div>
+        <h3>PAU and Canadian University Collaborate on Sustainable Agriculture</h3>
+        <p>The Times of India reports on the collaborative research initiative between Punjab Agricultural University (PAU) and Dalhousie University, led by Dr. Selopal, to advance sustainable agriculture practices.</p>
+        <div class="media-card-footer">
+          <span class="media-tag tag-collaboration">Collaboration</span>
+          <span class="read-link">Read Article</span>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a class="media-card" href="https://www.dal.ca/faculty/agriculture/news-events/news/2025/11/10/dalhousie_students_to_represent_sustainable_innovation_at_women_in_agriculture_conference.html" target="_blank" rel="noopener">
+        <div class="media-card-top">
+          <span class="outlet-name">Dalhousie Faculty of Agriculture</span>
+          <span class="media-date">November 2025</span>
+        </div>
+        <h3>SNL Students to Represent Sustainable Innovation at Women in Agriculture Conference</h3>
+        <p>Dalhousie's Faculty of Agriculture highlights SNL-trained students selected to represent sustainable innovation at the Advancing Women in Agriculture Conference in Niagara Falls.</p>
+        <div class="media-card-footer">
+          <span class="media-tag tag-student">Student Achievement</span>
+          <span class="read-link">Read Article</span>
+        </div>
+      </a>
+
+      <!-- Card 4 -->
+      <a class="media-card" href="https://advancingwomenconference.ca/2025east/student-program/" target="_blank" rel="noopener">
+        <div class="media-card-top">
+          <span class="outlet-name">Advancing Women in Agriculture Conference</span>
+          <span class="media-date">November 2025</span>
+        </div>
+        <h3>SNL Researchers Featured in National Agriculture Leadership Program</h3>
+        <p>Students trained under Dr. Selopal's supervision at SNL are featured in the student program of the Advancing Women in Agriculture Conference Organization (Ontario, Canada).</p>
+        <div class="media-card-footer">
+          <span class="media-tag tag-student">Student Recognition</span>
+          <span class="read-link">View Program</span>
+        </div>
+      </a>
+
+      <!-- Card 5 -->
+      <a class="media-card" href="https://www.dal.ca/faculty/agriculture/news-events/news/2025/06/18/atlantic_biocon_conference.html" target="_blank" rel="noopener">
+        <div class="media-card-top">
+          <span class="outlet-name">Dalhousie Faculty of Agriculture</span>
+          <span class="media-date">June 2025</span>
+        </div>
+        <h3>SNL Researchers Showcase at Atlantic BIOCON Conference</h3>
+        <p>Dalhousie's Faculty of Agriculture covers SNL-trained researchers presenting their work at the Atlantic BIOCON Conference, underscoring the lab's growing footprint in biotech and agriculture innovation.</p>
+        <div class="media-card-footer">
+          <span class="media-tag tag-agriculture">Agriculture</span>
+          <span class="read-link">Read Article</span>
+        </div>
+      </a>
+
+      <!-- Card 6 -->
+      <a class="media-card" href="https://rivervalleysun.ca/230675-2/" target="_blank" rel="noopener">
+        <div class="media-card-top">
+          <span class="outlet-name">River Valley Sun</span>
+          <span class="media-date">February 2025</span>
+        </div>
+        <h3>Nano-fertilizer Research Featured at Potatoes New Brunswick Conference</h3>
+        <p>The River Valley Sun (NB) reports on SNL's nano-fertilizer research presented at the Potatoes New Brunswick conference and annual general meeting at the AYR Motor Centre in Woodstock.</p>
+        <div class="media-card-footer">
+          <span class="media-tag tag-agriculture">Agriculture · NB</span>
+          <span class="read-link">Read Article</span>
+        </div>
+      </a>
+
+      <!-- Card 7 -->
+      <a class="media-card" href="https://krishijagran.com/agriculture-world/pau-and-dalhousie-university-in-nova-scotia-canada-join-hands-for-achieving-sustainable-agriculture-practices/" target="_blank" rel="noopener">
+        <div class="media-card-top">
+          <span class="outlet-name">Krishi Jagran</span>
+          <span class="media-date">February 2024</span>
+        </div>
+        <h3>PAU and Dalhousie Join Hands for Sustainable Agriculture</h3>
+        <p>India's Krishi Jagran covers the landmark collaboration between Punjab Agricultural University and Dalhousie University's SNL to develop sustainable agriculture technologies for global food security.</p>
+        <div class="media-card-footer">
+          <span class="media-tag tag-collaboration">International Collaboration</span>
+          <span class="read-link">Read Article</span>
+        </div>
+      </a>
+
+      <!-- Card 8 -->
+      <a class="media-card" href="https://www.pau.edu/index.php?_act=manageEvent&DO=viewEventDetail&intID=8738" target="_blank" rel="noopener">
+        <div class="media-card-top">
+          <span class="outlet-name">Punjab Agricultural University</span>
+          <span class="media-date">June 2024</span>
+        </div>
+        <h3>Dal-PAU Collaboration Highlighted by Punjab Agricultural University</h3>
+        <p>Punjab Agricultural University officially highlights the research collaboration with Dalhousie University's SNL, featuring Dr. Selopal's visit and joint initiatives in nanotechnology for agriculture.</p>
+        <div class="media-card-footer">
+          <span class="media-tag tag-collaboration">Research Partnership</span>
+          <span class="read-link">View Feature</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Sustainable Nanoengineering Lab · Dalhousie University</p>
+    <a href="/admin" style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.75rem;padding:0.4rem 0.9rem;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;color:#94a3b8;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='#d97706';this.style.color='#d97706'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#94a3b8'">🔐 Admin Portal</a>
+  </footer>
+
+  </div><!-- /page-wrap -->
+
+  <script>
+    (function() {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+      const mouse = {x:-9999,y:-9999};
+      const HUES=['217,119,6','245,158,11','251,191,36'];
+      function resize() { W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+      function spawn() { return {x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.22,vy:(Math.random()-0.5)*0.22,r:Math.random()*3.5+2,phase:Math.random()*Math.PI*2,hue:HUES[Math.floor(Math.random()*HUES.length)]}; }
+      function init() { particles=Array.from({length:window.innerWidth<768?30:55},spawn); }
+      window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+      window.addEventListener('resize',()=>{resize();init();});
+      let rafId;
+      function loop() {
+        ctx.clearRect(0,0,W,H);
+        const len=particles.length;
+        for(let i=0;i<len;i++){
+          const p=particles[i];
+          p.x+=p.vx; p.y+=p.vy; p.phase+=0.02;
+          if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+          const rr=p.r+Math.sin(p.phase)*0.6;
+          ctx.beginPath(); ctx.arc(p.x,p.y,rr,0,Math.PI*2);
+          ctx.fillStyle=`rgba(${p.hue},0.38)`; ctx.fill();
+          for(let j=i+1;j<len;j++){
+            const q=particles[j],dx=p.x-q.x,dy=p.y-q.y,d2=dx*dx+dy*dy;
+            if(d2<12100){ ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.strokeStyle=`rgba(217,119,6,${(1-Math.sqrt(d2)/110)*0.08})`; ctx.lineWidth=0.5; ctx.stroke(); }
+          }
+          const mdx=p.x-mouse.x,mdy=p.y-mouse.y,md2=mdx*mdx+mdy*mdy;
+          if(md2<25600){
+            const md=Math.sqrt(md2);
+            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(mouse.x,mouse.y);
+            ctx.strokeStyle=`rgba(217,119,6,${(1-md/160)*0.35})`; ctx.lineWidth=0.9; ctx.stroke();
+            p.vx+=(mouse.x-p.x)*0.0001; p.vy+=(mouse.y-p.y)*0.0001;
+            const spd=Math.sqrt(p.vx*p.vx+p.vy*p.vy);
+            if(spd>1.2){p.vx*=1.2/spd;p.vy*=1.2/spd;}
+          }
+        }
+        rafId=requestAnimationFrame(loop);
+      }
+      document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(rafId);else loop();});
+      resize(); init(); loop();
+    })();
+  </script>
+</body>
+</html>

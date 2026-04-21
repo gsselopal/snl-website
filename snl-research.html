@@ -145,7 +145,6 @@
         <li><a href="/publications">Publications</a></li>
         <li><a href="/team">Team</a></li>
         <li><a href="/news">News</a></li>
-        <li><a href="/media">Media</a></li>
         <li><a href="/opportunities">Opportunities</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
@@ -204,8 +203,8 @@
         <div class="theme-number">I</div>
         <div class="theme-header-text">
           <div class="theme-badge">Theme I · Clean Energy</div>
-          <h2>Clean Energy Technologies</h2>
-          <p>Developing high-performing and cost-effective clean energy technologies to meet future energy needs while mitigating climate change. Smart nanoengineered materials offer unique size-dependent photophysical and chemical properties, enabling breakthroughs across photovoltaics, green fuel generation, and environmental remediation.</p>
+          <h2 id="rt-theme1-title">Clean Energy Technologies</h2>
+          <p id="rt-theme1-desc">Developing high-performing and cost-effective clean energy technologies to meet future energy needs while mitigating climate change. Smart nanoengineered materials offer unique size-dependent photophysical and chemical properties, enabling breakthroughs across photovoltaics, green fuel generation, and environmental remediation.</p>
         </div>
       </div>
 
@@ -360,8 +359,8 @@
         <div class="theme-number">II</div>
         <div class="theme-header-text">
           <div class="theme-badge">Theme II · Agriculture</div>
-          <h2>Sustainable Agriculture Technologies</h2>
-          <p>The accelerating impacts of climate change and rising global food demand have created an urgent need for transformative agricultural technologies. In Canada, the loss of approximately three farms per day over the past two decades underscores the need for innovation. Our research explores how light interacts with advanced quantum materials and electrostatic energy to develop next-generation smart greenhouse technologies and nanoengineered fertilizers.</p>
+          <h2 id="rt-theme2-title">Sustainable Agriculture Technologies</h2>
+          <p id="rt-theme2-desc">The accelerating impacts of climate change and rising global food demand have created an urgent need for transformative agricultural technologies. In Canada, the loss of approximately three farms per day over the past two decades underscores the need for innovation. Our research explores how light interacts with advanced quantum materials and electrostatic energy to develop next-generation smart greenhouse technologies and nanoengineered fertilizers.</p>
         </div>
       </div>
 
@@ -791,6 +790,25 @@
     document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(rafId);else loop();});
     resize(); init(); loop();
   })();
+</script>
+
+<script>
+(async function() {
+  const SB_URL = 'https://ozjtupdoejuotbzqrnwx.supabase.co';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96anR1cGRvZWp1b3RienFybnd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4Mjg2ODUsImV4cCI6MjA2MDQwNDY4NX0.cgjscBQkFnMvS9HfpYtVFGZgWuoMEisFCjZNRqXmGYs';
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/site_content?section=eq.research_themes&select=section,data`, {
+      headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+    });
+    const rows = await res.json();
+    if (!Array.isArray(rows) || rows.length === 0) return;
+    const d = rows[0].data || {};
+    if (d.theme1_title) { const el = document.getElementById('rt-theme1-title'); if (el) el.textContent = d.theme1_title; }
+    if (d.theme1_desc)  { const el = document.getElementById('rt-theme1-desc');  if (el) el.textContent = d.theme1_desc; }
+    if (d.theme2_title) { const el = document.getElementById('rt-theme2-title'); if (el) el.textContent = d.theme2_title; }
+    if (d.theme2_desc)  { const el = document.getElementById('rt-theme2-desc');  if (el) el.textContent = d.theme2_desc; }
+  } catch(e) {}
+})();
 </script>
 </body>
 </html>
