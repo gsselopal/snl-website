@@ -68,7 +68,8 @@
     .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
     .pillar-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; transition: all 0.3s; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .pillar-card:hover { border-color: #0ea5e9; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(14,165,233,0.1); }
-    .pillar-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .pillar-icon { width: 60px; height: 60px; margin-bottom: 1.1rem; display: block; font-size: 0; }
+    .pillar-icon svg { width: 60px; height: 60px; }
     .pillar-card h3 { font-size: 1.35rem; margin-bottom: 0.75rem; }
     .pillar-card p { color: #64748b; font-size: 0.93rem; margin-bottom: 1.2rem; line-height: 1.65; }
     .pillar-tag { display: inline-block; background: rgba(13,148,136,0.09); color: #0d9488; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
@@ -113,6 +114,20 @@
 
     footer { background: #f1f5f9; border-top: 1px solid #e2e8f0; padding: 2.5rem; text-align: center; color: #94a3b8; font-size: 0.88rem; margin-top: 6rem; }
 
+    /* Dal Impact Ribbon */
+    .dal-impact { background: linear-gradient(135deg, #0f172a 0%, #1a2744 100%); padding: 4.5rem 2rem; }
+    .dal-impact-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .dal-impact-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,158,11,0.65); margin-bottom: 0.6rem; }
+    .dal-impact-headline { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: rgba(255,255,255,0.88); margin-bottom: 2.8rem; font-weight: 400; }
+    .dal-impact-headline em { color: #f59e0b; font-style: normal; }
+    .dal-stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; overflow: hidden; }
+    .dal-stat-cell { background: rgba(15,23,42,0.85); padding: 2rem 1rem; text-align: center; transition: background 0.3s; }
+    .dal-stat-cell:hover { background: rgba(245,158,11,0.06); }
+    .dal-stat-num { font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700; color: #f59e0b; line-height: 1; margin-bottom: 0.55rem; }
+    .dal-stat-lbl { font-size: 0.72rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.07em; line-height: 1.4; }
+    @media (max-width: 900px) { .dal-stats-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 520px) { .dal-stats-grid { grid-template-columns: repeat(2, 1fr); } .dal-stat-num { font-size: 1.6rem; } }
+
     @media (max-width: 768px) { .hero h1 { font-size: 2.4rem; } .hero-subtitle { font-size: 1rem; } .section-header h2 { font-size: 2rem; } }
     @media (max-width: 480px) { .hero h1 { font-size: 1.9rem; } .hero-buttons { flex-direction: column; } .btn { width: 100%; } }
   </style>
@@ -132,6 +147,7 @@
           <li><a href="/publications">Publications</a></li>
           <li><a href="/team">Team</a></li>
           <li><a href="/news">News</a></li>
+          <li><a href="/media">Media</a></li>
           <li><a href="/opportunities">Opportunities</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
@@ -163,6 +179,40 @@
       </div>
     </section>
 
+    <!-- Dalhousie Impact Ribbon -->
+    <section class="dal-impact">
+      <div class="dal-impact-inner">
+        <div class="dal-impact-eyebrow">Dalhousie University · 2022 – Present</div>
+        <h2 class="dal-impact-headline">Building <em>SNL</em> from the Ground Up</h2>
+        <div class="dal-stats-grid">
+          <div class="dal-stat-cell">
+            <div class="dal-stat-num">$8.8M+</div>
+            <div class="dal-stat-lbl">Research Funding</div>
+          </div>
+          <div class="dal-stat-cell">
+            <div class="dal-stat-num">20</div>
+            <div class="dal-stat-lbl">Active Grants</div>
+          </div>
+          <div class="dal-stat-cell">
+            <div class="dal-stat-num">30+</div>
+            <div class="dal-stat-lbl">Publications Since 2022</div>
+          </div>
+          <div class="dal-stat-cell">
+            <div class="dal-stat-num">30+</div>
+            <div class="dal-stat-lbl">Researchers Trained</div>
+          </div>
+          <div class="dal-stat-cell">
+            <div class="dal-stat-num">4</div>
+            <div class="dal-stat-lbl">Academic Appointments</div>
+          </div>
+          <div class="dal-stat-cell">
+            <div class="dal-stat-num">1</div>
+            <div class="dal-stat-lbl">International Patent</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="research-pillars">
       <div class="section-header">
         <h2>Research Pillars</h2>
@@ -170,25 +220,122 @@
       </div>
       <div class="pillars-grid">
         <div class="pillar-card" onclick="location.href='/research'">
-          <span class="pillar-icon">☀️</span>
+          <span class="pillar-icon">
+            <!-- Solar Energy: Sun + layered photoelectrode cell -->
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.1)" stroke="rgba(217,119,6,0.15)" stroke-width="1"/>
+              <!-- Sun -->
+              <circle cx="32" cy="22" r="8" fill="rgba(245,158,11,0.25)" stroke="#d97706" stroke-width="2"/>
+              <circle cx="32" cy="22" r="4.5" fill="#f59e0b"/>
+              <!-- Sun rays -->
+              <line x1="32" y1="10" x2="32" y2="7" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="32" y1="34" x2="32" y2="37" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="20" y1="22" x2="17" y2="22" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="44" y1="22" x2="47" y2="22" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="23.5" y1="13.5" x2="21.3" y2="11.3" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="40.5" y1="30.5" x2="42.7" y2="32.7" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="40.5" y1="13.5" x2="42.7" y2="11.3" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="23.5" y1="30.5" x2="21.3" y2="32.7" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Solar cell layers -->
+              <rect x="14" y="38" width="36" height="5" rx="1" fill="rgba(245,158,11,0.35)" stroke="#d97706" stroke-width="1.5"/>
+              <rect x="14" y="43" width="36" height="4" rx="1" fill="rgba(245,158,11,0.2)" stroke="#d97706" stroke-width="1.3"/>
+              <rect x="14" y="47" width="36" height="4" rx="1" fill="rgba(217,119,6,0.25)" stroke="#d97706" stroke-width="1.3"/>
+              <!-- Electron arrow up from cell -->
+              <line x1="52" y1="50" x2="52" y2="36" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round"/>
+              <polygon points="52,33 49.5,38 54.5,38" fill="#f59e0b"/>
+            </svg>
+          </span>
           <h3>Photoelectrochemical Solar Energy</h3>
           <p>Converting sunlight into electricity using nanostructured photoelectrodes for sustainable energy generation.</p>
           <span class="pillar-tag">Energy</span>
         </div>
         <div class="pillar-card" onclick="location.href='/research'">
-          <span class="pillar-icon">⚗️</span>
+          <span class="pillar-icon">
+            <!-- Green Hydrogen: Photoelectrode in water + H₂ bubbles -->
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.1)" stroke="rgba(217,119,6,0.15)" stroke-width="1"/>
+              <!-- Water body -->
+              <path d="M10,46 Q16,40 22,46 Q28,52 34,46 Q40,40 46,46 Q52,52 54,48 L54,56 L10,56 Z" fill="rgba(245,158,11,0.2)" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Electrode slab -->
+              <rect x="22" y="22" width="20" height="24" rx="2" fill="rgba(245,158,11,0.18)" stroke="#d97706" stroke-width="2"/>
+              <!-- Electrode layers -->
+              <rect x="22" y="22" width="20" height="6" rx="1" fill="rgba(245,158,11,0.35)" stroke="#d97706" stroke-width="1.2"/>
+              <line x1="22" y1="34" x2="42" y2="34" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2"/>
+              <!-- H₂ bubbles rising -->
+              <circle cx="26" cy="18" r="3" fill="rgba(255,255,255,0.6)" stroke="#d97706" stroke-width="1.3"/>
+              <circle cx="33" cy="13" r="2.3" fill="rgba(255,255,255,0.5)" stroke="#d97706" stroke-width="1.2"/>
+              <circle cx="39" cy="17" r="2.8" fill="rgba(255,255,255,0.55)" stroke="#d97706" stroke-width="1.2"/>
+              <!-- H₂ labels -->
+              <text x="23.5" y="20" font-family="monospace" font-size="3.5" fill="#d97706" font-weight="bold">H₂</text>
+              <text x="30.5" y="15" font-family="monospace" font-size="3" fill="#d97706" font-weight="bold">H₂</text>
+              <!-- Light arrow hitting electrode -->
+              <path d="M10,26 L20,30" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" marker-end="url(#arr)"/>
+              <path d="M10,22 L20,26" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
           <h3>Green Hydrogen Production</h3>
           <p>Sustainable hydrogen via photoelectrochemical water splitting for the future clean energy economy.</p>
           <span class="pillar-tag">Hydrogen</span>
         </div>
         <div class="pillar-card" onclick="location.href='/research'">
-          <span class="pillar-icon">🌱</span>
+          <span class="pillar-icon">
+            <!-- Precision Agriculture: Plant + sensor signal rings -->
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.1)" stroke="rgba(217,119,6,0.15)" stroke-width="1"/>
+              <!-- Soil ground -->
+              <path d="M10,50 Q20,46 32,48 Q44,50 54,46 L54,56 L10,56 Z" fill="rgba(217,119,6,0.2)" stroke="#d97706" stroke-width="1.3"/>
+              <!-- Plant stem -->
+              <line x1="32" y1="48" x2="32" y2="26" stroke="#d97706" stroke-width="2.2" stroke-linecap="round"/>
+              <!-- Left leaf -->
+              <path d="M32,36 Q22,30 20,22 Q28,24 32,36" fill="rgba(245,158,11,0.35)" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Right leaf -->
+              <path d="M32,30 Q42,24 44,16 Q36,18 32,30" fill="rgba(245,158,11,0.25)" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Nanoparticle dots in soil -->
+              <circle cx="20" cy="52" r="2" fill="#f59e0b" stroke="#d97706" stroke-width="1"/>
+              <circle cx="28" cy="53" r="1.5" fill="#f59e0b" stroke="#d97706" stroke-width="1"/>
+              <circle cx="40" cy="52" r="2" fill="#f59e0b" stroke="#d97706" stroke-width="1"/>
+              <!-- Sensor signal arcs (top right) -->
+              <path d="M47,18 Q51,22 47,26" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M50,15 Q56,21 50,27" fill="none" stroke="#d97706" stroke-width="1.3" stroke-linecap="round" opacity="0.6"/>
+              <circle cx="44" cy="22" r="2.5" fill="#f59e0b" stroke="#d97706" stroke-width="1.2"/>
+            </svg>
+          </span>
           <h3>Precision Agriculture &amp; Nano-Sensors</h3>
           <p>Nanomaterial-based sensors for smart farming, enabling data-driven agriculture and crop monitoring.</p>
           <span class="pillar-tag">Agriculture</span>
         </div>
         <div class="pillar-card" onclick="location.href='/research'">
-          <span class="pillar-icon">🔬</span>
+          <span class="pillar-icon">
+            <!-- Environmental Remediation: Contaminated water → clean via QD photocatalysis -->
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="30" fill="rgba(251,191,36,0.1)" stroke="rgba(217,119,6,0.15)" stroke-width="1"/>
+              <!-- Left beaker (dirty water) -->
+              <path d="M10,22 L10,46 C10,48 12,50 15,50 L22,50 C25,50 27,48 27,46 L27,22 Z" fill="rgba(217,119,6,0.15)" stroke="#d97706" stroke-width="1.8" stroke-linejoin="round"/>
+              <rect x="10" y="22" width="17" height="4" rx="0" fill="rgba(217,119,6,0.2)" stroke="#d97706" stroke-width="1.3"/>
+              <!-- Dirty water fill -->
+              <path d="M10,35 Q14,32 18,35 Q22,38 27,35 L27,50 C27,48 25,50 22,50 L15,50 C12,50 10,48 10,46 Z" fill="rgba(217,119,6,0.3)"/>
+              <!-- Pollutant dots -->
+              <circle cx="15" cy="42" r="2" fill="rgba(100,116,139,0.5)" stroke="#64748b" stroke-width="0.8"/>
+              <circle cx="20" cy="39" r="1.5" fill="rgba(100,116,139,0.4)" stroke="#64748b" stroke-width="0.8"/>
+              <!-- QD photocatalyst in center -->
+              <circle cx="32" cy="32" r="6" fill="rgba(245,158,11,0.25)" stroke="#d97706" stroke-width="1.8"/>
+              <circle cx="32" cy="32" r="3" fill="#f59e0b"/>
+              <!-- Orbital ring -->
+              <ellipse cx="32" cy="32" rx="10" ry="4" fill="none" stroke="#d97706" stroke-width="1.2" stroke-dasharray="3,2" transform="rotate(-30 32 32)"/>
+              <!-- Arrow contaminated to catalyst -->
+              <line x1="28" y1="32" x2="23" y2="32" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Arrow catalyst to clean -->
+              <line x1="36" y1="32" x2="41" y2="32" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+              <polygon points="41,32 38,30 38,34" fill="#d97706"/>
+              <!-- Right beaker (clean water) -->
+              <path d="M37,22 L37,46 C37,48 39,50 42,50 L49,50 C52,50 54,48 54,46 L54,22 Z" fill="rgba(245,158,11,0.1)" stroke="#d97706" stroke-width="1.8" stroke-linejoin="round"/>
+              <rect x="37" y="22" width="17" height="4" rx="0" fill="rgba(245,158,11,0.15)" stroke="#d97706" stroke-width="1.3"/>
+              <!-- Clean water fill -->
+              <path d="M37,38 Q41,35 45,38 Q49,41 54,38 L54,46 C54,48 52,50 49,50 L42,50 C39,50 37,48 37,46 Z" fill="rgba(245,158,11,0.2)"/>
+              <!-- Clean checkmark -->
+              <polyline points="41,44 44,47 50,40" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </span>
           <h3>Environmental Remediation</h3>
           <p>Photocatalytic nanoparticles for pollutant degradation in water and air purification.</p>
           <span class="pillar-tag">Environment</span>

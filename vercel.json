@@ -7,6 +7,7 @@
     { "source": "/opportunities","destination": "/snl-opportunities.html" },
     { "source": "/contact",      "destination": "/snl-contact.html" },
     { "source": "/news",         "destination": "/snl-news.html" },
+    { "source": "/media",        "destination": "/snl-media.html" },
     { "source": "/admin",        "destination": "/snl-admin.html" }
   ]
 }

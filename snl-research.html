@@ -94,6 +94,26 @@
     .technique-card h3 { font-size: 1.02rem; margin-bottom: 0.35rem; }
     .technique-card p { font-size: 0.87rem; color: #64748b; line-height: 1.55; margin: 0; }
 
+    /* ── Grants ───────────────────────────────────────────────────────── */
+    .grants-section { padding: 5rem 0; border-top: 1px solid #e2e8f0; }
+    .grants-header { margin-bottom: 2.5rem; }
+    .grants-header h2 { margin-bottom: 0.5rem; }
+    .grants-header p { color: #64748b; font-size: 0.97rem; }
+    .grants-totals { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .grants-total-pill { display: flex; align-items: center; gap: 0.75rem; background: rgba(217,119,6,0.06); border: 1px solid rgba(217,119,6,0.2); border-radius: 10px; padding: 0.8rem 1.2rem; }
+    .grants-total-num { font-family: 'Space Mono', monospace; font-size: 1.5rem; font-weight: 700; color: #d97706; }
+    .grants-total-lbl { font-size: 0.82rem; color: #64748b; line-height: 1.35; }
+    .grants-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1rem; }
+    .grant-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem 1.4rem; transition: all 0.25s; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .grant-card:hover { border-color: rgba(217,119,6,0.35); box-shadow: 0 4px 12px rgba(217,119,6,0.08); transform: translateY(-2px); }
+    .grant-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .grant-role { font-size: 0.65rem; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.18rem 0.55rem; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+    .role-pi { background: rgba(217,119,6,0.1); color: #b45309; border: 1px solid rgba(217,119,6,0.25); }
+    .role-copi { background: rgba(14,165,233,0.1); color: #0369a1; border: 1px solid rgba(14,165,233,0.25); }
+    .role-sup { background: rgba(13,148,136,0.1); color: #0d7a70; border: 1px solid rgba(13,148,136,0.25); }
+    .grant-card h4 { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: #0f172a; font-weight: 600; line-height: 1.4; margin-bottom: 0.35rem; }
+    .grant-funder { font-size: 0.78rem; color: #94a3b8; font-family: 'Space Mono', monospace; }
+
     /* ── Funders ──────────────────────────────────────────────────────── */
     .funders-section { padding: 4rem 0 5rem; border-top: 1px solid #e2e8f0; }
     .funders-label { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 2rem; }
@@ -125,6 +145,7 @@
         <li><a href="/publications">Publications</a></li>
         <li><a href="/team">Team</a></li>
         <li><a href="/news">News</a></li>
+        <li><a href="/media">Media</a></li>
         <li><a href="/opportunities">Opportunities</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
@@ -579,6 +600,109 @@
       </div>
     </div>
   </section>
+
+  <!-- Grants & Funding -->
+  <div class="grants-section">
+    <div class="container">
+      <div class="grants-header">
+        <div class="hero-badge">Research Funding · Dalhousie (2022 – Present)</div>
+        <h2>Grants & Active Projects</h2>
+        <p>Dr. Selopal has secured over $8.79 million in research funding since joining Dalhousie, spanning clean energy, sustainable agriculture, and precision nanotechnology — through NSERC, CFI, MITACS, and government partnerships.</p>
+      </div>
+      <div class="grants-totals">
+        <div class="grants-total-pill">
+          <div class="grants-total-num">$8.8M+</div>
+          <div class="grants-total-lbl">Total Research Funding<br>2022 – 2025</div>
+        </div>
+        <div class="grants-total-pill">
+          <div class="grants-total-num">20</div>
+          <div class="grants-total-lbl">Active &amp; Recent Grants<br>across federal &amp; provincial agencies</div>
+        </div>
+      </div>
+      <div class="grants-grid">
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>QD-Enhanced Polymeric Films for Sustainable Crop Production</h4><span class="grant-role role-pi">PI</span></div>
+          <div class="grant-funder">Invest Nova Scotia &amp; Stokdijk Greenhouses Ltd.</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Infrastructure for Sustainable Nanoengineering Lab</h4><span class="grant-role role-pi">PI</span></div>
+          <div class="grant-funder">Canada Foundation for Innovation (CFI)</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Advanced Nanoengineering for Efficient Clean Sustainable Energy Technologies</h4><span class="grant-role role-pi">PI</span></div>
+          <div class="grant-funder">NSERC Discovery Grant</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Tandem Photoelectrochemical–Photovoltaic System for Bias-Free Green Hydrogen Production</h4><span class="grant-role role-pi">PI</span></div>
+          <div class="grant-funder">NSERC–Alliance Catalyst</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Self-Powered Photoelectrochemical System for Green Hydrogen Production from Seawater</h4><span class="grant-role role-sup">Supervisor/PI</span></div>
+          <div class="grant-funder">Nova Scotia Graduate Scholarship &amp; Dalhousie Research Excellence Scholarship</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Self-Powered Greenhouse System Design to Promote Sustainable Agriculture</h4><span class="grant-role role-pi">PI</span></div>
+          <div class="grant-funder">Global Research Seed Fund, Dalhousie University</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>QD-Assisted Spectrum Controlled Intelligent Greenhouse: A Sustainable Solution for Food Security</h4><span class="grant-role role-pi">PI</span></div>
+          <div class="grant-funder">Nova Scotia Dept. of Agriculture – SCAP</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Design of QD-Based Spectrum-Controlled Greenhouse Tarp to Enhance Crop Yield</h4><span class="grant-role role-sup">Supervisor/PI</span></div>
+          <div class="grant-funder">BMO Financial Group Graduate Scholarship</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Optimization of Nano-fertilizer to Boost Potato Production and Environmental Sustainability</h4><span class="grant-role role-pi">PI</span></div>
+          <div class="grant-funder">Sustainable Canadian Agricultural Partnership (Canada)</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Marine/Agricultural Waste–Assisted Cost-Effective Nanofertilizer for Potato Production</h4><span class="grant-role role-sup">Supervisor/PI</span></div>
+          <div class="grant-funder">McCain Foundation Postdoctoral Fellowships in Sustainable Agriculture</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Optimization of Marine Waste-Derived Hybrid Nano-fertilizers for Enhanced Nutrient Use Efficiency</h4><span class="grant-role role-sup">Supervisor/PI</span></div>
+          <div class="grant-funder">Nova Scotia Graduate Scholarship</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Exploring Crop Physiological Changes Induced by Sustainable Electric Field for Food Security</h4><span class="grant-role role-sup">Supervisor/PI</span></div>
+          <div class="grant-funder">Nova Scotia Graduate Scholarship</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Self-Powered Triboelectric-Piezoelectric Nanogenerators for Sustainable Agriculture</h4><span class="grant-role role-sup">Supervisor/PI</span></div>
+          <div class="grant-funder">Nova Scotia Graduate Scholarship</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Harnessing Quantum Dots for Efficient Water Splitting for Green Hydrogen Production</h4><span class="grant-role role-sup">Supervisor/PI</span></div>
+          <div class="grant-funder">Killam Predoctoral Scholarship Level 1</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Magnetic/Ferroelectric Controlled Hybrid Photocatalysts for Environmental Remediation</h4><span class="grant-role role-sup">Supervisor/PI</span></div>
+          <div class="grant-funder">MITACS–Globalink Scholarship</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Investigating Sugar Kelp as an Environment-Friendly Biofertilizer for Sustainable Potato Production</h4><span class="grant-role role-copi">Co-PI</span></div>
+          <div class="grant-funder">MITACS–Accelerate &amp; Food Island Partnership</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>AI-Driven Zoning Solutions for PEI Net-Zero and Infrastructure Resilience</h4><span class="grant-role role-copi">Co-PI</span></div>
+          <div class="grant-funder">Climate Challenge Fund, PEI – Environment Energy and Climate Action</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Development of Transformative Precision Agriculture Technologies for Food Security</h4><span class="grant-role role-copi">Co-PI</span></div>
+          <div class="grant-funder">NSERC-SSHRC Sustainable Agriculture – University of PEI</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Optimization of Self-Powered Greenhouse System Design (Phase II)</h4><span class="grant-role role-pi">PI</span></div>
+          <div class="grant-funder">VPRI-GRSF, Dalhousie University</div>
+        </div>
+        <div class="grant-card">
+          <div class="grant-card-top"><h4>Nanoengineering for Clean Sustainable Energy Conversion Technologies</h4><span class="grant-role role-pi">PI</span></div>
+          <div class="grant-funder">Dalhousie University – Launch Fund</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Funders -->
   <div class="funders-section">

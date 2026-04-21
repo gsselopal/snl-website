@@ -84,12 +84,23 @@
     .team-link-btn { display: inline-block; color: #7c3aed; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.8rem; padding: 0.5rem 1rem; border: 1px solid rgba(124,58,237,0.3); border-radius: 0.25rem; transition: all 0.3s; }
     .team-link-btn:hover { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.5); }
 
+    /* PI Credentials */
+    .pi-credentials { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(124,58,237,0.12); display: flex; flex-direction: column; gap: 0.9rem; }
+    .pi-cred-row { display: flex; align-items: flex-start; gap: 0.75rem; flex-wrap: wrap; }
+    .pi-cred-label { font-size: 0.68rem; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #7c3aed; white-space: nowrap; min-width: 110px; padding-top: 0.25rem; }
+    .pi-cred-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .pi-cred-tag { font-size: 0.78rem; background: rgba(124,58,237,0.05); border: 1px solid rgba(124,58,237,0.15); color: #475569; padding: 0.22rem 0.7rem; border-radius: 20px; }
+
     /* Alumni */
     .alumni-section { margin-top: 4rem; margin-bottom: 3rem; }
-    .alumni-list { list-style: none; border-top: 1px solid #e2e8f0; }
-    .alumni-item { padding: 1rem 0; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 1rem; color: #64748b; font-size: 0.95rem; transition: all 0.3s; }
+    .alumni-sub { margin-bottom: 2rem; }
+    .alumni-sub-title { font-size: 1rem; color: #0f172a; font-family: 'DM Serif Display', serif; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e2e8f0; }
+    .alumni-list { list-style: none; }
+    .alumni-item { padding: 0.85rem 0; border-bottom: 1px solid #f1f5f9; display: flex; align-items: flex-start; gap: 0.85rem; color: #64748b; font-size: 0.9rem; transition: all 0.3s; }
     .alumni-item:hover { color: #475569; padding-left: 0.5rem; }
-    .alumni-item::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #a78bfa; flex-shrink: 0; }
+    .alumni-item::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #a78bfa; flex-shrink: 0; margin-top: 0.45rem; }
+    .alumni-name { font-weight: 600; color: #334155; }
+    .alumni-detail { font-size: 0.82rem; color: #94a3b8; margin-top: 0.1rem; }
 
     /* CTA */
     .cta-section { background: linear-gradient(135deg, rgba(124,58,237,0.07), rgba(109,40,217,0.04)); border: 1px solid rgba(124,58,237,0.18); border-left: 4px solid #7c3aed; border-radius: 0.75rem; padding: 3rem 2rem; text-align: center; margin: 5rem 0 4rem; }
@@ -120,6 +131,7 @@
         <li><a href="/publications">Publications</a></li>
         <li><a href="/team" class="active">Team</a></li>
         <li><a href="/news">News</a></li>
+        <li><a href="/media">Media</a></li>
         <li><a href="/opportunities">Opportunities</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
@@ -151,6 +163,51 @@
             <a href="https://www.linkedin.com/in/drgsselopal/" class="profile-link" target="_blank">LinkedIn</a>
             <a href="https://www.researchgate.net/profile/Gurpreet-Selopal" class="profile-link" target="_blank">ResearchGate</a>
             <a href="https://orcid.org/0000-0002-4703-8829" class="profile-link" target="_blank">ORCID</a>
+          </div>
+          <div class="pi-credentials">
+            <div class="pi-cred-row">
+              <span class="pi-cred-label">Cross-Appts.</span>
+              <div class="pi-cred-tags">
+                <span class="pi-cred-tag">Dept. of Physics &amp; Atmospheric Science, Dal (Dec 2024)</span>
+                <span class="pi-cred-tag">Dept. of Process Engineering &amp; Applied Science, Dal (Mar 2025)</span>
+                <span class="pi-cred-tag">Adjunct, INRS-EMT, Varennes QC (Feb 2023)</span>
+                <span class="pi-cred-tag">Adjunct &amp; Graduate Faculty, UPEI (Jul 2023)</span>
+              </div>
+            </div>
+            <div class="pi-cred-row">
+              <span class="pi-cred-label">Editorial Roles</span>
+              <div class="pi-cred-tags">
+                <span class="pi-cred-tag">Early Career Board · ACS Applied Nano Materials (2025)</span>
+                <span class="pi-cred-tag">Editorial Board · Canadian Biosystems Engineering (2025)</span>
+                <span class="pi-cred-tag">Book Editor · Springer Nature Switzerland (2024)</span>
+                <span class="pi-cred-tag">Topic Editor · Frontiers in Nanotechnology (2025)</span>
+                <span class="pi-cred-tag">Expert Reviewer · NSERC Alliance &amp; Discovery Grants</span>
+              </div>
+            </div>
+            <div class="pi-cred-row">
+              <span class="pi-cred-label">Teaching</span>
+              <div class="pi-cred-tags">
+                <span class="pi-cred-tag">PHYS 1000</span>
+                <span class="pi-cred-tag">PHYS 1002</span>
+                <span class="pi-cred-tag">PHYS 1003</span>
+                <span class="pi-cred-tag">ENGN 3000</span>
+              </div>
+            </div>
+            <div class="pi-cred-row">
+              <span class="pi-cred-label">Patent</span>
+              <div class="pi-cred-tags">
+                <span class="pi-cred-tag">WO 2024/073854 A1 — Magnetic Field Enhanced Photocurrent Generation (2024)</span>
+              </div>
+            </div>
+            <div class="pi-cred-row">
+              <span class="pi-cred-label">Affiliations</span>
+              <div class="pi-cred-tags">
+                <span class="pi-cred-tag">P.Eng. — Association of Professional Engineers of Nova Scotia</span>
+                <span class="pi-cred-tag">Member · Materials Research Society</span>
+                <span class="pi-cred-tag">Member · American Chemical Society</span>
+                <span class="pi-cred-tag">Leader in Energy Sustainability, Dalhousie</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -245,11 +302,100 @@
 
     <!-- Alumni -->
     <section class="alumni-section">
-      <div class="section-header"><h2>Alumni</h2></div>
-      <ul class="alumni-list">
-        <li class="alumni-item">Yashan Dhaliwal</li>
-        <li class="alumni-item">Swedha Madhu — MSc</li>
-      </ul>
+      <div class="section-header">
+        <h2>Alumni</h2>
+        <p>Researchers who trained at SNL (Dalhousie era, 2022–present)</p>
+      </div>
+
+      <div class="alumni-sub">
+        <div class="alumni-sub-title">Graduate Students</div>
+        <ul class="alumni-list">
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Dr. Jiabin Liu</div>
+              <div class="alumni-detail">PhD (2020–2025) · Design and synthesis of colloidal quantum dots for optoelectronic devices</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Dr. Omar Abdelkarim</div>
+              <div class="alumni-detail">PhD (2018–2022) · Two-dimensional nanoparticles for solar energy conversion applications</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Vinayak Venkataraman</div>
+              <div class="alumni-detail">MSc (2020–2025) · Noble metal-free electrocatalyst for solar energy conversion — now pursuing further studies</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Kokilavani S</div>
+              <div class="alumni-detail">MSc (2022–2025) · Eco-friendly core/shell QDs for solar energy conversion — now PhD student at SNL</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Swedha Madhu</div>
+              <div class="alumni-detail">MSc · Ferroelectrically-controlled hybrid photocatalysts for pesticide removal</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Muhammad Jahandad Khan</div>
+              <div class="alumni-detail">MSc · Optimization of nano-fertilizer to boost potato production (co-supervised)</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="alumni-sub">
+        <div class="alumni-sub-title">Research Fellows &amp; Summer Scholars</div>
+        <ul class="alumni-list">
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Kaouther Jouini</div>
+              <div class="alumni-detail">MITACS-GRI Fellow (June–Sept 2024)</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Jonathan Uriel Saldaña Lozano</div>
+              <div class="alumni-detail">MITACS-GRI Fellow (June–Sept 2024)</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Aditi Prabhu</div>
+              <div class="alumni-detail">MITACS-GRI Fellow (June–Sept 2024)</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Akshit Bhalla</div>
+              <div class="alumni-detail">Summer Fellow (April–June 2024)</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Connor LaBonte</div>
+              <div class="alumni-detail">Summer Fellow (May–Sept 2023)</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">JD Bharvad</div>
+              <div class="alumni-detail">Summer Mentor (June–Aug 2023)</div>
+            </div>
+          </li>
+          <li class="alumni-item">
+            <div>
+              <div class="alumni-name">Yashan Dhaliwal</div>
+              <div class="alumni-detail">Summer Fellow (May–Sept 2023)</div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </section>
 
     <section class="cta-section">
