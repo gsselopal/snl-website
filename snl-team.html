@@ -9,540 +9,109 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100%; }
+    body { background-color: #f8fafc; color: #475569; font-family: 'DM Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'DM Serif Display', serif; color: #0f172a; font-weight: 400; }
+    a { color: #0ea5e9; text-decoration: none; }
 
-    html, body {
-      width: 100%;
-      height: 100%;
-    }
+    #bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-    body {
-      background-color: #03070f;
-      color: #ffffff;
-      font-family: 'DM Sans', sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* Navigation */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(3,7,15,0.97);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
       padding: 1.1rem 2rem;
     }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; color: #0f172a; font-weight: 700; font-size: 0.9rem; text-decoration: none; white-space: nowrap; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: #64748b; font-size: 0.88rem; font-weight: 500; text-decoration: none; transition: color 0.25s; }
+    .nav-links a:hover, .nav-links a.active { color: #0ea5e9; }
+    @media (max-width: 768px) { .nav-links { gap: 1rem; } .nav-logo span + span { display: none; } }
 
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    /* Hero */
+    .hero { position: relative; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; z-index: 1; }
+    #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 2rem; animation: fadeInUp 1s ease 0.2s both; }
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    .hero-badge { display: inline-block; background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.2); color: #7c3aed; padding: 0.5rem 1.2rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 500; margin-bottom: 2rem; letter-spacing: 0.05em; }
+    .hero h1 { font-size: clamp(2.5rem,5vw,4rem); margin-bottom: 1rem; line-height: 1.2; }
+    .hero h1 em { color: #7c3aed; font-style: italic; }
+    .hero-subtitle { font-size: clamp(1rem,2vw,1.2rem); color: #64748b; margin: 0 auto; max-width: 600px; }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      text-decoration: none;
-      white-space: nowrap;
-      font-family: 'DM Sans', sans-serif;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: rgba(255,255,255,0.55);
-      font-size: 0.88rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: color 0.25s ease;
-      cursor: pointer;
-    }
-
-    .nav-links a:hover, .nav-links a.active { color: #38bdf8; }
-
-    @media (max-width: 768px) {
-      .nav-links { gap: 1.2rem; }
-      .nav-logo span + span { display: none; }
-    }
-
-    /* Hero Section */
-    .hero {
-      position: relative;
-      min-height: 55vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    #hero-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      padding: 2rem;
-      animation: fadeInUp 1s ease 0.2s both;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background-color: rgba(167, 139, 250, 0.1);
-      border: 1px solid rgba(167, 139, 250, 0.3);
-      color: #a78bfa;
-      padding: 0.5rem 1.2rem;
-      border-radius: 2rem;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      margin-bottom: 1rem;
-      line-height: 1.2;
-      color: #ffffff;
-    }
-
-    .hero h1 em {
-      color: #a78bfa;
-      font-style: italic;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: rgba(255, 255, 255, 0.65);
-      margin-bottom: 0;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Main Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
 
     /* PI Section */
-    .pi-section {
-      margin: 5rem 0;
-    }
-
-    .pi-card {
-      background: linear-gradient(135deg, rgba(167, 139, 250, 0.05) 0%, rgba(139, 92, 246, 0.03) 100%);
-      border: 1px solid rgba(167, 139, 250, 0.2);
-      border-left: 4px solid #a78bfa;
-      border-radius: 0.75rem;
-      padding: 3rem;
-      display: flex;
-      gap: 2.5rem;
-      align-items: flex-start;
-      animation: fadeInUp 1s ease 0.4s both;
-    }
-
-    .pi-avatar {
-      flex-shrink: 0;
-      width: 150px;
-      height: 150px;
-      border-radius: 0.75rem;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.12);
-    }
-    .pi-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    .pi-content h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.75rem;
-      margin-bottom: 0.25rem;
-      color: #ffffff;
-    }
-
-    .pi-title {
-      color: #a78bfa;
-      font-size: 0.95rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .pi-affiliation {
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-      font-style: italic;
-    }
-
-    .pi-bio {
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 1.5rem;
-      line-height: 1.8;
-    }
-
-    .pi-links {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .profile-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.2rem;
-      background-color: rgba(167, 139, 250, 0.1);
-      border: 1px solid rgba(167, 139, 250, 0.3);
-      border-radius: 2rem;
-      color: #a78bfa;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .profile-link:hover {
-      background-color: rgba(167, 139, 250, 0.2);
-      border-color: rgba(167, 139, 250, 0.5);
-      transform: translateY(-2px);
-    }
-
-    @media (max-width: 768px) {
-      .pi-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 2rem;
-      }
-      .pi-avatar {
-        width: 100px;
-        height: 100px;
-        font-size: 2rem;
-      }
-      .pi-links {
-        justify-content: center;
-      }
-    }
+    .pi-section { margin: 5rem 0 3rem; }
+    .pi-card { background: linear-gradient(135deg, rgba(124,58,237,0.04), rgba(109,40,217,0.02)); border: 1px solid rgba(124,58,237,0.18); border-left: 4px solid #7c3aed; border-radius: 0.75rem; padding: 3rem; display: flex; gap: 2.5rem; align-items: flex-start; animation: fadeInUp 1s ease 0.4s both; }
+    .pi-avatar { flex-shrink: 0; width: 150px; height: 150px; border-radius: 0.75rem; overflow: hidden; border: 2px solid rgba(124,58,237,0.2); }
+    .pi-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .pi-content h2 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .pi-title { color: #7c3aed; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 0.03em; }
+    .pi-affiliation { color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem; font-style: italic; }
+    .pi-bio { color: #475569; margin-bottom: 1.5rem; line-height: 1.8; }
+    .pi-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .profile-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; background: rgba(124,58,237,0.07); border: 1px solid rgba(124,58,237,0.22); border-radius: 2rem; color: #7c3aed; font-size: 0.9rem; font-weight: 500; transition: all 0.3s; }
+    .profile-link:hover { background: rgba(124,58,237,0.14); border-color: rgba(124,58,237,0.45); transform: translateY(-2px); }
+    @media (max-width: 768px) { .pi-card { flex-direction: column; align-items: center; text-align: center; padding: 2rem; } .pi-links { justify-content: center; } }
 
     /* Section Headers */
-    .section-header {
-      margin-top: 4rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
+    .section-header { margin-top: 4rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0; }
+    .section-header h2 { font-size: 2rem; margin-bottom: 0.4rem; }
+    .section-header p { color: #64748b; font-size: 0.95rem; }
 
-    .section-header h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-    }
+    /* Team Grid */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+    .team-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 2rem; text-align: center; transition: all 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); animation: fadeInUp 0.6s ease both; }
+    .team-card:hover { border-color: rgba(124,58,237,0.4); box-shadow: 0 8px 20px rgba(124,58,237,0.1); transform: translateY(-4px); }
+    .team-avatar { width: 96px; height: 96px; border-radius: 0.6rem; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: #fff; font-weight: 700; border: 2px solid #e2e8f0; overflow: hidden; flex-shrink: 0; }
+    .team-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .avatar-1 { background: linear-gradient(135deg,#a78bfa,#7c3aed); }
+    .avatar-2 { background: linear-gradient(135deg,#c084fc,#a78bfa); }
+    .avatar-3 { background: linear-gradient(135deg,#d8b4fe,#c084fc); }
+    .avatar-4 { background: linear-gradient(135deg,#7c3aed,#6d28d9); }
+    .avatar-5 { background: linear-gradient(135deg,#a78bfa,#7c3aed); }
+    .avatar-6 { background: linear-gradient(135deg,#c084fc,#a855f7); }
+    .avatar-7 { background: linear-gradient(135deg,#d8b4fe,#c084fc); }
+    .avatar-8 { background: linear-gradient(135deg,#a78bfa,#8b5cf6); }
+    .team-name { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #0f172a; margin-bottom: 0.5rem; font-weight: 400; }
+    .team-role { color: #7c3aed; font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .team-badge { display: inline-block; background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.2); color: #475569; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.8rem; margin-bottom: 1rem; font-weight: 500; }
+    .team-focus { color: #64748b; font-size: 0.9rem; margin-bottom: 1rem; min-height: 2.4em; }
+    .team-link-btn { display: inline-block; color: #7c3aed; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.8rem; padding: 0.5rem 1rem; border: 1px solid rgba(124,58,237,0.3); border-radius: 0.25rem; transition: all 0.3s; }
+    .team-link-btn:hover { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.5); }
 
-    .section-header p {
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 0.95rem;
-    }
+    /* Alumni */
+    .alumni-section { margin-top: 4rem; margin-bottom: 3rem; }
+    .alumni-list { list-style: none; border-top: 1px solid #e2e8f0; }
+    .alumni-item { padding: 1rem 0; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 1rem; color: #64748b; font-size: 0.95rem; transition: all 0.3s; }
+    .alumni-item:hover { color: #475569; padding-left: 0.5rem; }
+    .alumni-item::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #a78bfa; flex-shrink: 0; }
 
-    /* Team Member Card */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
+    /* CTA */
+    .cta-section { background: linear-gradient(135deg, rgba(124,58,237,0.07), rgba(109,40,217,0.04)); border: 1px solid rgba(124,58,237,0.18); border-left: 4px solid #7c3aed; border-radius: 0.75rem; padding: 3rem 2rem; text-align: center; margin: 5rem 0 4rem; }
+    .cta-section h3 { font-size: 1.75rem; margin-bottom: 1rem; }
+    .cta-section p { color: #64748b; font-size: 1.05rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-button { display: inline-block; background: linear-gradient(135deg,#7c3aed,#6d28d9); color: #fff; padding: 0.9rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s; }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124,58,237,0.3); color: #fff; }
 
-    .team-card {
-      background: linear-gradient(135deg, rgba(167, 139, 250, 0.05) 0%, rgba(139, 92, 246, 0.03) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 0.75rem;
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s ease;
-      animation: fadeInUp 0.6s ease both;
-    }
+    footer { background: #f1f5f9; border-top: 1px solid #e2e8f0; padding: 2rem; margin-top: 3rem; text-align: center; color: #94a3b8; font-size: 0.9rem; }
 
-    .team-card:hover {
-      border-color: rgba(167, 139, 250, 0.5);
-      background: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(139, 92, 246, 0.08) 100%);
-      transform: translateY(-4px);
-    }
-
-    .team-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 0.6rem;
-      margin: 0 auto 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem;
-      color: #ffffff;
-      font-weight: 700;
-      border: 2px solid rgba(255, 255, 255, 0.12);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .team-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    .avatar-1 { background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%); }
-    .avatar-2 { background: linear-gradient(135deg, #c084fc 0%, #a78bfa 100%); }
-    .avatar-3 { background: linear-gradient(135deg, #d8b4fe 0%, #c084fc 100%); }
-    .avatar-4 { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
-    .avatar-5 { background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%); }
-    .avatar-6 { background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%); }
-    .avatar-7 { background: linear-gradient(135deg, #d8b4fe 0%, #c084fc 100%); }
-    .avatar-8 { background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%); }
-
-    .team-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem;
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-    }
-
-    .team-role {
-      color: #a78bfa;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .team-badge {
-      display: inline-block;
-      background-color: rgba(167, 139, 250, 0.15);
-      border: 1px solid rgba(167, 139, 250, 0.3);
-      color: rgba(255, 255, 255, 0.8);
-      padding: 0.4rem 1rem;
-      border-radius: 2rem;
-      font-size: 0.8rem;
-      margin-bottom: 1rem;
-      font-weight: 500;
-    }
-
-    .team-focus {
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      min-height: 2.4em;
-    }
-
-    .team-email {
-      display: inline-block;
-      color: #a78bfa;
-      text-decoration: none;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      padding: 0.5rem 1rem;
-      border: 1px solid rgba(167, 139, 250, 0.3);
-      border-radius: 0.25rem;
-      transition: all 0.3s ease;
-    }
-
-    .team-email:hover {
-      background-color: rgba(167, 139, 250, 0.1);
-      border-color: rgba(167, 139, 250, 0.6);
-    }
-
-    /* Alumni Section */
-    .alumni-section {
-      margin-top: 4rem;
-      margin-bottom: 3rem;
-    }
-
-    .alumni-list {
-      list-style: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .alumni-item {
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-    }
-
-    .alumni-item:hover {
-      color: rgba(255, 255, 255, 0.85);
-      padding-left: 0.5rem;
-    }
-
-    .alumni-item::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: #a78bfa;
-      flex-shrink: 0;
-    }
-
-    /* CTA Section */
-    .cta-section {
-      background: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(139, 92, 246, 0.08) 100%);
-      border: 1px solid rgba(167, 139, 250, 0.2);
-      border-left: 4px solid #a78bfa;
-      border-radius: 0.75rem;
-      padding: 3rem 2rem;
-      text-align: center;
-      margin: 5rem 0 4rem;
-      animation: fadeInUp 1s ease 0.6s both;
-    }
-
-    .cta-section h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.75rem;
-      margin-bottom: 1rem;
-      color: #ffffff;
-    }
-
-    .cta-section p {
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 1.05rem;
-      margin-bottom: 2rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta-button {
-      display: inline-block;
-      background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
-      color: #ffffff;
-      padding: 0.9rem 2rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
-
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(167, 139, 250, 0.3);
-    }
-
-    /* Footer */
-    footer {
-      background-color: rgba(11, 30, 51, 0.5);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2rem;
-      margin-top: 3rem;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.9rem;
-    }
-
-    /* Responsive Grid Adjustments */
-    @media (max-width: 768px) {
-      .team-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .section-header h2 {
-        font-size: 1.5rem;
-      }
-
-      .cta-section {
-        padding: 2rem;
-      }
-
-      .cta-section h3 {
-        font-size: 1.4rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .team-grid {
-        grid-template-columns: 1fr;
-      }
-
-      nav {
-        padding: 1rem;
-      }
-
-      .pi-card {
-        padding: 1.5rem;
-      }
-
-      .section-header h2 {
-        font-size: 1.3rem;
-      }
-    }
+    @media (max-width: 768px) { .team-grid { grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 1.5rem; } }
+    @media (max-width: 480px) { .team-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-  <!-- Full-page background canvas -->
   <canvas id="bg-canvas" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
   <div style="position:relative;z-index:1;">
-  <!-- Navigation -->
+
   <nav>
     <div class="nav-container">
       <a href="/" class="nav-logo">
-        <img src="/assets/images/snl-logo.png" alt="SNL" class="nav-logo-img" style="height:38px;width:auto;">
+        <img src="/assets/images/snl-logo.png" alt="SNL" style="height:38px;width:auto;">
         <span>Sustainable Nanoengineering Lab</span>
       </a>
       <ul class="nav-links">
@@ -550,13 +119,13 @@
         <li><a href="/research">Research</a></li>
         <li><a href="/publications">Publications</a></li>
         <li><a href="/team" class="active">Team</a></li>
+        <li><a href="/news">News</a></li>
         <li><a href="/opportunities">Opportunities</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <section class="hero">
     <canvas id="hero-canvas"></canvas>
     <div class="hero-content">
@@ -566,17 +135,16 @@
     </div>
   </section>
 
-  <!-- Main Content -->
   <div class="container">
-    <!-- PI Section -->
+    <!-- PI -->
     <section class="pi-section">
       <div class="pi-card">
         <div class="pi-avatar"><img src="/assets/images/headshot.jpeg" alt="Dr. G.S. Selopal"></div>
         <div class="pi-content">
           <h2>Dr. G.S. Selopal</h2>
-          <div class="pi-title">Canada Research Chair (Tier 2) · Associate Professor</div>
+          <div class="pi-title">Assistant Professor</div>
           <div class="pi-affiliation">Department of Engineering, Faculty of Agriculture, Dalhousie University</div>
-          <p class="pi-bio">Dr. Selopal leads the Sustainable Nanoengineering Lab with expertise in nanostructured materials for solar energy conversion, hydrogen production, and environmental remediation. His work has been recognized nationally through NSERC funding and the prestigious Canada Research Chair program.</p>
+          <p class="pi-bio">Dr. Selopal leads the Sustainable Nanoengineering Lab with expertise in nanostructured materials for solar energy conversion, hydrogen production, and environmental remediation. His work has been recognized nationally through NSERC and MITACS funding, and he is actively expanding SNL's research frontiers across clean energy and precision agriculture.</p>
           <div class="pi-links">
             <a href="https://www.dal.ca/faculty/agriculture/faculty/eng/Gurpreet-Selopal.html" class="profile-link" target="_blank">Dal Profile</a>
             <a href="https://scholar.google.com/citations?user=u_SWb5EAAAAJ" class="profile-link" target="_blank">Google Scholar</a>
@@ -590,124 +158,100 @@
 
     <!-- Lab Photo -->
     <section style="margin-bottom:3.5rem;">
-      <div style="position:relative;border-radius:1rem;overflow:hidden;aspect-ratio:16/7;border:1px solid rgba(255,255,255,0.08);">
-        <img src="/assets/images/teampicture.jpeg" alt="SNL Lab Team"
-             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 70%;display:block;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,rgba(3,7,15,0.8) 100%);"></div>
+      <div style="position:relative;border-radius:1rem;overflow:hidden;aspect-ratio:16/7;border:1px solid #e2e8f0;box-shadow:0 4px 12px rgba(0,0,0,0.06);">
+        <img src="/assets/images/teampicture.jpeg" alt="SNL Lab Team" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 70%;display:block;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,rgba(248,250,252,0.88) 100%);"></div>
         <div style="position:absolute;bottom:1.5rem;left:2rem;">
-          <p style="margin:0;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Sustainable Nanoengineering Lab · Dalhousie University</p>
+          <p style="margin:0;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(15,23,42,0.45);">Sustainable Nanoengineering Lab · Dalhousie University</p>
         </div>
       </div>
     </section>
 
-    <!-- Postdoctoral Fellow Section -->
+    <!-- Postdoctoral Fellow -->
     <section>
-      <div class="section-header">
-        <h2>Postdoctoral Fellow</h2>
-      </div>
+      <div class="section-header"><h2>Postdoctoral Fellow</h2></div>
       <div class="team-grid">
-        <div class="team-card" style="animation-delay: 0.1s">
+        <div class="team-card" style="animation-delay:0.1s">
           <div class="team-avatar avatar-1"><img src="/assets/images/Manmeet.jpeg" alt="Dr. Manmeet Chhina"></div>
           <h3 class="team-name">Dr. Manmeet Chhina</h3>
           <div class="team-role">Postdoctoral Research Fellow</div>
           <div class="team-badge">McCain Fellowship Scholar</div>
           <p class="team-focus">Nanofertilizers, carbon dot-based luminescent solar concentrators, and building-integrated photovoltaics</p>
-          <a href="https://www.linkedin.com/in/manmeet-chhina-phd-869558151" class="team-email" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/manmeet-chhina-phd-869558151" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
 
-    <!-- PhD Students Section -->
+    <!-- PhD Students -->
     <section>
-      <div class="section-header">
-        <h2>PhD Students</h2>
-      </div>
+      <div class="section-header"><h2>PhD Students</h2></div>
       <div class="team-grid">
-        <div class="team-card" style="animation-delay: 0.1s">
+        <div class="team-card" style="animation-delay:0.1s">
           <div class="team-avatar avatar-2"><img src="/assets/images/sukhjinder.jpeg" alt="Sukhjinder Singh"></div>
           <h3 class="team-name">Sukhjinder Singh</h3>
           <div class="team-role">PhD Student</div>
           <div class="team-badge">FGS Harmonized Scholarship</div>
-          <p class="team-focus">Photoelectrochemical water splitting and 2D nanomaterials</p>
-          <a href="https://www.linkedin.com/in/sukhjinder-singh-4b738824b" class="team-email" target="_blank">LinkedIn</a>
+          <p class="team-focus">Triboelectric nanogenerators and 2D nanomaterials for clean energy applications</p>
+          <a href="https://www.linkedin.com/in/sukhjinder-singh-4b738824b" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
-        <div class="team-card" style="animation-delay: 0.15s">
+        <div class="team-card" style="animation-delay:0.15s">
           <div class="team-avatar avatar-3"><img src="/assets/images/Kokilavani.jpeg" alt="Kokilavani S"></div>
           <h3 class="team-name">Kokilavani S</h3>
           <div class="team-role">PhD Student</div>
           <div class="team-badge">DRES Awardee · NSGD Scholar</div>
           <p class="team-focus">Luminescent solar concentrator photomicroreactor for nitrate reduction to ammonia</p>
-          <a href="https://www.linkedin.com/in/kokilavani-20102000" class="team-email" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/kokilavani-20102000" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
 
-    <!-- MSc Students Section -->
+    <!-- MSc Students -->
     <section>
-      <div class="section-header">
-        <h2>MSc Students</h2>
-      </div>
+      <div class="section-header"><h2>MSc Students</h2></div>
       <div class="team-grid">
-        <div class="team-card" style="animation-delay: 0.1s">
-          <div class="team-avatar avatar-4"><img src="/assets/images/swedha.avif" alt="Swedha Madhu"></div>
-          <h3 class="team-name">Swedha Madhu</h3>
-          <div class="team-role">MSc Student</div>
-          <p class="team-focus">Nanotechnology for sustainable agriculture and environmental remediation of pharmaceuticals and pesticides</p>
-          <a href="https://www.linkedin.com/in/swedha-madhu" class="team-email" target="_blank">LinkedIn</a>
-        </div>
-        <div class="team-card" style="animation-delay: 0.15s">
-          <div class="team-avatar avatar-5"><img src="/assets/images/umair.jpeg" alt="Umair Sohail"></div>
+        <div class="team-card" style="animation-delay:0.1s">
+          <div class="team-avatar avatar-4"><img src="/assets/images/umair.jpeg" alt="Umair Sohail"></div>
           <h3 class="team-name">Umair Sohail</h3>
           <div class="team-role">MSc Student</div>
+          <div class="team-badge">KILM Scholar</div>
           <p class="team-focus">Clean energy production using quantum dots and electrocatalysts for hydrogen evolution</p>
-          <a href="https://www.linkedin.com/in/umair-sohail-b5b483179" class="team-email" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/umair-sohail-b5b483179" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
-        <div class="team-card" style="animation-delay: 0.2s">
-          <div class="team-avatar avatar-6"><img src="/assets/images/guusu.jpeg" alt="Msughter Joseph Guusu"></div>
+        <div class="team-card" style="animation-delay:0.15s">
+          <div class="team-avatar avatar-5"><img src="/assets/images/guusu.jpeg" alt="Msughter Joseph Guusu"></div>
           <h3 class="team-name">Msughter Joseph Guusu</h3>
           <div class="team-role">MSc Student</div>
           <div class="team-badge">BMO Scholar</div>
           <p class="team-focus">Quantum dots for renewable energy and nano-sensor applications</p>
-          <a href="https://www.linkedin.com/in/msughter-joseph-guusu-baa743180" class="team-email" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/msughter-joseph-guusu-baa743180" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
-        <div class="team-card" style="animation-delay: 0.25s">
-          <div class="team-avatar avatar-7"><img src="/assets/images/joshita.jpeg" alt="Joshita P S"></div>
+        <div class="team-card" style="animation-delay:0.2s">
+          <div class="team-avatar avatar-6"><img src="/assets/images/joshita.jpeg" alt="Joshita P S"></div>
           <h3 class="team-name">Joshita P S</h3>
           <div class="team-role">MSc Student</div>
           <p class="team-focus">Crop growth dynamics under spectrum-controlled greenhouse roofs</p>
-          <a href="https://www.linkedin.com/in/joshitaps" class="team-email" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/joshitaps" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
-      </div>
-    </section>
-
-    <!-- Undergraduate Researchers Section -->
-    <section>
-      <div class="section-header">
-        <h2>Undergraduate Researchers</h2>
-      </div>
-      <div class="team-grid">
-        <div class="team-card" style="animation-delay: 0.1s">
-          <div class="team-avatar avatar-1"><img src="/assets/images/jayden.jpeg" alt="Jayden MacKenzie"></div>
+        <div class="team-card" style="animation-delay:0.25s">
+          <div class="team-avatar avatar-7"><img src="/assets/images/jayden.jpeg" alt="Jayden MacKenzie"></div>
           <h3 class="team-name">Jayden MacKenzie</h3>
-          <div class="team-role">Undergraduate Researcher</div>
+          <div class="team-role">MSc Student</div>
           <div class="team-badge">2× NSERC USRA</div>
           <p class="team-focus">Quantum dots, carbon quantum dots, and luminescent solar concentrators</p>
-          <a href="https://www.linkedin.com/in/jaydenmackenzie" class="team-email" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/jaydenmackenzie" class="team-link-btn" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
 
-    <!-- Alumni Section -->
+    <!-- Alumni -->
     <section class="alumni-section">
-      <div class="section-header">
-        <h2>Alumni</h2>
-      </div>
+      <div class="section-header"><h2>Alumni</h2></div>
       <ul class="alumni-list">
         <li class="alumni-item">Yashan Dhaliwal</li>
+        <li class="alumni-item">Swedha Madhu — MSc</li>
       </ul>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta-section">
       <h3>Interested in joining the lab?</h3>
       <p>We welcome motivated researchers at all levels. Join our team and contribute to sustainable nanotechnology innovation.</p>
@@ -715,131 +259,88 @@
     </section>
   </div>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Sustainable Nanoengineering Lab · Dalhousie University</p>
   </footer>
 
-  <!-- Canvas Constellation Animation -->
   <script>
+    // Hero constellation animation
     (function() {
       const canvas = document.getElementById('hero-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       let stars = [];
-      let t = 0;
-
-      function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        initStars();
-      }
-
+      function resize() { canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; initStars(); }
       function initStars() {
-        const count = window.innerWidth < 768 ? 50 : 100;
-        stars = Array.from({ length: count }, () => ({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.15,
-          vy: (Math.random() - 0.5) * 0.15,
-          r: Math.random() * 1.5 + 0.5,
-          brightness: Math.random(),
-          twinkle: Math.random() * Math.PI * 2,
-        }));
+        const count = window.innerWidth<768?50:100;
+        stars = Array.from({length:count},()=>({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.15, vy:(Math.random()-0.5)*0.15, r:Math.random()*1.5+0.5, twinkle:Math.random()*Math.PI*2 }));
       }
-
       function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        t += 1;
-        // draw stars
-        stars.forEach(s => {
-          s.x += s.vx; s.y += s.vy; s.twinkle += 0.03;
-          if (s.x < 0) s.x = canvas.width;
-          if (s.x > canvas.width) s.x = 0;
-          if (s.y < 0) s.y = canvas.height;
-          if (s.y > canvas.height) s.y = 0;
-          const alpha = 0.4 + Math.sin(s.twinkle) * 0.3;
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(167,139,250,${alpha})`;
-          ctx.fill();
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        stars.forEach(s=>{
+          s.x+=s.vx; s.y+=s.vy; s.twinkle+=0.03;
+          if(s.x<0)s.x=canvas.width; if(s.x>canvas.width)s.x=0;
+          if(s.y<0)s.y=canvas.height; if(s.y>canvas.height)s.y=0;
+          const alpha=0.25+Math.sin(s.twinkle)*0.2;
+          ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+          ctx.fillStyle=`rgba(124,58,237,${alpha})`; ctx.fill();
         });
-        // constellation lines — only connect nearby stars occasionally
-        for (let i = 0; i < stars.length; i++) {
-          for (let j = i + 1; j < stars.length; j++) {
-            const dx = stars[i].x - stars[j].x;
-            const dy = stars[i].y - stars[j].y;
-            const d = Math.sqrt(dx*dx + dy*dy);
-            if (d < 100) {
-              ctx.beginPath();
-              ctx.moveTo(stars[i].x, stars[i].y);
-              ctx.lineTo(stars[j].x, stars[j].y);
-              ctx.strokeStyle = `rgba(139,92,246,${(1 - d/100) * 0.2})`;
-              ctx.lineWidth = 0.5;
-              ctx.stroke();
-            }
+        for(let i=0;i<stars.length;i++){
+          for(let j=i+1;j<stars.length;j++){
+            const dx=stars[i].x-stars[j].x, dy=stars[i].y-stars[j].y, d=Math.sqrt(dx*dx+dy*dy);
+            if(d<100){ ctx.beginPath(); ctx.moveTo(stars[i].x,stars[i].y); ctx.lineTo(stars[j].x,stars[j].y); ctx.strokeStyle=`rgba(109,40,217,${(1-d/100)*0.15})`; ctx.lineWidth=0.5; ctx.stroke(); }
           }
         }
         requestAnimationFrame(draw);
       }
-
-      const ro = new ResizeObserver(resize);
-      ro.observe(canvas);
-      resize();
-      draw();
+      new ResizeObserver(resize).observe(canvas);
+      resize(); draw();
     })();
-  </script>
 
-  </div><!-- end page-wrapper -->
-  <script>
-    // Full-page background particle animation
+    // Full-page background particles
     (function() {
       const canvas = document.getElementById('bg-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       let W, H, particles = [];
-      const mouse = { x: -9999, y: -9999 };
-      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-      function spawn() {
-        return { x: Math.random()*W, y: Math.random()*H, vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2,
-          r: Math.random()*1.5+0.5, phase: Math.random()*Math.PI*2, hue: Math.random()>0.5?'167,139,250':'139,92,246' };
-      }
-      function init() { particles = Array.from({length: window.innerWidth<768?30:60}, spawn); }
-      window.addEventListener('mousemove', e => { mouse.x=e.clientX; mouse.y=e.clientY; });
-      window.addEventListener('resize', () => { resize(); init(); });
+      const mouse = {x:-9999,y:-9999};
+      const HUES=['124,58,237','167,139,250','192,132,252','109,40,217'];
+      function resize() { W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+      function spawn() { return {x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.22,vy:(Math.random()-0.5)*0.22,r:Math.random()*3.5+2,phase:Math.random()*Math.PI*2,hue:HUES[Math.floor(Math.random()*HUES.length)]}; }
+      function init() { particles=Array.from({length:window.innerWidth<768?35:65},spawn); }
+      window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+      window.addEventListener('resize',()=>{resize();init();});
       let rafId;
       function loop() {
         ctx.clearRect(0,0,W,H);
-        const len = particles.length;
-        for (let i=0; i<len; i++) {
-          const p = particles[i];
+        const len=particles.length;
+        for(let i=0;i<len;i++){
+          const p=particles[i];
           p.x+=p.vx; p.y+=p.vy; p.phase+=0.02;
-          if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
-          const rr = p.r + Math.sin(p.phase)*0.4;
+          if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+          const rr=p.r+Math.sin(p.phase)*0.6;
           ctx.beginPath(); ctx.arc(p.x,p.y,rr,0,Math.PI*2);
-          ctx.fillStyle=`rgba(${p.hue},0.6)`; ctx.fill();
-          for(let j=i+1; j<len; j++) {
-            const q=particles[j], dx=p.x-q.x, dy=p.y-q.y, d2=dx*dx+dy*dy;
-            if(d2<12100) {
-              ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
-              ctx.strokeStyle=`rgba(139,92,246,${(1-Math.sqrt(d2)/110)*0.2})`; ctx.lineWidth=0.5; ctx.stroke();
-            }
+          ctx.fillStyle=`rgba(${p.hue},0.38)`; ctx.fill();
+          for(let j=i+1;j<len;j++){
+            const q=particles[j],dx=p.x-q.x,dy=p.y-q.y,d2=dx*dx+dy*dy;
+            if(d2<12100){ ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.strokeStyle=`rgba(109,40,217,${(1-Math.sqrt(d2)/110)*0.1})`; ctx.lineWidth=0.5; ctx.stroke(); }
           }
-          const mdx=p.x-mouse.x, mdy=p.y-mouse.y, md2=mdx*mdx+mdy*mdy;
-          if(md2<25600) {
+          const mdx=p.x-mouse.x,mdy=p.y-mouse.y,md2=mdx*mdx+mdy*mdy;
+          if(md2<25600){
             const md=Math.sqrt(md2);
             ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(mouse.x,mouse.y);
-            ctx.strokeStyle=`rgba(167,139,250,${(1-md/160)*0.55})`; ctx.lineWidth=0.9; ctx.stroke();
+            ctx.strokeStyle=`rgba(124,58,237,${(1-md/160)*0.45})`; ctx.lineWidth=0.9; ctx.stroke();
             p.vx+=(mouse.x-p.x)*0.0001; p.vy+=(mouse.y-p.y)*0.0001;
             const spd=Math.sqrt(p.vx*p.vx+p.vy*p.vy);
-            if(spd>1.2){p.vx*=1.2/spd; p.vy*=1.2/spd;}
+            if(spd>1.2){p.vx*=1.2/spd;p.vy*=1.2/spd;}
           }
         }
         rafId=requestAnimationFrame(loop);
       }
-      document.addEventListener('visibilitychange',()=>{ if(document.hidden) cancelAnimationFrame(rafId); else loop(); });
+      document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(rafId);else loop();});
       resize(); init(); loop();
     })();
   </script>
+  </div>
 </body>
 </html>

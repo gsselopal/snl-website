@@ -5,469 +5,83 @@
   <link rel="icon" type="image/png" href="/assets/images/snl-logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Opportunities - Sustainable Nanoengineering Lab</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background-color: #f8fafc; color: #475569; line-height: 1.6; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'DM Serif Display', serif; color: #0f172a; margin-bottom: 1rem; }
+    a { color: #059669; text-decoration: none; transition: color 0.3s; }
+    a:hover { color: #10b981; }
 
-    :root {
-      --bg-dark: #03070f;
-      --accent-emerald: #34d399;
-      --accent-emerald-light: #6ee7b7;
-      --text-white: #ffffff;
-      --text-body: rgba(255,255,255,0.65);
-      --border-subtle: rgba(255,255,255,0.1);
-    }
+    #bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    nav { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); padding: 1.1rem 2rem; }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; color: #0f172a; font-weight: 700; font-size: 0.9rem; text-decoration: none; white-space: nowrap; }
+    .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: #64748b; text-decoration: none; transition: color 0.25s; }
+    .nav-links a:hover, .nav-links a.active { color: #0ea5e9; }
+    @media (max-width: 768px) { .nav-links { gap: 1rem; flex-wrap: wrap; } .nav-logo span + span { display: none; } }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-body);
-      line-height: 1.6;
-    }
+    .hero { min-height: 60vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 4rem 2rem; z-index: 1; }
+    .hero-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; text-align: center; max-width: 700px; }
+    .badge { display: inline-block; background: rgba(5,150,105,0.08); border: 1px solid rgba(5,150,105,0.2); color: #059669; padding: 0.5rem 1.25rem; border-radius: 9999px; font-size: 0.9rem; margin-bottom: 2rem; font-weight: 500; }
+    .hero h1 { font-size: clamp(2.5rem,5vw,4rem); line-height: 1.2; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: italic; color: #059669; }
+    .hero .subtitle { font-size: 1.1rem; color: #64748b; margin-bottom: 3rem; line-height: 1.7; }
+    .funding-logos { display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: #94a3b8; }
+    .funding-logos span { display: flex; align-items: center; gap: 0.5rem; }
 
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'DM Serif Display', serif;
-      color: var(--text-white);
-      margin-bottom: 1rem;
-    }
+    .opportunities { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1; }
+    .opportunities h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 2rem; margin-bottom: 4rem; }
+    .opportunity-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; transition: all 0.3s; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .opportunity-card:hover { border-color: #059669; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(5,150,105,0.1); }
+    .opportunity-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .opportunity-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .opportunity-card .description { color: #64748b; margin-bottom: 1.5rem; flex-grow: 1; }
+    .opportunity-card .bullet-list { list-style: none; margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .opportunity-card .bullet-list li { color: #64748b; margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative; }
+    .opportunity-card .bullet-list li:before { content: "▸"; color: #059669; position: absolute; left: 0; }
+    .opportunity-card .funding-info { background: rgba(5,150,105,0.06); border-left: 3px solid #059669; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px; font-size: 0.9rem; }
+    .opportunity-card .funding-info strong { color: #059669; display: block; margin-bottom: 0.5rem; }
+    .cta-button { background: linear-gradient(135deg,#059669,#10b981); color: #fff; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 700; font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; transition: all 0.2s; display: inline-block; text-align: center; font-size: 0.95rem; }
+    .cta-button:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(5,150,105,0.25); color: #fff; }
 
-    a {
-      color: var(--accent-emerald);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
+    .why-snl { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1; }
+    .why-snl h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 2rem; }
+    .benefit-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .benefit-card:hover { border-color: #059669; box-shadow: 0 6px 16px rgba(5,150,105,0.1); }
+    .benefit-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .benefit-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+    .benefit-card p { font-size: 0.95rem; color: #64748b; line-height: 1.6; }
 
-    a:hover {
-      color: var(--accent-emerald-light);
-    }
-
-    /* ============================================
-       NAVIGATION
-       ============================================ */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(3,7,15,0.97);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 1.1rem 2rem;
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    .nav-links a {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.55);
-      text-decoration: none;
-      transition: color 0.25s ease;
-    }
-
-    .nav-links a:hover, .nav-links a.active { color: #38bdf8; }
-
-    @media (max-width: 768px) {
-      .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
-      .nav-logo span + span { display: none; }
-    }
-
-    /* ============================================
-       HERO SECTION
-       ============================================ */
-    .hero {
-      min-height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      padding: 4rem 2rem;
-    }
-
-    .hero-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 700px;
-    }
-
-    .badge {
-      display: inline-block;
-      background: rgba(52, 211, 153, 0.1);
-      border: 1px solid var(--border-subtle);
-      color: var(--accent-emerald);
-      padding: 0.5rem 1.25rem;
-      border-radius: 9999px;
-      font-size: 0.9rem;
-      margin-bottom: 2rem;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent-emerald);
-    }
-
-    .hero .subtitle {
-      font-size: 1.1rem;
-      color: var(--text-body);
-      margin-bottom: 3rem;
-      line-height: 1.7;
-    }
-
-    .funding-logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .funding-logos span {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        min-height: 50vh;
-      }
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .funding-logos {
-        gap: 1rem;
-        font-size: 0.8rem;
-      }
-    }
-
-    /* ============================================
-       OPPORTUNITY CARDS
-       ============================================ */
-    .opportunities {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-
-    .opportunities h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-      margin-bottom: 4rem;
-    }
-
-    .opportunity-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 2rem;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .opportunity-card:hover {
-      background: rgba(52, 211, 153, 0.08);
-      border-color: var(--accent-emerald);
-      transform: translateY(-4px);
-    }
-
-    .opportunity-card .icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .opportunity-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--text-white);
-    }
-
-    .opportunity-card .description {
-      color: var(--text-body);
-      margin-bottom: 1.5rem;
-      flex-grow: 1;
-    }
-
-    .opportunity-card .bullet-list {
-      list-style: none;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .opportunity-card .bullet-list li {
-      color: var(--text-body);
-      margin-bottom: 0.5rem;
-      padding-left: 1.5rem;
-      position: relative;
-    }
-
-    .opportunity-card .bullet-list li:before {
-      content: "▸";
-      color: var(--accent-emerald);
-      position: absolute;
-      left: 0;
-    }
-
-    .opportunity-card .funding-info {
-      background: rgba(52, 211, 153, 0.08);
-      border-left: 3px solid var(--accent-emerald);
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-    }
-
-    .opportunity-card .funding-info strong {
-      color: var(--accent-emerald);
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .cta-button {
-      background: linear-gradient(135deg, var(--accent-emerald), var(--accent-emerald-light));
-      color: var(--bg-dark);
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-weight: 700;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      border: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      display: inline-block;
-      text-align: center;
-      font-size: 0.95rem;
-    }
-
-    .cta-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 24px rgba(52, 211, 153, 0.3);
-    }
-
-    /* ============================================
-       WHY SNL SECTION
-       ============================================ */
-    .why-snl {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-
-    .why-snl h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-
-    .benefit-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .benefit-card:hover {
-      background: rgba(52, 211, 153, 0.08);
-      border-color: var(--accent-emerald);
-    }
-
-    .benefit-card .icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .benefit-card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .benefit-card p {
-      font-size: 0.95rem;
-      color: var(--text-body);
-      line-height: 1.6;
-    }
-
-    /* ============================================
-       FAQ SECTION
-       ============================================ */
-    .faq {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-
-    .faq h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .faq-item {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      overflow: hidden;
-      transition: border-color 0.3s ease;
-    }
-
-    .faq-item.open {
-      border-color: rgba(52,211,153,0.3);
-    }
-
-    .faq-question {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--text-white);
-      font-size: 1rem;
-      padding: 1.4rem 1.5rem;
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      transition: color 0.25s ease;
-    }
-
-    .faq-question:hover { color: var(--accent-emerald); }
-    .faq-item.open .faq-question { color: var(--accent-emerald); }
-
-    .faq-toggle {
-      font-size: 1.1rem;
-      color: var(--accent-emerald);
-      transition: transform 0.3s ease;
-      user-select: none;
-      flex-shrink: 0;
-      margin-left: 1rem;
-    }
-
+    .faq { max-width: 800px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1; }
+    .faq h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+    .faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 1rem; overflow: hidden; transition: border-color 0.3s; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .faq-item.open { border-color: rgba(5,150,105,0.35); }
+    .faq-question { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: #0f172a; font-size: 1rem; padding: 1.4rem 1.5rem; background: none; border: none; width: 100%; text-align: left; transition: color 0.25s; }
+    .faq-question:hover { color: #059669; }
+    .faq-item.open .faq-question { color: #059669; }
+    .faq-toggle { font-size: 1.1rem; color: #059669; transition: transform 0.3s; user-select: none; flex-shrink: 0; margin-left: 1rem; }
     .faq-item.open .faq-toggle { transform: rotate(180deg); }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease;
-      color: rgba(255,255,255,0.72);
-      font-size: 0.97rem;
-      line-height: 1.75;
-      padding: 0 1.5rem;
-    }
-
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; color: #475569; font-size: 0.97rem; line-height: 1.75; padding: 0 1.5rem; }
     .faq-item.open .faq-answer { padding-bottom: 1.4rem; }
 
-    /* ============================================
-       FOOTER
-       ============================================ */
-    footer {
-      background-color: rgba(0, 0, 0, 0.3);
-      border-top: 1px solid var(--border-subtle);
-      padding: 2rem;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 0.9rem;
-      margin-top: 4rem;
-    }
-
-    /* ============================================
-       UTILITY
-       ============================================ */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    @media (max-width: 768px) {
-      h2 {
-        font-size: 1.75rem !important;
-      }
-      .cards-grid {
-        gap: 1.5rem;
-      }
-      .benefits-grid {
-        gap: 1.5rem;
-      }
-    }
+    footer { background: #f1f5f9; border-top: 1px solid #e2e8f0; padding: 2rem; text-align: center; color: #94a3b8; font-size: 0.9rem; margin-top: 4rem; position: relative; z-index: 1; }
+    @media (max-width: 768px) { h2 { font-size: 1.75rem !important; } }
   </style>
 </head>
 <body>
-  <canvas id="bg-canvas" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+  <canvas id="bg-canvas"></canvas>
   <div style="position:relative;z-index:1;">
-  <!-- NAVIGATION -->
   <nav>
     <div class="nav-container">
       <a href="/" class="nav-logo">
-        <img src="/assets/images/snl-logo.png" alt="SNL" class="nav-logo-img" style="height:38px;width:auto;">
+        <img src="/assets/images/snl-logo.png" alt="SNL" style="height:38px;width:auto;">
         <span>Sustainable Nanoengineering Lab</span>
       </a>
       <ul class="nav-links">
@@ -475,320 +89,139 @@
         <li><a href="/research">Research</a></li>
         <li><a href="/publications">Publications</a></li>
         <li><a href="/team">Team</a></li>
+        <li><a href="/news">News</a></li>
         <li><a href="/opportunities" class="active">Opportunities</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
   <section class="hero">
-    <canvas id="hero-canvas" class="hero-canvas"></canvas>
     <div class="hero-content">
       <div class="badge">Join the Lab</div>
       <h1>Shape the Future of <em>Nanotechnology</em></h1>
-      <p class="subtitle">
-        Join a vibrant research team working on solar energy, green hydrogen, and sustainable nanomaterials at Dalhousie University.
-      </p>
-      <div class="funding-logos">
-        <span>NSERC</span>
-        <span>MITACS</span>
-        <span>CFI</span>
-        <span>Dal Scholarships</span>
-      </div>
+      <p class="subtitle">Join a vibrant research team working on solar energy, green hydrogen, and sustainable nanomaterials at Dalhousie University.</p>
+      <div class="funding-logos"><span>NSERC</span><span>MITACS</span><span>CFI</span><span>Dal Scholarships</span></div>
     </div>
   </section>
 
-  <!-- OPPORTUNITIES CARDS -->
   <section class="opportunities">
     <h2>Current Opportunities</h2>
     <div class="cards-grid">
-      <!-- Card 1: Graduate Students -->
       <div class="opportunity-card">
-        <div class="icon"></div>
+        <div class="icon">🎓</div>
         <h3>Graduate Students</h3>
-        <p class="description">
-          We are actively seeking motivated graduate students with backgrounds in chemistry, engineering, materials science, or physics to pursue MSc or PhD research.
-        </p>
+        <p class="description">We are actively seeking motivated graduate students with backgrounds in chemistry, engineering, materials science, or physics to pursue MSc or PhD research.</p>
         <ul class="bullet-list">
           <li>Strong academic record (A- or better)</li>
           <li>Background in chemistry, physics, or engineering</li>
-          <li>Motivation for research</li>
+          <li>Motivation for research excellence</li>
           <li>English proficiency (international applicants)</li>
         </ul>
-        <div class="funding-info">
-          <strong>Funding Available:</strong>
-          NSERC CGS, FGS Harmonized Scholarship, Dal Graduate Awards
-        </div>
-        <a href="mailto:gs.selopal@dal.ca?subject=Graduate Application — SNL&body=Dear Dr. Selopal,%0D%0A%0D%0AI am writing to express my interest in joining the SNL as a graduate student.%0D%0A%0D%0AName:%0D%0AProgram of interest (MSc/PhD):%0D%0ABackground:%0D%0ACV/Resume:%0D%0A%0D%0AThank you." class="cta-button">Apply Now →</a>
+        <div class="funding-info"><strong>Funding Available:</strong>NSERC CGS, FGS Harmonized Scholarship, Dal Graduate Awards</div>
+        <a href="mailto:gs.selopal@dal.ca?subject=Graduate Application — SNL&body=Dear Dr. Selopal,%0D%0A%0D%0AI am writing to express my interest in joining the SNL as a graduate student.%0D%0A%0D%0AName:%0D%0AProgram of interest (MSc/PhD):%0D%0ABackground:%0D%0A" class="cta-button">Apply Now →</a>
       </div>
-
-      <!-- Card 2: Undergraduate Students -->
       <div class="opportunity-card">
-        <div class="icon"></div>
+        <div class="icon">🔬</div>
         <h3>Undergraduate Students</h3>
-        <p class="description">
-          Gain hands-on research experience in nanotechnology. We offer summer research positions (NSERC USRA) and year-round opportunities for high-achieving undergrads.
-        </p>
+        <p class="description">Gain hands-on research experience in nanotechnology. We offer summer research positions (NSERC USRA) and year-round opportunities for high-achieving undergrads.</p>
         <ul class="bullet-list">
           <li>NSERC USRA eligibility</li>
           <li>Summer and academic year positions</li>
           <li>Hands-on lab experience</li>
           <li>Mentorship from experienced researchers</li>
         </ul>
-        <div class="funding-info">
-          <strong>Funding Available:</strong>
-          NSERC USRA, MITACS Globalink, Dalhousie SURA
-        </div>
+        <div class="funding-info"><strong>Funding Available:</strong>NSERC USRA, MITACS Globalink, Dalhousie SURA</div>
         <a href="mailto:gs.selopal@dal.ca?subject=Undergraduate Research Inquiry — SNL" class="cta-button">Express Interest →</a>
       </div>
-
-      <!-- Card 3: Industry Collaborations -->
       <div class="opportunity-card">
-        <div class="icon"></div>
+        <div class="icon">🤝</div>
         <h3>Industry Collaborations</h3>
-        <p class="description">
-          We collaborate with industry partners on applied research in cleantech, agriculture, and environmental solutions. Contact us to discuss partnership opportunities.
-        </p>
+        <p class="description">We collaborate with industry partners on applied research in cleantech, agriculture, and environmental solutions. Contact us to discuss partnership opportunities.</p>
         <ul class="bullet-list">
           <li>Access to specialized nanotech expertise</li>
           <li>IP licensing options</li>
           <li>Joint grant applications</li>
           <li>Research internships for your team</li>
         </ul>
-        <div class="funding-info">
-          <strong>Benefits:</strong>
-          Advanced capabilities, collaborative research, innovation acceleration
-        </div>
+        <div class="funding-info"><strong>Benefits:</strong>Advanced capabilities, collaborative research, innovation acceleration</div>
         <a href="mailto:gs.selopal@dal.ca?subject=Collaboration Inquiry — SNL" class="cta-button">Get in Touch →</a>
       </div>
     </div>
   </section>
 
-  <!-- WHY SNL SECTION -->
   <section class="why-snl">
     <h2>Why Join SNL?</h2>
     <div class="benefits-grid">
-      <div class="benefit-card">
-        <div class="icon"></div>
-        <h3>Impactful Research</h3>
-        <p>Work on real-world problems: clean energy, food security, environmental remediation</p>
-      </div>
-      <div class="benefit-card">
-        <div class="icon"></div>
-        <h3>Fully Funded</h3>
-        <p>Strong track record of securing NSERC, MITACS, and CFI funding for lab members</p>
-      </div>
-      <div class="benefit-card">
-        <div class="icon"></div>
-        <h3>World-Class Facilities</h3>
-        <p>Access to Dalhousie's state-of-the-art characterization equipment</p>
-      </div>
-      <div class="benefit-card">
-        <div class="icon"></div>
-        <h3>International Network</h3>
-        <p>Collaborate with researchers in Canada, Europe, and globally</p>
-      </div>
+      <div class="benefit-card"><div class="icon">🌍</div><h3>Impactful Research</h3><p>Work on real-world problems: clean energy, food security, environmental remediation</p></div>
+      <div class="benefit-card"><div class="icon">💰</div><h3>Fully Funded</h3><p>Strong track record of securing NSERC, MITACS, and CFI funding for lab members</p></div>
+      <div class="benefit-card"><div class="icon">🏛️</div><h3>World-Class Facilities</h3><p>Access to Dalhousie's state-of-the-art characterization equipment</p></div>
+      <div class="benefit-card"><div class="icon">🌐</div><h3>International Network</h3><p>Collaborate with researchers in Canada, Europe, and globally</p></div>
     </div>
   </section>
 
-  <!-- FAQ SECTION -->
   <section class="faq">
     <h2>Frequently Asked Questions</h2>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>Is the lab currently recruiting?</span>
-        <span class="faq-toggle">▼</span>
-      </button>
-      <div class="faq-answer">
-        Yes, we are actively seeking MSc/PhD students and postdocs. Check this page regularly for updates.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>What funding is available?</span>
-        <span class="faq-toggle">▼</span>
-      </button>
-      <div class="faq-answer">
-        Graduate students may be eligible for NSERC CGS, FGS Harmonized Scholarships, Dal Awards, and MITACS programs. We actively support all applications and have a strong track record of securing funding for our researchers.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>Do I need prior research experience?</span>
-        <span class="faq-toggle">▼</span>
-      </button>
-      <div class="faq-answer">
-        While helpful, it's not mandatory. We value enthusiasm, curiosity, and academic excellence. We provide comprehensive training for new lab members regardless of experience level.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>Can international students apply?</span>
-        <span class="faq-toggle">▼</span>
-      </button>
-      <div class="faq-answer">
-        Absolutely. We welcome international applicants and can help with MITACS Globalink applications. We have a diverse, multicultural research community.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>What is the typical project duration?</span>
-        <span class="faq-toggle">▼</span>
-      </button>
-      <div class="faq-answer">
-        MSc: 2 years, PhD: 4 years. Postdocs: 1-2 years renewable. Summer undergraduate positions typically run 4-8 weeks.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>How do I apply?</span>
-        <span class="faq-toggle">▼</span>
-      </button>
-      <div class="faq-answer">
-        Send your CV, transcripts, and a brief statement of interest to <strong>gs.selopal@dal.ca</strong>. Use the relevant opportunity card's "Apply Now" button to prepare a draft email, or contact us directly with your inquiry.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span>Is the lab currently recruiting?</span><span class="faq-toggle">▼</span></button><div class="faq-answer">Yes, we are actively seeking MSc/PhD students and postdocs. Check this page regularly for updates.</div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span>What funding is available?</span><span class="faq-toggle">▼</span></button><div class="faq-answer">Graduate students may be eligible for NSERC CGS, FGS Harmonized Scholarships, Dal Awards, and MITACS programs. We actively support all applications.</div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span>Do I need prior research experience?</span><span class="faq-toggle">▼</span></button><div class="faq-answer">While helpful, it's not mandatory. We value enthusiasm, curiosity, and academic excellence. We provide comprehensive training for new lab members.</div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span>Can international students apply?</span><span class="faq-toggle">▼</span></button><div class="faq-answer">Absolutely. We welcome international applicants and can help with MITACS Globalink applications. We have a diverse, multicultural research community.</div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span>What is the typical project duration?</span><span class="faq-toggle">▼</span></button><div class="faq-answer">MSc: 2 years, PhD: 4 years. Postdocs: 1–2 years renewable. Summer undergraduate positions typically run 4–8 weeks.</div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span>How do I apply?</span><span class="faq-toggle">▼</span></button><div class="faq-answer">Send your CV, transcripts, and a brief statement of interest to <strong>gs.selopal@dal.ca</strong>.</div></div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    © 2025 Sustainable Nanoengineering Lab · Dalhousie University
-  </footer>
-  </div><!-- end page-wrapper -->
+  <footer>© 2025 Sustainable Nanoengineering Lab · Dalhousie University</footer>
+  </div>
 
-  <!-- SCRIPTS -->
   <script>
-    // Background particle animation
+    function toggleFaq(btn) {
+      const item=btn.closest('.faq-item'), answer=item.querySelector('.faq-answer'), isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-answer').style.maxHeight='0';});
+      if(!isOpen){item.classList.add('open');answer.style.maxHeight=answer.scrollHeight+'px';}
+    }
+    // Emerald particles on light bg
     (function() {
       const canvas = document.getElementById('bg-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       let W, H, particles = [];
-      const mouse = { x: -9999, y: -9999 };
-      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-      function spawn() {
-        return { x: Math.random()*W, y: Math.random()*H, vx:(Math.random()-0.5)*0.25, vy:(Math.random()-0.5)*0.25,
-          r: Math.random()*1.8+0.5, phase: Math.random()*Math.PI*2, hue: Math.random()>0.5?'52,211,153':'110,231,183' };
-      }
-      function init() { particles = Array.from({length: window.innerWidth<768?30:58}, spawn); }
-      window.addEventListener('mousemove', e => { mouse.x=e.clientX; mouse.y=e.clientY; });
-      window.addEventListener('resize', () => { resize(); init(); });
+      const mouse = {x:-9999,y:-9999};
+      const HUES=['5,150,105','16,185,129','52,211,153'];
+      function resize() { W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+      function spawn() { return {x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.25,vy:(Math.random()-0.5)*0.25,r:Math.random()*3.5+2,phase:Math.random()*Math.PI*2,hue:HUES[Math.floor(Math.random()*HUES.length)]}; }
+      function init() { particles=Array.from({length:window.innerWidth<768?32:60},spawn); }
+      window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+      window.addEventListener('resize',()=>{resize();init();});
       let rafId;
       function loop() {
         ctx.clearRect(0,0,W,H);
-        const len = particles.length;
-        for (let i=0; i<len; i++) {
-          const p = particles[i];
+        const len=particles.length;
+        for(let i=0;i<len;i++){
+          const p=particles[i];
           p.x+=p.vx; p.y+=p.vy; p.phase+=0.02;
-          if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
-          const rr = p.r+Math.sin(p.phase)*0.4;
+          if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+          const rr=p.r+Math.sin(p.phase)*0.6;
           ctx.beginPath(); ctx.arc(p.x,p.y,rr,0,Math.PI*2);
-          ctx.fillStyle=`rgba(${p.hue},0.6)`; ctx.fill();
-          for(let j=i+1; j<len; j++) {
-            const q=particles[j], dx=p.x-q.x, dy=p.y-q.y, d2=dx*dx+dy*dy;
-            if(d2<12100) {
-              ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
-              ctx.strokeStyle=`rgba(52,211,153,${(1-Math.sqrt(d2)/110)*0.2})`; ctx.lineWidth=0.6; ctx.stroke();
-            }
+          ctx.fillStyle=`rgba(${p.hue},0.38)`; ctx.fill();
+          for(let j=i+1;j<len;j++){
+            const q=particles[j],dx=p.x-q.x,dy=p.y-q.y,d2=dx*dx+dy*dy;
+            if(d2<12100){ ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.strokeStyle=`rgba(5,150,105,${(1-Math.sqrt(d2)/110)*0.1})`; ctx.lineWidth=0.6; ctx.stroke(); }
           }
-          const mdx=p.x-mouse.x, mdy=p.y-mouse.y, md2=mdx*mdx+mdy*mdy;
-          if(md2<25600) {
+          const mdx=p.x-mouse.x,mdy=p.y-mouse.y,md2=mdx*mdx+mdy*mdy;
+          if(md2<25600){
             const md=Math.sqrt(md2);
             ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(mouse.x,mouse.y);
-            ctx.strokeStyle=`rgba(52,211,153,${(1-md/160)*0.55})`; ctx.lineWidth=0.9; ctx.stroke();
+            ctx.strokeStyle=`rgba(5,150,105,${(1-md/160)*0.38})`; ctx.lineWidth=0.9; ctx.stroke();
             p.vx+=(mouse.x-p.x)*0.0001; p.vy+=(mouse.y-p.y)*0.0001;
             const spd=Math.sqrt(p.vx*p.vx+p.vy*p.vy);
-            if(spd>1.2){p.vx*=1.2/spd; p.vy*=1.2/spd;}
+            if(spd>1.2){p.vx*=1.2/spd;p.vy*=1.2/spd;}
           }
         }
         rafId=requestAnimationFrame(loop);
       }
-      document.addEventListener('visibilitychange',()=>{ if(document.hidden) cancelAnimationFrame(rafId); else loop(); });
+      document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(rafId);else loop();});
       resize(); init(); loop();
     })();
-
-    // Rising Particles Animation
-    (function() {
-      const canvas = document.getElementById('hero-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let particles = [];
-
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initParticles();
-      }
-
-      function initParticles() {
-        const count = window.innerWidth < 768 ? 40 : 80;
-        particles = Array.from({ length: count }, () => spawnParticle());
-      }
-
-      function spawnParticle() {
-        return {
-          x: Math.random() * canvas.width,
-          y: canvas.height + Math.random() * 100,
-          r: Math.random() * 3 + 1,
-          speed: Math.random() * 0.5 + 0.2,
-          drift: (Math.random() - 0.5) * 0.3,
-          alpha: Math.random() * 0.6 + 0.2,
-          pulse: Math.random() * Math.PI * 2,
-        };
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach((p, i) => {
-          p.y -= p.speed;
-          p.x += p.drift;
-          p.pulse += 0.03;
-          if (p.y < -10) particles[i] = { ...spawnParticle(), y: canvas.height + 10 };
-          const a = p.alpha * (0.7 + Math.sin(p.pulse) * 0.3);
-          // gradient bubble
-          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
-          g.addColorStop(0, `rgba(52,211,153,${a})`);
-          g.addColorStop(0.5, `rgba(52,211,153,${a * 0.4})`);
-          g.addColorStop(1, 'transparent');
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
-          ctx.fillStyle = g;
-          ctx.fill();
-          // core dot
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(52,211,153,${a * 1.5})`;
-          ctx.fill();
-        });
-        requestAnimationFrame(draw);
-      }
-
-      window.addEventListener('resize', resize);
-      resize();
-      draw();
-    })();
-
-    // FAQ Toggle Function
-    function toggleFaq(btn) {
-      const item = btn.closest('.faq-item');
-      const answer = item.querySelector('.faq-answer');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => {
-        i.classList.remove('open');
-        i.querySelector('.faq-answer').style.maxHeight = '0';
-      });
-      if (!isOpen) {
-        item.classList.add('open');
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-      }
-    }
   </script>
 </body>
 </html>

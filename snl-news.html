@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="/assets/images/snl-logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News & Updates | SNL – Dalhousie University</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100%; }
+    body { background-color: #f8fafc; color: #475569; font-family: 'DM Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'DM Serif Display', serif; color: #0f172a; font-weight: 400; }
+    a { color: #0ea5e9; text-decoration: none; transition: color 0.3s; }
+    a:hover { color: #0d9488; }
+
+    #bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .page-wrapper { position: relative; z-index: 1; }
+
+    nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      padding: 1.1rem 2rem;
+    }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo-img { height: 38px; width: auto; display: block; }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; color: #0f172a; font-weight: 700; font-size: 0.9rem; text-decoration: none; white-space: nowrap; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: #64748b; font-size: 0.88rem; font-weight: 500; text-decoration: none; transition: color 0.25s; }
+    .nav-links a:hover, .nav-links a.active { color: #0ea5e9; }
+    @media (max-width: 768px) { .nav-links { gap: 1rem; } .nav-logo span + span { display: none; } }
+
+    /* Hero */
+    .page-hero {
+      padding: 5rem 2rem 3.5rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      animation: fadeInUp 0.9s ease-out;
+    }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero-badge {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      background: rgba(14,165,233,0.08); border: 1px solid rgba(14,165,233,0.25);
+      color: #0369a1; padding: 0.45rem 1rem; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 600; margin-bottom: 1.4rem; letter-spacing: 0.4px;
+    }
+    .page-hero-badge::before { content: '●'; font-size: 0.65rem; }
+    .page-hero h1 { font-size: 3.2rem; line-height: 1.15; margin-bottom: 1rem; letter-spacing: -0.5px; }
+    .page-hero h1 em { color: #0ea5e9; font-style: normal; }
+    .page-hero p { font-size: 1.05rem; color: #64748b; line-height: 1.75; }
+
+    /* Filter bar */
+    .filter-bar {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem 2.5rem;
+      display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center;
+    }
+    .filter-btn {
+      padding: 0.45rem 1.1rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid #e2e8f0; background: #fff;
+      color: #64748b; font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: #0ea5e9; color: #0ea5e9; }
+    .filter-btn.active { background: #0ea5e9; border-color: #0ea5e9; color: #fff; }
+    .filter-btn[data-cat="award"].active   { background: #b45309; border-color: #b45309; }
+    .filter-btn[data-cat="grant"].active   { background: #0369a1; border-color: #0369a1; }
+    .filter-btn[data-cat="publication"].active { background: #0d7a70; border-color: #0d7a70; }
+    .filter-btn[data-cat="event"].active   { background: #6d28d9; border-color: #6d28d9; }
+    .filter-btn[data-cat="general"].active { background: #475569; border-color: #475569; }
+
+    /* News grid */
+    .news-main { max-width: 1200px; margin: 0 auto; padding: 0 2rem 6rem; }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .news-card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 14px;
+      padding: 1.75rem; transition: all 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      display: flex; flex-direction: column;
+    }
+    .news-card:hover { border-color: #0ea5e9; box-shadow: 0 8px 20px rgba(14,165,233,0.1); transform: translateY(-3px); }
+    .news-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; }
+    .news-cat {
+      display: inline-block; padding: 0.22rem 0.7rem; border-radius: 20px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .cat-award       { background: rgba(217,119,6,0.1);  color: #b45309; border: 1px solid rgba(217,119,6,0.2); }
+    .cat-grant       { background: rgba(14,165,233,0.1); color: #0369a1; border: 1px solid rgba(14,165,233,0.2); }
+    .cat-publication { background: rgba(13,148,136,0.1); color: #0d7a70; border: 1px solid rgba(13,148,136,0.2); }
+    .cat-general     { background: rgba(100,116,139,0.1);color: #475569; border: 1px solid rgba(100,116,139,0.2); }
+    .cat-event       { background: rgba(124,58,237,0.1); color: #6d28d9; border: 1px solid rgba(124,58,237,0.2); }
+    .news-date { font-size: 0.75rem; color: #94a3b8; font-family: 'Space Mono', monospace; }
+    .news-card h3 { font-size: 1.1rem; color: #0f172a; margin-bottom: 0.55rem; line-height: 1.4; }
+    .news-card p { font-size: 0.9rem; color: #64748b; line-height: 1.65; margin-bottom: 1rem; flex: 1; }
+    .news-read { font-size: 0.85rem; color: #0ea5e9; font-weight: 600; margin-top: auto; display: inline-block; }
+    .news-read:hover { color: #0d9488; }
+
+    /* Empty state */
+    .news-empty {
+      grid-column: 1/-1; text-align: center; padding: 4rem 2rem;
+      color: #94a3b8; font-size: 1rem;
+    }
+    .news-empty svg { margin-bottom: 1rem; opacity: 0.35; }
+
+    /* Loading skeleton */
+    .skeleton-card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .skeleton-line {
+      background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 6px; height: 14px; margin-bottom: 10px;
+    }
+    .skeleton-line.short { width: 40%; }
+    .skeleton-line.medium { width: 70%; }
+    .skeleton-line.tall { height: 20px; margin-bottom: 14px; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* Count badge */
+    .count-badge {
+      display: inline-block; background: #f1f5f9; border: 1px solid #e2e8f0;
+      color: #64748b; border-radius: 20px; font-size: 0.78rem; padding: 0.2rem 0.65rem;
+      font-family: 'Space Mono', monospace; margin-left: 0.5rem; vertical-align: middle;
+    }
+
+    /* Footer */
+    footer { border-top: 1px solid #e2e8f0; padding: 2.5rem 2rem; text-align: center; }
+    footer p { color: #94a3b8; font-size: 0.82rem; }
+    footer a { color: #64748b; }
+    footer a:hover { color: #0ea5e9; }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <div class="page-wrapper">
+    <nav>
+      <div class="nav-container">
+        <a href="/" class="nav-logo">
+          <img src="/assets/images/snl-logo.png" alt="SNL" class="nav-logo-img">
+          <span>Sustainable Nanoengineering Lab</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/publications">Publications</a></li>
+          <li><a href="/team">Team</a></li>
+          <li><a href="/news" class="active">News</a></li>
+          <li><a href="/opportunities">Opportunities</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="page-hero">
+      <div class="page-hero-badge">Lab Updates · SNL Dalhousie</div>
+      <h1>News &amp; <em>Updates</em></h1>
+      <p>Awards, grants, publications, and milestones from the Sustainable Nanoengineering Lab.</p>
+    </div>
+
+    <!-- Category filter bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-cat="all">All <span class="count-badge" id="count-all">—</span></button>
+      <button class="filter-btn" data-cat="award">🏆 Awards</button>
+      <button class="filter-btn" data-cat="grant">💰 Grants</button>
+      <button class="filter-btn" data-cat="publication">📄 Publications</button>
+      <button class="filter-btn" data-cat="event">🎓 Events</button>
+      <button class="filter-btn" data-cat="general">📣 General</button>
+    </div>
+
+    <main class="news-main">
+      <div class="news-grid" id="news-grid">
+        <!-- Skeleton while loading -->
+        <div class="skeleton-card">
+          <div class="skeleton-line short"></div>
+          <div class="skeleton-line tall medium"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line medium"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-line short"></div>
+          <div class="skeleton-line tall medium"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line medium"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-line short"></div>
+          <div class="skeleton-line tall medium"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line medium"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2025 Sustainable Nanoengineering Lab · Dalhousie University ·
+        <a href="/contact">Contact</a> ·
+        <a href="/admin" style="color:#cbd5e1;font-size:0.78rem;">Admin</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // ── Static fallback news items ──────────────────────────────────────────
+    const STATIC_NEWS = [
+      {
+        id: 1,
+        category: 'award',
+        date: 'Apr 2025',
+        title: 'Kokilavani Wins DRES Award',
+        description: 'Kokilavani\'s outstanding research recognized with the Dalhousie Research Excellence Scholarship, highlighting her contributions to nanotechnology.',
+        link: '',
+        link_label: ''
+      },
+      {
+        id: 2,
+        category: 'grant',
+        date: 'Mar 2025',
+        title: 'NSERC Discovery Grant Renewed',
+        description: 'Dr. Selopal receives continued NSERC Discovery Grant funding supporting SNL\'s research in sustainable nanotechnology and clean energy.',
+        link: '',
+        link_label: ''
+      },
+      {
+        id: 3,
+        category: 'publication',
+        date: 'Feb 2025',
+        title: 'New Paper in Advanced Materials',
+        description: 'SNL\'s latest work on heavy-metal-free colloidal quantum dots appears in Advanced Materials, advancing the field of eco-friendly optoelectronics.',
+        link: '/publications',
+        link_label: 'View Publications'
+      },
+      {
+        id: 4,
+        category: 'event',
+        date: 'Jan 2025',
+        title: 'SNL Presents at MRS Spring Meeting',
+        description: 'Lab members present cutting-edge findings on quantum dot solar cells and triboelectric nanogenerators at the Materials Research Society Spring Meeting.',
+        link: '',
+        link_label: ''
+      },
+      {
+        id: 5,
+        category: 'grant',
+        date: 'Nov 2024',
+        title: 'MITACS Accelerate Partnership',
+        description: 'New MITACS Accelerate grant funds collaborative research with industry partners on luminescent solar concentrators for building-integrated photovoltaics.',
+        link: '',
+        link_label: ''
+      },
+      {
+        id: 6,
+        category: 'general',
+        date: 'Sep 2024',
+        title: 'New Students Join SNL',
+        description: 'SNL welcomes new MSc students for the 2024-25 academic year, bringing fresh perspectives to our research in green hydrogen and nanofertilizers.',
+        link: '/team',
+        link_label: 'Meet the Team'
+      }
+    ];
+
+    const catMap = {
+      award: 'cat-award',
+      grant: 'cat-grant',
+      publication: 'cat-publication',
+      event: 'cat-event',
+      general: 'cat-general'
+    };
+
+    let allItems = [];
+    let activeFilter = 'all';
+
+    function renderCards(items) {
+      const grid = document.getElementById('news-grid');
+      const visible = activeFilter === 'all' ? items : items.filter(n => n.category === activeFilter);
+      if (visible.length === 0) {
+        grid.innerHTML = `<div class="news-empty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>No ${activeFilter === 'all' ? '' : activeFilter + ' '}updates yet.</p>
+        </div>`;
+        return;
+      }
+      grid.innerHTML = visible.map(n => `
+        <div class="news-card" data-cat="${n.category}">
+          <div class="news-card-top">
+            <span class="news-cat ${catMap[n.category] || 'cat-general'}">${n.category || 'Update'}</span>
+            <span class="news-date">${n.date || ''}</span>
+          </div>
+          <h3>${n.title}</h3>
+          <p>${n.description || ''}</p>
+          ${n.link ? `<a href="${n.link}" ${n.link.startsWith('http') ? 'target="_blank" rel="noopener"' : ''} class="news-read">${n.link_label || 'Learn More'} →</a>` : ''}
+        </div>`).join('');
+
+      // Update count badge
+      document.getElementById('count-all').textContent = items.length;
+    }
+
+    // ── Filter buttons ──────────────────────────────────────────────────────
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.cat;
+        renderCards(allItems);
+      });
+    });
+
+    // ── Load from Supabase or fall back to static ───────────────────────────
+    (async function init() {
+      const cfg = JSON.parse(localStorage.getItem('snl_supabase') || '{}');
+      if (cfg.url && cfg.key) {
+        try {
+          const res = await fetch(`${cfg.url}/rest/v1/news_items?order=date.desc`, {
+            headers: { 'apikey': cfg.key, 'Authorization': `Bearer ${cfg.key}` }
+          });
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            allItems = data;
+            renderCards(allItems);
+            return;
+          }
+        } catch (e) { /* fall through to static */ }
+      }
+      // Static fallback
+      allItems = STATIC_NEWS;
+      renderCards(allItems);
+    })();
+
+    // ── Particle animation ──────────────────────────────────────────────────
+    (function () {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+      const HUES = ['14,165,233', '13,148,136', '124,58,237', '217,119,6', '56,189,248'];
+      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+      function spawn() {
+        return {
+          x: Math.random() * W, y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
+          r: Math.random() * 3.5 + 2, phase: Math.random() * Math.PI * 2,
+          hue: HUES[Math.floor(Math.random() * HUES.length)]
+        };
+      }
+      function init() { particles = Array.from({ length: window.innerWidth < 768 ? 40 : 72 }, spawn); }
+      window.addEventListener('resize', () => { resize(); init(); });
+      function loop() {
+        ctx.clearRect(0, 0, W, H);
+        const len = particles.length;
+        for (let i = 0; i < len; i++) {
+          const p = particles[i];
+          p.phase += 0.012;
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < -20) p.x = W + 20;
+          if (p.x > W + 20) p.x = -20;
+          if (p.y < -20) p.y = H + 20;
+          if (p.y > H + 20) p.y = -20;
+          const alpha = 0.38 + 0.15 * Math.sin(p.phase);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.hue},${alpha})`;
+          ctx.fill();
+          for (let j = i + 1; j < len; j++) {
+            const q = particles[j];
+            const dx = p.x - q.x, dy = p.y - q.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = `rgba(100,116,139,${0.08 * (1 - dist / 120)})`;
+              ctx.lineWidth = 0.6;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(loop);
+      }
+      resize(); init(); loop();
+    })();
+  </script>
+</body>
+</html>
